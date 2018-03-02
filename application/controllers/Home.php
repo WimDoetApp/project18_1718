@@ -25,5 +25,12 @@ class Home extends CI_Controller {
         $this->template->load('main_master', $partials, $data);
     }
 
-}
+    public function toonStartScherm($gebruiker) {
+        $data['titel'] = 'Personeelsfeest';
+        $data['gebruiker'] = $gebruiker;
+        
+        $partials = array('inhoud' => 'startScherm', 'header' => 'main_header', 'footer' => 'main_footer');
+        $this->template->load('main_master', $partials, $data);
+    }
 
+}

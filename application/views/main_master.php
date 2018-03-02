@@ -34,7 +34,7 @@
             <?php echo $inhoud; ?>
         </div>
         
-        <footer>
+        <footer class='navbar-fixed-bottom'>
             <div class="jumbotron">
                 <?php echo $footer; ?>
             </div>

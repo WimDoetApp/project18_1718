@@ -5,7 +5,7 @@
  */
 
 body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-bottom: 80px;
 }
 
 .hero-spacer {
@@ -17,5 +17,27 @@ body {
 }
 
 footer {
-    margin: 50px 0;
+    text-align: center;
+    background-color: #009cab;
+    line-height: 60px;
+    height: 60px;
+}
+
+header {
+    padding-left: 50px;
+    background-color: #F04C25;
+}
+
+.jumbotron {
+    margin: 0px;
+    background-color: transparent;
+    
+}
+
+footer .jumbotron {
+    padding: 0px;
+}
+
+.jumbotron p {
+    margin: 0px;
 }
