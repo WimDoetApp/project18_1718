@@ -5,7 +5,11 @@
     <title>Document</title>
 </head>
 <body>
-    <?php if ($gebruiker == 1 || $gebruiker == 2) {?>
+    <?php 
+    /**
+     * Als de gebruiker een vrijwilliger of personeelslid is, heeft hij toegang tot deze links
+     */
+    if ($gebruiker == 1 || $gebruiker == 2) {?>
     <div>
         <h2>Schrijf je hier in voor het personeelsfeest</h2>
         <?php echo smallDivAnchor("", "", 'class="btn btn-default"') ?>
@@ -20,6 +24,9 @@
     </div>
     
     <?php } 
+    /**
+     * Als de gebruiker een personeelslid is, heeft hij toegang tot deze links
+     */
     if ($gebruiker == 2) { ?>
      <div>
         <h2>Voeg hier vrijwilligers toe</h2>
@@ -27,6 +34,9 @@
     </div>
     
     <?php }
+    /**
+     * Als de gebruiker een organistar is, heeft hij toegang tot deze links
+     */
     if ($gebruiker == 3) { ?>
      <div>
         <h2>Bekijk hier de overzichten van taken en activiteiten</h2>
