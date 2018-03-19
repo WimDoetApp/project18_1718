@@ -22,6 +22,7 @@ class DagOnderdeelBeheren extends CI_Controller {
     
     /**
      * Ophalen lijst van alle dagonderdelen
+     * @param int $personeelsfeestId (id van het huidige personeelsfeest)
      */
     public function toonDagonderdelen($personeelsfeestId)
     {
@@ -68,21 +69,34 @@ class DagOnderdeelBeheren extends CI_Controller {
                 $dagonderdeel->id = $this->input->post("id[$teller]");
                 $dagonderdeel->naam = $this->input->post("naam[$teller]");
                 $dagonderdeel->locatieId = $this->input->post("locatie[$teller]");
-                $dagonderdeel->heeftTaak = $this->input->post("heeftTaak[$teller]");
-                $dagonderdeel->vrijwilligerMeeDoen = $this->input->post("vrijwilligerMeedoen[$teller]");
                 $dagonderdeel->starttijd = $this->input->post("starttijd[$teller]");
                 $dagonderdeel->eindtijd = $this->input->post("eindtijd[$teller]");
                 $dagonderdeel->personeelsfeestId = $personeelsfeestId;
+                
+                $heeftTaak = $this->input->post("heeftTaak[$teller]");
+                $vrijwilligerMeedoen = $this->input->post("vrijwilligerMeedoen[$teller]");
+                
+                if ($heeftTaak == "") {
+                    $dagonderdeel->heeftTaak = 0;
+                }else{
+                    $dagonderdeel->heeftTaak = $heeftTaak;
+                }
+                
+                if ($vrijwilligerMeedoen == "") {
+                    $dagonderdeel->vrijwilligerMeedoen = 0;
+                }else{
+                    $dagonderdeel->vrijwilligerMeedoen = $vrijwilligerMeedoen;
+                }
             
                 $this->dagonderdeel_model->update($dagonderdeel);
-                $this->toonDagonderdelen($personeelsfeestId); 
+                $this->toonDagonderdelen($personeelsfeestId); ;
             }
         }
     }
     
     /**
      * Nieuw dagonderdeel aanmaken
-     * @param type $personeelsfeestId
+     * @param int $personeelsfeestId (id van het huidige personeelsfeest)
      */
     function getEmptyDagonderdeel($personeelsfeestId)
     {

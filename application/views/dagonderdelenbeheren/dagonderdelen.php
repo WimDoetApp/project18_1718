@@ -52,15 +52,15 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
              * Opbouwen checkboxen voor heeftTaak en VrijwilligerMeedoen
              */
             if ($dagonderdeel->heeftTaak == 1) {
-                $checkboxen .= "<input type=checkbox class=checkboxClick name=heeftTaak[$teller] value=$dagonderdeel->heeftTaak checked/></td>";
+                $checkboxen .= "<input type=checkbox class=checkboxClick name=heeftTaak[$teller] value=$dagonderdeel->heeftTaak checked /></td>";
             }else{
-                $checkboxen .= "<input type=checkbox class=checkboxClick name=heeftTaak[$teller] value=$dagonderdeel->heeftTaak/></td>";
+                $checkboxen .= "<input type=checkbox class=checkboxClick name=heeftTaak[$teller] value=$dagonderdeel->heeftTaak /></td>";
             }
             
             if ($dagonderdeel->vrijwilligerMeeDoen == 1) {
-                $checkboxen .= "<td><input type=checkbox class=checkboxClick name=vrijwilligerMeedoen[$teller] value=$dagonderdeel->vrijwilligerMeeDoen checked/>";
+                $checkboxen .= "<td><input type=checkbox class=checkboxClick name=vrijwilligerMeedoen[$teller] value=$dagonderdeel->vrijwilligerMeeDoen checked />";
             }else{
-                $checkboxen .= "<td><input type=checkbox class=checkboxClick name=vrijwilligerMeedoen[$teller] value=$dagonderdeel->vrijwilligerMeeDoen/>";
+                $checkboxen .= "<td><input type=checkbox class=checkboxClick name=vrijwilligerMeedoen[$teller] value=$dagonderdeel->vrijwilligerMeeDoen />";
             } 
             
             /**
@@ -115,13 +115,7 @@ echo form_close();
 ?>
 
 <script>
-    $('.checkboxClick').on('click', function(){
-        var checked = $(this).is(":checked");
-        
-        if (checked) {
-            $(this).attr('value', '1');
-        } else{
-            $(this).attr('value', '1');
-        }
+    $('.checkboxClick').on('change', function(){
+        $(this).attr('value', '1');
     });
 </script>

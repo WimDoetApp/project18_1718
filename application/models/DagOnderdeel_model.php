@@ -25,6 +25,7 @@ class DagOnderdeel_model extends CI_Model {
     
     /**
      * Haalt alle dagonderdelen op, met bijhorende locaties, gesorteerd op starttijd.
+     * @param int $personeelsfeestId (id van het huidige personeelsfeest)
      */
     function getAllByStartTijd($personeelsfeestId)
     {
@@ -47,7 +48,7 @@ class DagOnderdeel_model extends CI_Model {
     
     /**
      * Dagonderdeel aanpassen
-     * @param type $dagonderdeel
+     * @param int $dagonderdeel
      */
     function update($dagonderdeel)
     {
