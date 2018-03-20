@@ -11,6 +11,6 @@ Collaborators
 Gemaakt door
 
 -  `Wim Naudts <http://wimnaudts.sinners.be/>`_
--   Jari Mathé_
--   Bram Van Bergen_
--   Yen Aerts_
+-   Jari Mathé
+-   Bram Van Bergen
+-   Yen Aerts
