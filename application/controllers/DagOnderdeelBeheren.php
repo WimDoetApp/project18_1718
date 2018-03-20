@@ -22,7 +22,7 @@ class DagOnderdeelBeheren extends CI_Controller {
     
     /**
      * Ophalen lijst van alle dagonderdelen
-     * @param int $personeelsfeestId (id van het huidige personeelsfeest)
+     * @param $personeelsfeestId id van het huidige personeelsfeest
      */
     public function toonDagonderdelen($personeelsfeestId)
     {

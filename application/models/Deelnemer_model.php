@@ -13,8 +13,8 @@ class Deelnemer_model extends CI_Model {
     
     /**
      * Alle personeelsleden ophalen
-     * @param int $personeelsfeestId (id van het huidige personeelsfeest)
-     * @return type
+     * @param $personeelsfeestId id van het huidige personeelsfeest
+     * @return de opgevraagde records
      */ 
     function getAllPersoneelsleden($personeelsfeestId)
     {
@@ -26,7 +26,7 @@ class Deelnemer_model extends CI_Model {
     
     /**
      * Deelnemer aanpassen
-     * @param type $deelnemer
+     * @param $deelnemer de deelnemer die we willen aanpassen
      */
     function update($deelnemer)
     {

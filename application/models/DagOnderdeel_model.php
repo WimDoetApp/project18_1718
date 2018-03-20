@@ -13,8 +13,8 @@ class DagOnderdeel_model extends CI_Model {
     
     /**
      * Haalt een dagonderdeel met een bepaald id op.
-     * @param type $id
-     * @return type
+     * @param $id id van het dagonderdeel
+     * @return het opgevraagde record
      */
     function get($id)
     {
@@ -25,7 +25,8 @@ class DagOnderdeel_model extends CI_Model {
     
     /**
      * Haalt alle dagonderdelen op, met bijhorende locaties, gesorteerd op starttijd.
-     * @param int $personeelsfeestId (id van het huidige personeelsfeest)
+     * @param $personeelsfeestId id van het huidige personeelsfeest
+     * @return de opgevraagde records
      */
     function getAllByStartTijd($personeelsfeestId)
     {
@@ -37,8 +38,8 @@ class DagOnderdeel_model extends CI_Model {
     
     /**
      * (leeg) dagonderdeel toevoegen
-     * @param type $dagonderdeel
-     * @return type
+     * @param $dagonderdeel dagonderdeel dat we gaan toevoegen
+     * @return het id van hat record dat toegevoegd is
      */
     function insert($dagonderdeel)
     {
@@ -48,7 +49,7 @@ class DagOnderdeel_model extends CI_Model {
     
     /**
      * Dagonderdeel aanpassen
-     * @param int $dagonderdeel
+     * @param $dagonderdeel dagonderdeel dat we gaan aanpassen
      */
     function update($dagonderdeel)
     {
@@ -56,6 +57,10 @@ class DagOnderdeel_model extends CI_Model {
         $this->db->update('personeelsfeest_dagonderdeel', $dagonderdeel);
     }
     
+    /**
+     * Dagonderdeel verwijderen
+     * @param $id id van het dagonderdeel dat we willen verwijderen
+     */
     function delete($id)
     {
         $this->db->where('id', $id);

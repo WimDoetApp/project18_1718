@@ -22,7 +22,7 @@ class OrganisatorenBeheren extends CI_Controller {
     
     /**
      * Ophalen lijst van alle personeelsleden
-     * @param int $personeelsfeestId (id van het huidige personeelsfeest)
+     * @param $personeelsfeestId id van het huidige personeelsfeest
      */
     public function toonPersoneelsleden($personeelsfeestId){
         $data['titel']  = 'Organisatoren beheren';
