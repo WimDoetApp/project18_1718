@@ -8,8 +8,9 @@ PHP-applicatie voor project APP Hogeschool Thomas More 2de Jaar Toegepaste Infor
 Collaborators
 *************
 
-Gemaakt door 
-- `Wim Naudts <http://wimnaudts.sinners.be/>`
-- Jari Mathé
-- Bram Van Bergen
-- Yen Aerts
+Gemaakt door
+
+-  `Wim Naudts <http://wimnaudts.sinners.be/>`_
+-   Jari Mathé_
+-   Bram Van Bergen_
+-   Yen Aerts_
