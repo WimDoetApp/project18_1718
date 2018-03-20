@@ -18,26 +18,13 @@ body {
 
 footer {
     text-align: center;
-    background-color: #009cab;
-    line-height: 60px;
-    height: 60px;
+    padding: 10px;
 }
 
-header {
-    padding-left: 50px;
-    background-color: #F04C25;
+footer p{
+    color: #009cab !important;
 }
 
-.jumbotron {
-    margin: 0px;
-    background-color: transparent;
-    
-}
-
-footer .jumbotron {
-    padding: 0px;
-}
-
-.jumbotron p {
-    margin: 0px;
+.navbar-brand{
+    color: #F04C25 !important;
 }

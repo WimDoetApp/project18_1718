@@ -9,7 +9,7 @@ echo form_open('dagonderdeelbeheren/wijzig', $attributes);
  */
 echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value' => $personeelsfeest));
 ?>
-
+<div class="table-responsive">
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -94,6 +94,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
         ?>
     </tbody>
 </table>
+</div>
 
 <?php 
 /**

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta name="description" content="Personeelsfeest">
         <meta name="author" content="Wim Naudts, Jari Mathé, Yen Aarts, Bram Van Bergen">
         <title>Personeelsfeest</title>
@@ -24,20 +24,15 @@
         </script>
     </head>
     <body>
-        <header>
-            <div class="jumbotron">
-                <?php echo $header; ?>
-            </div>
-        </header>
+        <?php echo $header; ?>
         
-        <div>
-            <?php echo $inhoud; ?>
+        <div class="container">
+            <?php
+            echo "<h1>$titel</h1>";
+            echo $inhoud; 
+            ?>
         </div>
         
-        <footer class='navbar-fixed-bottom'>
-            <div class="jumbotron">
-                <?php echo $footer; ?>
-            </div>
-        </footer>
+        <?php echo $footer; ?>
     </body>
 </html>

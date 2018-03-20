@@ -16,7 +16,8 @@ echo form_open('organisatorenbeheren/wijzig', $attributes);
 echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value' => $personeelsfeest));
 ?>
 
-<table class="table table-bordered" id="tabel">
+<div class="table-responsive">
+<table class="table table-bordered table-responsive" id="tabel">
     <thead>
         <tr>
             <th>Naam</th>
@@ -44,6 +45,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
         ?>
     </tbody>
 </table>
+</div>
 
 <?php 
 /**

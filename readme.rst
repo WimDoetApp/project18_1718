@@ -13,4 +13,4 @@ Gemaakt door
 -  `Wim Naudts <http://wimnaudts.sinners.be/>`_
 -   Jari Mathé
 -   Bram Van Bergen
--   Yen Aerts
+-   Yen Aarts
