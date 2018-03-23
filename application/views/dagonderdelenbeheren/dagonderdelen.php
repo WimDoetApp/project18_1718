@@ -1,9 +1,12 @@
 <?php 
 /**
+ * Verantwoordelijke: Wim Naudts
+ */
+/**
  * formulier openen
  */
 $attributes = array('name' => 'mijnFormulier');
-echo form_open('dagonderdeelbeheren/wijzig', $attributes);
+echo form_open('DagonderdeelBeheren/wijzig', $attributes);
 /**
  * We geven altijd naar elke pagina door over welk personeelsfeest het gaat
  */
@@ -71,7 +74,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
                 'value'         => $teller,
                 'type'          => 'submit',
                 'content'       => 'Wijzig',
-                'class'         => 'btn btn-default',
+                'class'         => 'btn btn-primary',
                 'onclick'       => "return confirm('Dagonderdeel wijzigen, bent u hier zeker van?');"
             );
             

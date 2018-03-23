@@ -4,15 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class DagOnderdeelBeheren extends CI_Controller {
 
-    // +----------------------------------------------------------
-    // | Personeelsfeest
-    // +----------------------------------------------------------
-    // | DagOnderdeel controller
-    // |
-    // +----------------------------------------------------------
-    // | Thomas More Kempen
-    // +----------------------------------------------------------
-
+    /**
+     * Controller Dagonderdelen beheren
+     * Verantwoordelijke: Wim Naudts
+     */
 
     public function __construct() {
         parent::__construct();

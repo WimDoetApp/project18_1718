@@ -10,10 +10,10 @@
         
         <!-- Bootstrap Core CSS -->
         <?php echo pasStylesheetAan("bootstrap.css"); ?>
-        <!-- Custom CSS -->
-        <?php echo pasStylesheetAan("heroic-features.css"); ?>
         <!-- Buttons CSS -->
         <?php echo pasStylesheetAan("buttons.css"); ?>
+        <!-- Custom CSS -->
+        <?php echo pasStylesheetAan("heroic-features.css"); ?>
 
         <?php echo haalJavascriptOp("jquery-3.1.0.min.js"); ?>
         <?php echo haalJavascriptOp("bootstrap.js"); ?>

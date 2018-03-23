@@ -1,6 +1,9 @@
 <h2>Overzicht personeelsleden</h2>
 <?php 
 /**
+ * Verantwoordelijke: Wim Naudts
+ */
+/**
  * Zoeken op naam
  */
 echo "<p><span class='glyphicon glyphicon-search'></span>";
@@ -9,7 +12,7 @@ echo form_input(array('type' => 'text', 'id' => 'zoekInput', 'placeholder' => "Z
  * formulier openen
  */
 $attributes = array('name' => 'mijnFormulier');
-echo form_open('organisatorenbeheren/wijzig', $attributes);
+echo form_open('OrganisatorenBeheren/wijzig', $attributes);
 /**
  * We geven altijd naar elke pagina door over welk personeelsfeest het gaat
  */
@@ -56,7 +59,7 @@ $dataOpslagen = array(
     'value'         => 'opslagen',
     'type'          => 'submit',
     'content'       => 'Opslagen',
-    'class'         => 'btn btn-default'
+    'class'         => 'btn btn-primary'
 );
 
 echo form_button($dataOpslagen);

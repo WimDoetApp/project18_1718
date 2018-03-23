@@ -4,15 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class OrganisatorenBeheren extends CI_Controller {
 
-    // +----------------------------------------------------------
-    // | Personeelsfeest
-    // +----------------------------------------------------------
-    // | Organisatoren controller
-    // |
-    // +----------------------------------------------------------
-    // | Thomas More Kempen
-    // +----------------------------------------------------------
-
+    /**
+     * Controller organisatoren beheren
+     * Verantwoordelijke: Wim Naudts
+     */
 
     public function __construct() {
         parent::__construct();
