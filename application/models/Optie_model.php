@@ -16,7 +16,7 @@ class Optie_model extends CI_Model {
     function get($id) 
     {
         $this->db->where('id', $id);
-        $query = $this->db->get('personeelsfeest_optie');
+        $query = $this->db->get('optie');
         return $query->row();  
     }
     /**
@@ -24,7 +24,7 @@ class Optie_model extends CI_Model {
     */
     function insert($info)
     {
-        $this->db->insert('personeelsfeest_optie', $info);
+        $this->db->insert('optie', $info);
         return $this->db->insert_id();
     }
 }

@@ -4,14 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Locatie extends CI_Controller {
 
-    // +----------------------------------------------------------
-    // | Personeelsfeest
-    // +----------------------------------------------------------
-    // | Home controller
-    // |
-    // +----------------------------------------------------------
-    // | Thomas More Kempen
-    // +----------------------------------------------------------
+    /**
+     * Controller Locatie beheren
+     * Verantwoordelijke: Yen Aarts
+     */
 
 
     public function __construct() {

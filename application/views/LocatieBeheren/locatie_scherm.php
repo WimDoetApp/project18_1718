@@ -11,6 +11,7 @@ $KnopWijzig = array ('name' => 'action', 'value' => 'wijzig', 'content' => 'Wijz
 $KnopVerwijder = array ('name' => 'action', 'value' => 'verwijder', 'content' => 'Verwijder', 'class' => 'btn btn-danger');
 ?>
 <br/>
+<div class="table-responsive">
 <table class="table table-striped">
     <thead class="thead-dark">
     <tr>
@@ -37,3 +38,4 @@ $KnopVerwijder = array ('name' => 'action', 'value' => 'verwijder', 'content' =>
         </tr>
     </tbody>
 </table>
+</div>

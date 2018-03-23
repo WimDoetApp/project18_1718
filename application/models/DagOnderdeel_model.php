@@ -2,6 +2,7 @@
 
 /**
  * Team 18 - Project APP 2APP-BIT - Thomas More
+ * Verantwoordelijke: Wim Naudts
  */
 
 class DagOnderdeel_model extends CI_Model {
@@ -19,7 +20,7 @@ class DagOnderdeel_model extends CI_Model {
     function get($id) 
     {
         $this->db->where('id', $id);
-        $query = $this->db->get('personeelsfeest_dagonderdeel');
+        $query = $this->db->get('dagonderdeel');
         return $query->row();  
     }
     /**
@@ -30,14 +31,9 @@ class DagOnderdeel_model extends CI_Model {
         $this->db->select('*');
         $this->db->group_by('naam');
         
-        $query = $this->db->get('personeelsfeest_dagonderdeel');
+        $query = $this->db->get('dagonderdeel');
         return $query->result();                
     }
-        
-        
-        
-
-
     /**
      * Haalt alle dagonderdelen op, met bijhorende locaties, gesorteerd op starttijd.
      * @param $personeelsfeestId id van het huidige personeelsfeest
@@ -47,7 +43,7 @@ class DagOnderdeel_model extends CI_Model {
     {
         $this->db->where('personeelsfeestId', $personeelsfeestId);
         $this->db->order_by('starttijd', 'asc');
-        $query = $this->db->get('personeelsfeest_dagonderdeel');
+        $query = $this->db->get('dagonderdeel');
         return $query->result();
     }
     
@@ -58,7 +54,7 @@ class DagOnderdeel_model extends CI_Model {
      */
     function insert($dagonderdeel)
     {
-        $this->db->insert('personeelsfeest_dagonderdeel', $dagonderdeel);
+        $this->db->insert('dagonderdeel', $dagonderdeel);
         return $this->db->insert_id();
     }
     
@@ -69,7 +65,7 @@ class DagOnderdeel_model extends CI_Model {
     function update($dagonderdeel)
     {
         $this->db->where('id', $dagonderdeel->id);
-        $this->db->update('personeelsfeest_dagonderdeel', $dagonderdeel);
+        $this->db->update('dagonderdeel', $dagonderdeel);
     }
     
     /**
@@ -79,7 +75,7 @@ class DagOnderdeel_model extends CI_Model {
     function delete($id)
     {
         $this->db->where('id', $id);
-        $this->db->delete('personeelsfeest_dagonderdeel');
+        $this->db->delete('dagonderdeel');
     }
 }
 

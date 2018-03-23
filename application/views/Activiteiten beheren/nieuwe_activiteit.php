@@ -50,8 +50,8 @@ foreach($dagonderdelen as $dagonderdeel){
             <td><?php echo form_dropdown('dagonderdeel', $dagonderdeelOpties, '0'); ?></td>
         </tr>
         <tr>
-            <td><?php echo form_submit('knop', 'Bevestigen'); ?></td>
-            <td><?php echo anchor('home/index', 'Annuleren'); ?></td>
+            <td><?php echo form_submit(array('name' => 'knop', 'value' => 'Bevestigen', 'class' => 'btn btn-success')); ?></td>
+            <td><?php echo smallDivAnchor('home/index', "Annuleren", 'class="btn btn-info"');?></td>
         </tr>
     </table>
 <?php 

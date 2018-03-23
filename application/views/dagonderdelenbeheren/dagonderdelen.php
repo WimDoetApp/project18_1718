@@ -1,16 +1,29 @@
 <?php 
 /**
+ * Verantwoordelijke: Wim Naudts
+ */
+/**
+ * Knop om nieuw dagonderdeel aan te maken
+ */
+$dataNieuw = array(
+    'name'          => 'buttonNieuw',
+    'value'         => 'nieuw',
+    'type'          => 'submit',
+    'content'       => 'Nieuw dagonderdeel aanmaken',
+    'class'         => 'btn btn-success'
+);
+/**
  * formulier openen
  */
 $attributes = array('name' => 'mijnFormulier');
-echo form_open('dagonderdeelbeheren/wijzig', $attributes);
+echo form_open('DagonderdeelBeheren/wijzig', $attributes);
 /**
  * We geven altijd naar elke pagina door over welk personeelsfeest het gaat
  */
 echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value' => $personeelsfeest));
 ?>
 <div class="table-responsive">
-<table class="table table-bordered">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Naam</th>
@@ -71,7 +84,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
                 'value'         => $teller,
                 'type'          => 'submit',
                 'content'       => 'Wijzig',
-                'class'         => 'btn btn-default',
+                'class'         => 'btn btn-warning',
                 'onclick'       => "return confirm('Dagonderdeel wijzigen, bent u hier zeker van?');"
             );
             
@@ -80,7 +93,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
                 'value'         => $teller,
                 'type'          => 'submit',
                 'content'       => "<span class='glyphicon glyphicon-remove'></span>",
-                'class'         => 'btn btn-default',
+                'class'         => 'btn btn-danger',
                 'onclick'       => "return confirm('Dagonderdeel verwijderen, bent u hier zeker van?');"
             );
             
@@ -92,26 +105,15 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
             $teller++;
         }
         ?>
+        <tr>
+            <td colspan="6"><?php echo form_button($dataNieuw);?></td>
+            <td><?php echo smallDivAnchor("", "Teruggaan", 'class="btn btn-info"');?></td>
+        </tr>
     </tbody>
 </table>
 </div>
 
 <?php 
-/**
- * Knop om nieuw dagonderdeel aan te maken
- */
-$dataNieuw = array(
-    'name'          => 'buttonNieuw',
-    'value'         => 'nieuw',
-    'type'          => 'submit',
-    'content'       => 'Nieuw dagonderdeel aanmaken',
-    'class'         => 'btn btn-default'
-);
-
-echo form_button($dataNieuw);
-
-echo smallDivAnchor("", "Teruggaan", 'class="btn btn-default"');
-
 echo form_close();
 ?>
 

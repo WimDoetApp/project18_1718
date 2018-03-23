@@ -22,9 +22,13 @@ footer {
 }
 
 footer p{
-    color: #009cab !important;
+    color: #009cab;
 }
 
 .navbar-brand{
     color: #F04C25 !important;
+}
+
+.container{
+    padding-bottom: 10%;
 }
