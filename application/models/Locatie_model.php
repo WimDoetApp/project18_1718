@@ -14,24 +14,24 @@ class Locatie_model extends CI_Model {
     
     function getAll() {
         /*Haal alle records op*/
-        $query = $this->db->get('personeelsfeest_Locatie');
+        $query = $this->db->get('locatie');
         return $query->result();
     }
     
     function update($id, $data) {
         /*Wijzig een record met het id ($id), met de data die moet gewijzigd worden ($data[ArrayList])*/
         $this->db->where('id', $id);
-        $this->db->update('personeelsfeest_Locatie', $data);
+        $this->db->update('locatie', $data);
     }
     
     function delete($id) {
         /*Verwijderd een record met het id ($id)*/
         $this->db->where('id', $id);
-        $this->db->delete('personeelsfeest_Locatie');
+        $this->db->delete('locatie');
     }
     
     function add($locatie) {
         /*Voegt een nieuwe (lege) record toe*/
-        $this->db->insert('personeelsfeest_Locatie', $locatie);
+        $this->db->insert('locatie', $locatie);
     }
 }
