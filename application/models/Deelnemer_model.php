@@ -50,6 +50,15 @@ class Deelnemer_model extends CI_Model {
             return null;
         }
     }
+    
+    /**
+     * Jari - nieuwe gegevens in deelnemers zetten
+     */
+    function insert($info)
+    {
+        $this->db->insert('deelnemer', $info);
+        return $this->db->insert_id();
+    }
 }
 
 

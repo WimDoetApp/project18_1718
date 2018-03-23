@@ -6,7 +6,7 @@ class DagOnderdeelBeheren extends CI_Controller {
 
     /**
      * Controller Dagonderdelen beheren
-     * Verantwoordelijke: Wim Naudts
+     * @author Wim Naudts
      */
 
     public function __construct() {

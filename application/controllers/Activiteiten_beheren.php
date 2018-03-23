@@ -4,14 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Activiteiten_Beheren extends CI_Controller {
 
-    // +----------------------------------------------------------
-    // | Personeelsfeest
-    // +----------------------------------------------------------
-    // | Activiteiten beheren controller
-    // |
-    // +----------------------------------------------------------
-    // | Thomas More Kempen
-    // +----------------------------------------------------------
+    /**
+     * Controller Dagonderdelen beheren
+     * @author Jari Mathé
+     */
 
 
     public function __construct() {
@@ -63,6 +59,9 @@ class Activiteiten_Beheren extends CI_Controller {
             $dagOnderdeelId = $this->input->post('dagonderdeel');
             $info->dagOnderdeelId = $dagOnderdeelId;
             
+             /**
+     * zorgen dat het naar de optie database wordt gestuurrd
+     */   
             $this->load->model('optie_model');
             $id = $this->optie_model->insert($info);
      /**

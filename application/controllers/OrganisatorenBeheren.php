@@ -5,8 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class OrganisatorenBeheren extends CI_Controller {
 
     /**
-     * Controller organisatoren beheren
-     * Verantwoordelijke: Wim Naudts
+     * Controller Dagonderdelen beheren
+     * @author Wim Naudts
      */
 
     public function __construct() {
