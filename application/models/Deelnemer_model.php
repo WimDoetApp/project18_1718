@@ -33,6 +33,23 @@ class Deelnemer_model extends CI_Model {
         $this->db->where('id', $deelnemer->id);
         $this->db->update('deelnemer', $deelnemer);
     }
+    
+    function getDeelnemer($email, $wachtwoord) {
+        $this->db->where('email', $email);
+        $query = $this->db->get('deelnemer');
+        
+        if ($query->num_rows() == 1) {
+            $deelnemer = $query->row();
+
+            if (password_verify($wachtwoord, $deelnemer->wachtwoord)) {
+                return $deelnemer;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 }
 
 

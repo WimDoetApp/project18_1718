@@ -13,6 +13,7 @@ class DagOnderdeelBeheren extends CI_Controller {
         parent::__construct();
         
         $this->load->helper('form');
+        $this->load->model('dagonderdeel_model');
     }
     
     /**
@@ -23,7 +24,6 @@ class DagOnderdeelBeheren extends CI_Controller {
     {
         $data['titel']  = 'Dagonderdelen beheren';
 
-        $this->load->model('dagonderdeel_model');
         $this->load->model('locatie_model');
         $data['dagonderdelen'] = $this->dagonderdeel_model->getAllByStartTijd($personeelsfeestId);
         $data['locaties'] = $this->locatie_model->getAll();
@@ -43,7 +43,6 @@ class DagOnderdeelBeheren extends CI_Controller {
          * declareren variabelen
          */
         $personeelsfeestId = $this->input->post('personeelsfeestId');
-        $this->load->model('dagonderdeel_model');
         
         /**
          * Bepalen op welke knop er gedrukt is
@@ -104,7 +103,6 @@ class DagOnderdeelBeheren extends CI_Controller {
         $dagonderdeel->vrijwilligerMeeDoen = '0';
         $dagonderdeel->locatieId = 1;   
 
-        $this->load->model('dagonderdeel_model');
         $this->dagonderdeel_model->insert($dagonderdeel);
     }
 }

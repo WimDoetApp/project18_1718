@@ -13,6 +13,7 @@ class OrganisatorenBeheren extends CI_Controller {
         parent::__construct();
         
         $this->load->helper('form');
+        $this->load->model('deelnemer_model');
     }
     
     /**
@@ -22,8 +23,6 @@ class OrganisatorenBeheren extends CI_Controller {
     public function toonPersoneelsleden($personeelsfeestId){
         $data['titel']  = 'Organisatoren beheren';
         $data['personeelsfeest'] = $personeelsfeestId;
-        
-        $this->load->model('deelnemer_model');
         
         $data['personeelsleden'] = $this->deelnemer_model->getAllPersoneelsleden($personeelsfeestId);
         
@@ -38,8 +37,7 @@ class OrganisatorenBeheren extends CI_Controller {
         /**
          * declareren variabelen
          */
-        $personeelsfeestId = $this->input->post('personeelsfeestId');
-        $this->load->model('deelnemer_model');        
+        $personeelsfeestId = $this->input->post('personeelsfeestId');       
         /**
          * deelnemer wegschrijven
          */
