@@ -10,6 +10,23 @@ class Optie_model extends CI_Model {
     {
         parent::__construct();
     }
+    /**
+    * id ophalen van optie
+    */
+    function get($id) 
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get('personeelsfeest_optie');
+        return $query->row();  
+    }
+    /**
+    * Zorgen dat je de data in optie kan sturen
+    */
+    function insert($info)
+    {
+        $this->db->insert('personeelsfeest_optie', $info);
+        return $this->db->insert_id();
+    }
 }
 
 
