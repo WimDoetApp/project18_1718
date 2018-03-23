@@ -20,7 +20,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
 ?>
 
 <div class="table-responsive">
-<table class="table table-bordered table-responsive" id="tabel">
+<table class="table table-striped" id="tabel">
     <thead>
         <tr>
             <th>Naam</th>
@@ -59,12 +59,12 @@ $dataOpslagen = array(
     'value'         => 'opslagen',
     'type'          => 'submit',
     'content'       => 'Opslagen',
-    'class'         => 'btn btn-primary'
+    'class'         => 'btn btn-success'
 );
 
 echo form_button($dataOpslagen);
 
-echo smallDivAnchor("", "Teruggaan", 'class="btn btn-default"');
+echo smallDivAnchor("", "Teruggaan", 'class="btn btn-info"');
 
 echo form_close();
 ?>

@@ -17,7 +17,7 @@ class Locatie_model extends CI_Model {
     function get($id) 
     {
         $this->db->where('id', $id);
-        $query = $this->db->get('personeelsfeest_locatie');
+        $query = $this->db->get('locatie');
         return $query->row();  
     }
     /**
@@ -26,13 +26,9 @@ class Locatie_model extends CI_Model {
     function getAllesBijLocatie()
     {
         $this->db->order_by('naam', 'asc');
-        $query = $this->db->get('personeelsfeest_locatie');
+        $query = $this->db->get('locatie');
         return $query->result();                
-    }
-    
-    
-    
-    
+    }   
     function getAll() {
         /*Haal alle records op*/
         $query = $this->db->get('locatie');

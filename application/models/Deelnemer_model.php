@@ -2,7 +2,6 @@
 
 /**
  * Team 18 - Project APP 2APP-BIT - Thomas More
- * Verantwoordelijke: Wim Naudts
  */
 
 class Deelnemer_model extends CI_Model {
@@ -21,7 +20,7 @@ class Deelnemer_model extends CI_Model {
     {
         $this->db->where('personeelsfeestId', $personeelsfeestId);
         $this->db->where("(soortId='2' OR soortId='3')");
-        $query = $this->db->get('personeelsfeest_deelnemer');
+        $query = $this->db->get('deelnemer');
         return $query->result();
     }
     
@@ -32,7 +31,7 @@ class Deelnemer_model extends CI_Model {
     function update($deelnemer)
     {
         $this->db->where('id', $deelnemer->id);
-        $this->db->update('personeelsfeest_deelnemer', $deelnemer);
+        $this->db->update('deelnemer', $deelnemer);
     }
 }
 
