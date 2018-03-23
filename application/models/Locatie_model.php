@@ -11,6 +11,27 @@ class Locatie_model extends CI_Model {
     {
         parent::__construct();
     }
+    /**
+    * id ophalen van locatie
+    */
+    function get($id) 
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get('personeelsfeest_locatie');
+        return $query->row();  
+    }
+    /**
+    * alle namen van locaties ophalen 
+    */
+    function getAllesBijLocatie()
+    {
+        $this->db->order_by('naam', 'asc');
+        $query = $this->db->get('personeelsfeest_locatie');
+        return $query->result();                
+    }
+    
+    
+    
     
     function getAll() {
         /*Haal alle records op*/

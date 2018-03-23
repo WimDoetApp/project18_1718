@@ -10,19 +10,34 @@ class DagOnderdeel_model extends CI_Model {
     {
         parent::__construct();
     }
-    
-    /**
+
+     /**
      * Haalt een dagonderdeel met een bepaald id op.
      * @param $id id van het dagonderdeel
      * @return het opgevraagde record
      */
-    function get($id)
+    function get($id) 
     {
         $this->db->where('id', $id);
         $query = $this->db->get('personeelsfeest_dagonderdeel');
-        return $query->row();
+        return $query->row();  
     }
-    
+    /**
+    * alle namen van dagonderdeel ophalen 
+    */
+    function getAllesBijDagonderdeel()
+    {
+        $this->db->select('*');
+        $this->db->group_by('naam');
+        
+        $query = $this->db->get('personeelsfeest_dagonderdeel');
+        return $query->result();                
+    }
+        
+        
+        
+
+
     /**
      * Haalt alle dagonderdelen op, met bijhorende locaties, gesorteerd op starttijd.
      * @param $personeelsfeestId id van het huidige personeelsfeest
