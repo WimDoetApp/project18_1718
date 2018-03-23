@@ -10,6 +10,17 @@ class Personeelsfeest_model extends CI_Model {
     {
         parent::__construct();
     }
+    
+    /**
+     * nog niet gebruikt 
+     */
+    
+    function getLaatsteId()
+    {
+        $this->db->order_by('id', 'desc');
+        $query = $this->db->get('personeelsfeest');
+        return $query->result();                
+    }   
 }
 
 

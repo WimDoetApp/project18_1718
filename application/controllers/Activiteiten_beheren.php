@@ -63,6 +63,9 @@ class Activiteiten_Beheren extends CI_Controller {
             $dagOnderdeelId = $this->input->post('dagonderdeel');
             $info->dagOnderdeelId = $dagOnderdeelId;
             
+             /**
+     * zorgen dat het naar de optie database wordt gestuurrd
+     */   
             $this->load->model('optie_model');
             $id = $this->optie_model->insert($info);
      /**

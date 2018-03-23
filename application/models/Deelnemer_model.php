@@ -33,6 +33,16 @@ class Deelnemer_model extends CI_Model {
         $this->db->where('id', $deelnemer->id);
         $this->db->update('deelnemer', $deelnemer);
     }
+    
+    
+    /**
+     * Jari - nieuwe gegevens in deelnemers zetten
+     */
+    function insert($info)
+    {
+        $this->db->insert('deelnemer', $info);
+        return $this->db->insert_id();
+    }
 }
 
 
