@@ -6,13 +6,25 @@ class Locatie extends CI_Controller {
 
     /**
      * Controller Locatie beheren
-     * Verantwoordelijke: Yen Aarts
+     * @author Yen Aarts
      */
 
 
     public function __construct() {
         parent::__construct();
         $this->load->helper('form');
+        
+        /**
+         * Kijken of de gebruiker de juiste rechten heeft
+         */
+        if (!$this->authex->isAangemeld()) {
+            redirect('home/index');
+        } else {
+            $gebruiker = $this->authex->getDeelnemerInfo();
+            if ($gebruiker->soortId < 3) {
+                redirect('home/toonStartScherm');
+            }
+        }
     }
     
     public function index() {
@@ -22,7 +34,7 @@ class Locatie extends CI_Controller {
         $this->load->model('locatie_model');
         $data['locaties'] = $this->locatie_model->getAll();
         
-        $partials = array('inhoud' => 'locatie_scherm', 'header' => 'main_header', 'footer' => 'main_footer');
+        $partials = array('inhoud' => 'locatiebeheren/locatie_scherm', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
     

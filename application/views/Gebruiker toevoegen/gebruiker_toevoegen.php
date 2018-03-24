@@ -4,7 +4,7 @@
 */
 
     $attributes = array('name' => 'mijnFormulier');
-    echo form_open('gebruiker_toevoegen/registreer', $attributes);
+    echo form_open('Gebruiker_Toevoegen/registreer', $attributes);
 ?>
 <table>
         <tr>
@@ -26,7 +26,7 @@
             <td><?php echo form_submit(array('name' => 'knopVrijwilliger', 'value' => 'Toevoegen als vrijwilliger', 'class' => 'btn btn-success')); ?></td>
         </tr>
 </table>
- <p><?php echo smallDivAnchor('home/index', "Teruggaan", 'class="btn btn-info"');?></p>
+ <p><?php echo smallDivAnchor('home/toonStartScherm', "Teruggaan", 'class="btn btn-info"');?></p>
 <?php 
 /**
 * Formulier sluiten

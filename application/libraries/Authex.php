@@ -6,7 +6,7 @@ if (!defined('BASEPATH'))
 class Authex {
 
     /**
-     * Author: Wim Naudts
+     * @author: Wim Naudts
      */
 
     public function __construct() {
@@ -15,11 +15,10 @@ class Authex {
         $CI->load->model('deelnemer_model');
     }
     
-    function meldAan($email, $wachtwoord) {
-        // gebruiker aanmelden met opgegeven email en wachtwoord
+    function meldAan($email, $wachtwoord, $personeelsfeestId) {
         $CI = & get_instance();
 
-        $deelnemer = $CI->deelnemer_model->getDeelnemer($email, $wachtwoord);
+        $deelnemer = $CI->deelnemer_model->getDeelnemer($email, $wachtwoord, $personeelsfeestId);
 
         if ($deelnemer == null) {
             return false;
@@ -30,7 +29,6 @@ class Authex {
     }
 
     function getDeelnemerInfo() {
-        // geef gebruiker-object als gebruiker aangemeld is
         $CI = & get_instance();
 
         if (!$this->isAangemeld()) {
@@ -42,7 +40,6 @@ class Authex {
     }
 
     function isAangemeld() {
-        // gebruiker is aangemeld als sessievariabele deelnemer_id bestaat
         $CI = & get_instance();
 
         if ($CI->session->has_userdata('deelnemer_id')) {
@@ -53,21 +50,8 @@ class Authex {
     }
 
     function meldAf() {
-        // afmelden, dus sessievariabele wegdoen
         $CI = & get_instance();
 
         $CI->session->unset_userdata('deelnemer_id');
     }
-
-    function registreer($naam, $email, $wachtwoord) {
-        // nieuwe gebruiker registreren als email nog niet bestaat
-        $CI = & get_instance();
-
-        if ($CI->gebruiker_model->controleerEmailVrij($email)) {
-            $id = $CI->deelnemer_model->registreer($naam, $email, $wachtwoord);
-            return $id;
-        } else {
-            return 0;
-        }
-    } 
 }

@@ -14,6 +14,18 @@ class DagOnderdeelBeheren extends CI_Controller {
         
         $this->load->helper('form');
         $this->load->model('dagonderdeel_model');
+        
+        /**
+         * Kijken of de gebruiker de juiste rechten heeft
+         */
+        if (!$this->authex->isAangemeld()) {
+            redirect('home/index');
+        } else {
+            $gebruiker = $this->authex->getDeelnemerInfo();
+            if ($gebruiker->soortId < 3) {
+                redirect('home/toonStartScherm');
+            }
+        }
     }
     
     /**

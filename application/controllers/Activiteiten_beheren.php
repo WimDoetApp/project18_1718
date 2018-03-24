@@ -16,6 +16,18 @@ class Activiteiten_Beheren extends CI_Controller {
          * Laad de helper voor formulieren
         */
         $this->load->helper('form');
+        
+        /**
+         * Kijken of de gebruiker de juiste rechten heeft
+         */
+        if (!$this->authex->isAangemeld()) {
+            redirect('home/index');
+        } else {
+            $gebruiker = $this->authex->getDeelnemerInfo();
+            if ($gebruiker->soortId < 3) {
+                redirect('home/toonStartScherm');
+            }
+        }
     }
     
     /**

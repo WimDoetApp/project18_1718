@@ -30,14 +30,14 @@
     if ($gebruiker == 2) { ?>
      <div>
         <h2>Voeg hier vrijwilligers toe</h2>
-        <?php echo smallDivAnchor("", "", 'class="btn btn-default"') ?>
+        <?php echo smallDivAnchor("gebruiker_toevoegen/index", "", 'class="btn btn-default"') ?>
     </div>
     
     <?php }
     /**
-     * Als de gebruiker een organistar is, heeft hij toegang tot deze links
+     * Als de gebruiker een organisator is, heeft hij toegang tot deze links
      */
-    if ($gebruiker == 3) { ?>
+    if ($gebruiker == 3 || $gebruiker == 4) { ?>
      <div>
         <h2>Bekijk hier de overzichten van taken en activiteiten</h2>
         <?php echo smallDivAnchor("", "", 'class="btn btn-default"') ?>
@@ -61,5 +61,6 @@
         <?php echo smallDivAnchor("", "", 'class="btn btn-default"') ?>
     </div>
     
+    <?php echo smallDivAnchor("home/afmelden", "Afmelden", 'class="btn btn-danger"') ?>
 </body>
 </html>

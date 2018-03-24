@@ -4,14 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Gebruiker_Toevoegen extends CI_Controller {
 
-    // +----------------------------------------------------------
-    // | Personeelsfeest
-    // +----------------------------------------------------------
-    // | Gebruiker toevoegen controller
-    // |
-    // +----------------------------------------------------------
-    // | Thomas More Kempen
-    // +----------------------------------------------------------
+    /**
+     * Controller: Gebruiker toevoegen
+     * @author Jari Mathé, Wim Naudts
+     */
 
 
     public function __construct() {
@@ -20,10 +16,23 @@ class Gebruiker_Toevoegen extends CI_Controller {
          * Laad de helper voor formulieren
         */
         $this->load->helper('form');
+        $this->load->model('deelnemer_model');
+        
+        /**
+         * Kijken of de gebruiker de juiste rechten heeft
+         */
+        if (!$this->authex->isAangemeld()) {
+            redirect('home/index');
+        } else {
+            $gebruiker = $this->authex->getDeelnemerInfo();
+            if ($gebruiker->soortId < 3) {
+                redirect('home/toonStartScherm');
+            }
+        }
     }
     
     /**
-    * 
+    * beginscherm om gebruiker toe te voegen
     */
     public function index() {
         $data['titel']  = 'Gebruiker toevoegen';
@@ -32,32 +41,42 @@ class Gebruiker_Toevoegen extends CI_Controller {
         $this->template->load('main_master', $partials, $data);
     }
     
-    public function registreer()
-	{
-            $info = new stdClass();
-            
-            $info->naam = $this->input->post('naam');
-            $info->voornaam = $this->input->post('voornaam');
-            $info->email = $this->input->post('email');
-            
-            if($this->input->post('knopPersoneelslid')) { 
-               $info->soortId = '1';
-            } else {
-               $info->soortId = '2';
-            }
-            
-            
-
-            $this->load->model('deelnemer_model');
-            $id = $this->deelnemer_model->insert($info);
-     /**
-     * herlaad de pagina
+    /**
+     * registeren
      */
-            redirect('gebruiker_toevoegen/index');
-	}
+    public function registreer()
+    {
+        $deelnemer = new stdClass();
+        $soortId = 0;
+            
+        $deelnemer->naam = $this->input->post('naam');
+        $deelnemer->voornaam = $this->input->post('voornaam');
+        $deelnemer->email = $this->input->post('email');
+        $wachtwoord = $this->wachtwoordGenereren();
+        
+        $deelnemer->wachtwoord = password_hash($wachtwoord, PASSWORD_BCRYPT);
+            
+        if($this->input->post('knopPersoneelslid')) { 
+            $soortId = 1;
+        } else {
+            $soortId = 2;
+        }
+            
+        $this->deelnemer_model->insert($deelnemer);
+        $this->index();
+    }
+    
+    /**
+     * Misschien nog naar een andere file verplaatsen
+     */
+    function wachtwoordGenereren() {
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $wachtwoord = "";
+        $alphaLength = strlen($alphabet) - 1;
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $wachtwoord += $alphabet[$n];
+        }
+        return $wachtwoord;
+    }
 } 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
