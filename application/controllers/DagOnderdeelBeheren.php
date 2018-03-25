@@ -35,6 +35,7 @@ class DagOnderdeelBeheren extends CI_Controller {
     public function toonDagonderdelen($personeelsfeestId)
     {
         $data['titel']  = 'Dagonderdelen beheren';
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
 
         $this->load->model('locatie_model');
         $data['dagonderdelen'] = $this->dagonderdeel_model->getAllByStartTijd($personeelsfeestId);
@@ -95,7 +96,7 @@ class DagOnderdeelBeheren extends CI_Controller {
                 }
             
                 $this->dagonderdeel_model->update($dagonderdeel);
-                $this->toonDagonderdelen($personeelsfeestId); ;
+                $this->toonDagonderdelen($personeelsfeestId); 
             }
         }
     }

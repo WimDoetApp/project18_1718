@@ -40,9 +40,14 @@ footer {
     color: #F04C25 !important;
 }
 
+.navButton{
+    margin-top: 2px;
+    margin-right: 4px !important;
+}
+
 /*main content*/
 .container{
-    padding-bottom: 10%;
+    padding-bottom: 100px;
 }
 
 /*Inlog pagina (Door BhaumikPatel: MIT license)*/

@@ -36,6 +36,7 @@ class Gebruiker_Toevoegen extends CI_Controller {
     */
     public function index() {
         $data['titel']  = 'Gebruiker toevoegen';
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
 
         $partials = array('inhoud' => 'Gebruiker toevoegen/gebruiker_toevoegen', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);

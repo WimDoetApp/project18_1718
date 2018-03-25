@@ -35,6 +35,7 @@ class OrganisatorenBeheren extends CI_Controller {
     public function toonPersoneelsleden($personeelsfeestId){
         $data['titel']  = 'Organisatoren beheren';
         $data['personeelsfeest'] = $personeelsfeestId;
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
         $data['personeelsleden'] = $this->deelnemer_model->getAllPersoneelsleden($personeelsfeestId);
         

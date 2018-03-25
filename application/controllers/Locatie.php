@@ -30,6 +30,7 @@ class Locatie extends CI_Controller {
     public function index() {
         /*Inladen van pagina*/
         $data['titel'] = 'Locaties Beheren';
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
         $this->load->model('locatie_model');
         $data['locaties'] = $this->locatie_model->getAll();

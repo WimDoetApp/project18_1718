@@ -35,6 +35,7 @@ class Activiteiten_Beheren extends CI_Controller {
     */
     public function index() {
         $data['titel']  = 'Leveranciers';
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
         $this->load->model('locatie_model');
         $data['locaties'] = $this->locatie_model->getAllesBijLocatie();
