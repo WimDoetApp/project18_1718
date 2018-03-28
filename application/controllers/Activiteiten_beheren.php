@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Activiteiten_Beheren extends CI_Controller {
 
     // +----------------------------------------------------------
-    // | Personeelsfeest
+    // | Personeelsfeest - Jari
     // +----------------------------------------------------------
     // | Activiteiten beheren controller
     // |
