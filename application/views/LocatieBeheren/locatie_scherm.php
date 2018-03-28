@@ -7,8 +7,8 @@
  */
 $naamInput = array ('name' => 'naam', 'value' => '', 'size' => '15');
 $beschrijvingInput = array ('name' => 'beschrijving', 'value' => '', 'size' => '50');
-$KnopWijzig = array ('name' => 'action', 'value' => 'wijzig', 'content' => 'Wijzig', 'class' => 'btn btn-warning');
-$KnopVerwijder = array ('name' => 'action', 'value' => 'verwijder', 'content' => 'Verwijder', 'class' => 'btn btn-danger');
+$KnopWijzig = array ('name' => 'action', 'value' => 'wijzig', 'content' => "<span class='glyphicon glyphicon-edit'></span>", 'class' => 'btn btn-warning');
+$KnopVerwijder = array ('name' => 'action', 'value' => 'verwijder', 'content' => "<span class='glyphicon glyphicon-trash'></span>", 'class' => 'btn btn-danger');
 ?>
 <br/>
 <div class="table-responsive">
@@ -33,7 +33,7 @@ $KnopVerwijder = array ('name' => 'action', 'value' => 'verwijder', 'content' =>
         }
         ?>
         <tr>
-            <td colspan="3"><?php echo smallDivAnchor('locatie/voegToe', 'Nieuwe locatie aanmaken', 'class="btn btn-success"')?></td>
+            <td colspan="3"><?php echo smallDivAnchor('Locatie/voegToe', 'Nieuwe locatie aanmaken', 'class="btn btn-success"')?></td>
             <td><?php echo smallDivAnchor('home/index', 'Terug gaan', 'class="btn btn-info"')?></td>
         </tr>
     </tbody>

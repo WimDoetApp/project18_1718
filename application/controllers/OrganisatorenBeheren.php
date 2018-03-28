@@ -5,14 +5,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class OrganisatorenBeheren extends CI_Controller {
 
     /**
-     * Controller organisatoren beheren
-     * Verantwoordelijke: Wim Naudts
+     * Controller Dagonderdelen beheren
+     * @author Wim Naudts
      */
 
     public function __construct() {
         parent::__construct();
         
         $this->load->helper('form');
+        $this->load->model('deelnemer_model');
+        
+        /**
+         * Kijken of de gebruiker de juiste rechten heeft
+         */
+        if (!$this->authex->isAangemeld()) {
+            redirect('home/index');
+        } else {
+            $gebruiker = $this->authex->getDeelnemerInfo();
+            if ($gebruiker->soortId != 4) {
+                redirect('home/toonStartScherm');
+            }
+        }
     }
     
     /**
@@ -22,8 +35,7 @@ class OrganisatorenBeheren extends CI_Controller {
     public function toonPersoneelsleden($personeelsfeestId){
         $data['titel']  = 'Organisatoren beheren';
         $data['personeelsfeest'] = $personeelsfeestId;
-        
-        $this->load->model('deelnemer_model');
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
         $data['personeelsleden'] = $this->deelnemer_model->getAllPersoneelsleden($personeelsfeestId);
         
@@ -38,8 +50,7 @@ class OrganisatorenBeheren extends CI_Controller {
         /**
          * declareren variabelen
          */
-        $personeelsfeestId = $this->input->post('personeelsfeestId');
-        $this->load->model('deelnemer_model');        
+        $personeelsfeestId = $this->input->post('personeelsfeestId');       
         /**
          * deelnemer wegschrijven
          */
