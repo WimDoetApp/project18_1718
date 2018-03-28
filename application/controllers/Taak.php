@@ -11,6 +11,6 @@
  *
  * @author yen
  */
-class Taak {
+class Taak extends CI_Controller {
     //put your code here
 }

@@ -12,15 +12,6 @@ class Locatie_model extends CI_Model {
         parent::__construct();
     }
     /**
-    * id ophalen van locatie
-    */
-    function get($id) 
-    {
-        $this->db->where('id', $id);
-        $query = $this->db->get('locatie');
-        return $query->row();  
-    }
-    /**
     * alle namen van locaties ophalen 
     */
     function getAllesBijLocatie()
@@ -28,27 +19,5 @@ class Locatie_model extends CI_Model {
         $this->db->order_by('naam', 'asc');
         $query = $this->db->get('locatie');
         return $query->result();                
-    }   
-    function getAll() {
-        /*Haal alle records op*/
-        $query = $this->db->get('locatie');
-        return $query->result();
-    }
-    
-    function update($id, $data) {
-        /*Wijzig een record met het id ($id), met de data die moet gewijzigd worden ($data[ArrayList])*/
-        $this->db->where('id', $id);
-        $this->db->update('locatie', $data);
-    }
-    
-    function delete($id) {
-        /*Verwijderd een record met het id ($id)*/
-        $this->db->where('id', $id);
-        $this->db->delete('locatie');
-    }
-    
-    function add($locatie) {
-        /*Voegt een nieuwe (lege) record toe*/
-        $this->db->insert('locatie', $locatie);
     }
 }

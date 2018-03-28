@@ -3,7 +3,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Locatie extends CI_Controller {
-
+    
     /**
      * Controller Locatie beheren
      * Verantwoordelijke: Yen Aarts
@@ -19,10 +19,10 @@ class Locatie extends CI_Controller {
         /*Inladen van pagina*/
         $data['titel'] = 'Locaties Beheren';
         
-        $this->load->model('locatie_model');
-        $data['locaties'] = $this->locatie_model->getAll();
+        $this->load->model('crud_model');
+        $data['locaties'] = $this->crud_model->getAll('locatie');
         
-        $partials = array('inhoud' => 'locatie_scherm', 'header' => 'main_header', 'footer' => 'main_footer');
+        $partials = array('inhoud' => 'LocatieBeheren/locatie_scherm', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
     
@@ -32,8 +32,8 @@ class Locatie extends CI_Controller {
         $locatie['naam'] = $this->input->post('naam');
         $locatie['beschrijving'] = $this->input->post('beschrijving');
         
-        $this->load->model('locatie_model');
-        $this->locatie_model->update($id, $locatie);
+        $this->load->model('crud_model');
+        $this->crud_model->update($id, $locatie, $db);
         
         $this->index();
     }
@@ -42,8 +42,8 @@ class Locatie extends CI_Controller {
         /*Stuurt naar database id om te verwijderen*/
         $id = $this->input->post('id');
         
-        $this->load->model('locatie_model');
-        $this->locatie_model->delete($id);
+        $this->load->model('crud_model');
+        $this->crud_model->delete($id, $db);
         
         $this->index();
     }
@@ -55,8 +55,8 @@ class Locatie extends CI_Controller {
         $locatie->naam = "";
         $locatie->beschrijving = "";
         
-        $this->load->model('locatie_model');
-        $this->locatie_model->add($locatie);
+        $this->load->model('crud_model');
+        $this->lcrud_model->add($locatie);
         
         $this->index();
     }
