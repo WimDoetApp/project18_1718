@@ -45,60 +45,69 @@ class DagOnderdeelBeheren extends CI_Controller {
         $partials = array('inhoud' => 'dagonderdelenbeheren/dagonderdelen', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
-
-    /**
-     * Aanpassen van een dagonderdeel of
-     * Nieuw dagonderdeel maken of
-     * dagonderdeel verwijderen
-     */
-    public function wijzig(){
+    
+    public function getInput(){
         /**
-         * declareren variabelen
+         * id van het personeelsfeest
          */
         $personeelsfeestId = $this->input->post('personeelsfeestId');
-        
         /**
-         * Bepalen op welke knop er gedrukt is
+         * Bepalen op welke knop er is gedrukt
          */
         if (isset($_POST['buttonNieuw'])) {
+            /**
+             * leeg dagonderdeel aanmaken
+             */
             $this->getEmptyDagonderdeel($personeelsfeestId);
-            $this->toonDagonderdelen($personeelsfeestId);
+            $this->toonDagonderdelen($personeelsfeestId); 
         }else{
             if (isset($_POST['buttonVerwijder'])) {
+                /**
+                 * Dagonderdeel verwijderen
+                 */
                 $teller = $this->input->post('buttonVerwijder');
-                
                 $this->dagonderdeel_model->delete($this->input->post("id[$teller]"));
                 $this->toonDagonderdelen($personeelsfeestId); 
             }else{
-                $dagonderdeel = new stdClass();
-            
-                $teller = $this->input->post('buttonWijzig');
-                $dagonderdeel->id = $this->input->post("id[$teller]");
-                $dagonderdeel->naam = $this->input->post("naam[$teller]");
-                $dagonderdeel->locatieId = $this->input->post("locatie[$teller]");
-                $dagonderdeel->starttijd = $this->input->post("starttijd[$teller]");
-                $dagonderdeel->eindtijd = $this->input->post("eindtijd[$teller]");
-                $dagonderdeel->personeelsfeestId = $personeelsfeestId;
-                
-                $heeftTaak = $this->input->post("heeftTaak[$teller]");
-                $vrijwilligerMeedoen = $this->input->post("vrijwilligerMeedoen[$teller]");
-                
-                if ($heeftTaak == "") {
-                    $dagonderdeel->heeftTaak = 0;
-                }else{
-                    $dagonderdeel->heeftTaak = $heeftTaak;
-                }
-                
-                if ($vrijwilligerMeedoen == "") {
-                    $dagonderdeel->vrijwilligerMeedoen = 0;
-                }else{
-                    $dagonderdeel->vrijwilligerMeedoen = $vrijwilligerMeedoen;
-                }
-            
-                $this->dagonderdeel_model->update($dagonderdeel);
-                $this->toonDagonderdelen($personeelsfeestId); 
+                /**
+                 * Dagonderdeel aanpassen
+                 */
+                $this->wijzig($personeelsfeestId);
             }
         }
+    }
+
+    /**
+     * Aanpassen van een dagonderdeel
+     */
+    public function wijzig($personeelsfeestId){
+        $dagonderdeel = new stdClass();
+            
+        $teller = $this->input->post('buttonWijzig');
+        $dagonderdeel->id = $this->input->post("id[$teller]");
+        $dagonderdeel->naam = $this->input->post("naam[$teller]");
+        $dagonderdeel->locatieId = $this->input->post("locatie[$teller]");
+        $dagonderdeel->starttijd = $this->input->post("starttijd[$teller]");
+        $dagonderdeel->eindtijd = $this->input->post("eindtijd[$teller]");
+        $dagonderdeel->personeelsfeestId = $personeelsfeestId;
+                
+        $heeftTaak = $this->input->post("heeftTaak[$teller]");
+        $vrijwilligerMeedoen = $this->input->post("vrijwilligerMeedoen[$teller]");
+                
+        if ($heeftTaak == "") {
+            $dagonderdeel->heeftTaak = 0;
+        }else{
+            $dagonderdeel->heeftTaak = $heeftTaak;
+        }
+                
+        if ($vrijwilligerMeedoen == "") {
+            $dagonderdeel->vrijwilligerMeedoen = 0;
+        }else{
+            $dagonderdeel->vrijwilligerMeedoen = $vrijwilligerMeedoen;
+        }
+            
+        $this->dagonderdeel_model->update($dagonderdeel);
+        $this->toonDagonderdelen($personeelsfeestId); 
     }
     
     /**
