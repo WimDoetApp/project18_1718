@@ -1,15 +1,10 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Locatie extends CI_Controller {
-
     /**
      * Controller Locatie beheren
      * @author Yen Aarts
      */
-
-
     public function __construct() {
         parent::__construct();
         $this->load->helper('form');
@@ -32,10 +27,10 @@ class Locatie extends CI_Controller {
         $data['titel'] = 'Locaties Beheren';
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
-        $this->load->model('locatie_model');
-        $data['locaties'] = $this->locatie_model->getAll();
+        $this->load->model('crud_model');
+        $data['locaties'] = $this->crud_model->getAll('locatie');
         
-        $partials = array('inhoud' => 'LocatieBeheren/locatie_scherm', 'header' => 'main_header', 'footer' => 'main_footer');
+        $partials = array('inhoud' => 'locatiebeheren/locatie_scherm', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
     
@@ -45,8 +40,8 @@ class Locatie extends CI_Controller {
         $locatie['naam'] = $this->input->post('naam');
         $locatie['beschrijving'] = $this->input->post('beschrijving');
         
-        $this->load->model('locatie_model');
-        $this->locatie_model->update($id, $locatie);
+        $this->load->model('crud_model');
+        $this->crud_model->update($id, $locatie, 'locatie');
         
         $this->index();
     }
@@ -55,8 +50,8 @@ class Locatie extends CI_Controller {
         /*Stuurt naar database id om te verwijderen*/
         $id = $this->input->post('id');
         
-        $this->load->model('locatie_model');
-        $this->locatie_model->delete($id);
+        $this->load->model('crud_model');
+        $this->crud_model->delete($id, 'locatie');
         
         $this->index();
     }
@@ -68,8 +63,8 @@ class Locatie extends CI_Controller {
         $locatie->naam = "";
         $locatie->beschrijving = "";
         
-        $this->load->model('locatie_model');
-        $this->locatie_model->add($locatie);
+        $this->load->model('crud_model');
+        $this->crud_model->add($locatie, 'locatie');
         
         $this->index();
     }

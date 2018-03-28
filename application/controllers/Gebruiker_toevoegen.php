@@ -78,6 +78,23 @@ class Gebruiker_Toevoegen extends CI_Controller {
         $this->index();
     }
     
+    private function stuurMail($geadresseerde, $boodschap, $titel) {
+        $this->load->library('email');
+
+        $this->email->from('teamachtien@gmail.com', 'De kaasman');
+        $this->email->to($geadresseerde);
+        $this->email->cc('');
+        $this->email->subject($titel);
+        $this->email->message($boodschap);
+
+        if (!$this->email->send()) {
+            show_error($this->email->print_debugger());
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
     /**
      * Misschien nog naar een andere file verplaatsen
      */

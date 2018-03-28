@@ -7,10 +7,7 @@
 <body>
     <?php 
     $soort = $gebruiker->soortId;
-    /**
-     * Als de gebruiker een vrijwilliger of personeelslid is, heeft hij toegang tot deze links
-     */
-    if ($soort == 1 || $soort == 2) {?>
+    ?>
     <div>
         <h2>Schrijf je hier in voor het personeelsfeest</h2>
         <?php echo smallDivAnchor("", "", 'class="btn btn-default"') ?>
@@ -19,6 +16,11 @@
         <h2>Bied hier je hulp aan voor het personeelsfeest</h2>
         <?php echo smallDivAnchor("", "", 'class="btn btn-default"') ?>
     </div>
+    <?php
+    /**
+     * Als de gebruiker een vrijwilliger of personeelslid is, heeft hij toegang tot deze links
+     */
+    if ($soort == 1 || $soort == 2) {?>
     <div>
         <h2>Bekijk hier foto's</h2>
         <?php echo smallDivAnchor("", "", 'class="btn btn-default"') ?>

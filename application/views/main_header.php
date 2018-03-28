@@ -15,9 +15,9 @@
             </div>
             <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <?php if ($soort == 1 || $soort == 2) {?>
                 <li><a href="<?php echo base_url("index.php/"); ?>">Inschrijven</a></li>
                 <li><a href="<?php echo base_url("index.php/"); ?>">Hulp aanbieden</a></li>
+                <?php if ($soort == 1 || $soort == 2) {?>
                 <li><a href="<?php echo base_url("index.php/"); ?>">Foto's bekijken</a></li>
                 <?php } ?>
                 
@@ -35,7 +35,7 @@
                 <li><a href="<?php echo base_url("index.php/"); ?>">Adressen raadplegen</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welkom <?php echo $gebruiker->voornaam ?></a></li>
+                <li><?php echo anchor("Home/toonStartScherm", "<span class='glyphicon glyphicon-user'></span> Welkom $gebruiker->voornaam") ?></li>
                 <li><?php echo smallDivAnchor("home/afmelden", "<span class='glyphicon glyphicon-log-out'></span> Afmelden", 'class="btn btn-danger navButton"') ?></li>
             </ul>
             </div>
