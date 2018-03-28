@@ -13,4 +13,17 @@
  */
 class Taak extends CI_Controller {
     //put your code here
+    function __construct() {
+        parent::__construct();
+    }
+    
+    function index($sw, $id) {
+        $this->load->model('crud_model');
+        $data['taken'] = $this->crud_model->getAll('taak');
+        
+        $data['titel'] = 'Tennis';
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
+        $partials = array('inhoud' => 'taakbeheren/overzichttaken', 'header' => 'main_header', 'footer' => 'main_footer');
+        $this->template->load('main_master', $partials, $data);
+    }
 }
