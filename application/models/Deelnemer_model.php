@@ -12,6 +12,18 @@ class Deelnemer_model extends CI_Model {
     }
     
     /**
+     * Haalt een specifieke deelnemer op
+     * @param $id het id van de deelnemer
+     * @return deelnemer
+     */
+    function get($id) 
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get('deelnemer');
+        return $query->row();  
+    }
+    
+    /**
      * Alle personeelsleden ophalen
      * @param $personeelsfeestId id van het huidige personeelsfeest
      * @return de opgevraagde records
@@ -34,13 +46,37 @@ class Deelnemer_model extends CI_Model {
         $this->db->update('deelnemer', $deelnemer);
     }
     
+    /**
+     * Een bepaalde deelnemer uit de databank halen aan de hand van zijn emailadres (om in te loggen)
+     * @param $email email van de gebruiker
+     * @param $wachtwoord wachtwoord van de gebruiker
+     * @param $personeelsfeestId id van het huidige personeelsfeest
+     * @return deelnemer
+     */
+    function getDeelnemer($email, $wachtwoord, $personeelsfeestId) {
+        $this->db->where('email', $email);
+        $this->db->where('personeelsfeestId', $personeelsfeestId);
+        $query = $this->db->get('deelnemer');
+        
+        if ($query->num_rows() == 1) {
+            $deelnemer = $query->row();
+
+            if ($wachtwoord == $deelnemer->wachtwoord ){  //password_verify($wachtwoord, $deelnemer->wachtwoord)
+                return $deelnemer;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
     
     /**
      * Jari - nieuwe gegevens in deelnemers zetten
      */
-    function insert($info)
+    function insert($deelnemer)
     {
-        $this->db->insert('deelnemer', $info);
+        $this->db->insert('deelnemer', $deelnemer);
         return $this->db->insert_id();
     }
 }

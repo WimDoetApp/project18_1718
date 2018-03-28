@@ -83,7 +83,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
                 'name'          => 'buttonWijzig',
                 'value'         => $teller,
                 'type'          => 'submit',
-                'content'       => 'Wijzig',
+                'content'       => "<span class='glyphicon glyphicon-edit'></span>",
                 'class'         => 'btn btn-warning',
                 'onclick'       => "return confirm('Dagonderdeel wijzigen, bent u hier zeker van?');"
             );
@@ -92,7 +92,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
                 'name'          => 'buttonVerwijder',
                 'value'         => $teller,
                 'type'          => 'submit',
-                'content'       => "<span class='glyphicon glyphicon-remove'></span>",
+                'content'       => "<span class='glyphicon glyphicon-trash'></span>",
                 'class'         => 'btn btn-danger',
                 'onclick'       => "return confirm('Dagonderdeel verwijderen, bent u hier zeker van?');"
             );

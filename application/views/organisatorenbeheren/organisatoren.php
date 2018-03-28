@@ -9,6 +9,16 @@
 echo "<p><span class='glyphicon glyphicon-search'></span>";
 echo form_input(array('type' => 'text', 'id' => 'zoekInput', 'placeholder' => "Zoek op naam..")) . "</p>";
 /**
+ * Knop om op te slagen
+ */
+$dataOpslagen = array(
+    'name'          => 'buttonOpslagen',
+    'value'         => 'opslagen',
+    'type'          => 'submit',
+    'content'       => 'Opslagen',
+    'class'         => 'btn btn-success'
+);
+/**
  * formulier openen
  */
 $attributes = array('name' => 'mijnFormulier');
@@ -46,26 +56,15 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
             echo "<tr class=rij><td>" . form_input(array('type' => 'hidden', 'name' => "ids[]", 'value' => $personeelslid->id)) . "<span class=naam>$personeelslid->voornaam $personeelslid->naam</span></td><td>$checkbox Organisator</td></tr>"; 
         }
         ?>
+        <tr>
+            <td><?php echo form_button($dataOpslagen);?></td>
+            <td><?php echo smallDivAnchor("", "Teruggaan", 'class="btn btn-info"');?></td>
+        </tr>
     </tbody>
 </table>
 </div>
 
 <?php 
-/**
- * Knop om op te slagen
- */
-$dataOpslagen = array(
-    'name'          => 'buttonOpslagen',
-    'value'         => 'opslagen',
-    'type'          => 'submit',
-    'content'       => 'Opslagen',
-    'class'         => 'btn btn-success'
-);
-
-echo form_button($dataOpslagen);
-
-echo smallDivAnchor("", "Teruggaan", 'class="btn btn-info"');
-
 echo form_close();
 ?>
 

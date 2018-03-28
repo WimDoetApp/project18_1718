@@ -17,9 +17,7 @@ class Personeelsfeest_model extends CI_Model {
     
     function getLaatsteId()
     {
-        $this->db->order_by('id', 'desc');
-        $query = $this->db->get('personeelsfeest');
-        return $query->result();                
+        return $this->db->select('id')->order_by('id',"desc")->limit(1)->get('personeelsfeest')->row();
     }   
 }
 

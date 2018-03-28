@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Activiteiten_Beheren extends CI_Controller {
 
+
     // +----------------------------------------------------------
     // | Personeelsfeest - Jari
     // +----------------------------------------------------------
@@ -13,6 +14,12 @@ class Activiteiten_Beheren extends CI_Controller {
     // | Thomas More Kempen
     // +----------------------------------------------------------
 
+    /**
+     * Controller Dagonderdelen beheren
+     * @author Jari Mathé
+     */
+
+
 
     public function __construct() {
         parent::__construct();
@@ -20,6 +27,18 @@ class Activiteiten_Beheren extends CI_Controller {
          * Laad de helper voor formulieren
         */
         $this->load->helper('form');
+        
+        /**
+         * Kijken of de gebruiker de juiste rechten heeft
+         */
+        if (!$this->authex->isAangemeld()) {
+            redirect('home/index');
+        } else {
+            $gebruiker = $this->authex->getDeelnemerInfo();
+            if ($gebruiker->soortId < 3) {
+                redirect('home/toonStartScherm');
+            }
+        }
     }
     
     /**
@@ -27,6 +46,7 @@ class Activiteiten_Beheren extends CI_Controller {
     */
     public function index() {
         $data['titel']  = 'Leveranciers';
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
         $this->load->model('locatie_model');
         $data['locaties'] = $this->locatie_model->getAllesBijLocatie();

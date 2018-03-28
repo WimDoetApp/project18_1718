@@ -6,13 +6,26 @@ class DagOnderdeelBeheren extends CI_Controller {
 
     /**
      * Controller Dagonderdelen beheren
-     * Verantwoordelijke: Wim Naudts
+     * @author Wim Naudts
      */
 
     public function __construct() {
         parent::__construct();
         
         $this->load->helper('form');
+        $this->load->model('dagonderdeel_model');
+        
+        /**
+         * Kijken of de gebruiker de juiste rechten heeft
+         */
+        if (!$this->authex->isAangemeld()) {
+            redirect('home/index');
+        } else {
+            $gebruiker = $this->authex->getDeelnemerInfo();
+            if ($gebruiker->soortId < 3) {
+                redirect('home/toonStartScherm');
+            }
+        }
     }
     
     /**
@@ -22,8 +35,8 @@ class DagOnderdeelBeheren extends CI_Controller {
     public function toonDagonderdelen($personeelsfeestId)
     {
         $data['titel']  = 'Dagonderdelen beheren';
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
 
-        $this->load->model('dagonderdeel_model');
         $this->load->model('locatie_model');
         $data['dagonderdelen'] = $this->dagonderdeel_model->getAllByStartTijd($personeelsfeestId);
         $data['locaties'] = $this->locatie_model->getAll();
@@ -43,7 +56,6 @@ class DagOnderdeelBeheren extends CI_Controller {
          * declareren variabelen
          */
         $personeelsfeestId = $this->input->post('personeelsfeestId');
-        $this->load->model('dagonderdeel_model');
         
         /**
          * Bepalen op welke knop er gedrukt is
@@ -84,7 +96,7 @@ class DagOnderdeelBeheren extends CI_Controller {
                 }
             
                 $this->dagonderdeel_model->update($dagonderdeel);
-                $this->toonDagonderdelen($personeelsfeestId); ;
+                $this->toonDagonderdelen($personeelsfeestId); 
             }
         }
     }
@@ -104,7 +116,6 @@ class DagOnderdeelBeheren extends CI_Controller {
         $dagonderdeel->vrijwilligerMeeDoen = '0';
         $dagonderdeel->locatieId = 1;   
 
-        $this->load->model('dagonderdeel_model');
         $this->dagonderdeel_model->insert($dagonderdeel);
     }
 }

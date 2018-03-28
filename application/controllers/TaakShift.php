@@ -11,6 +11,6 @@
  *
  * @author yen
  */
-class TaakShift {
+class TaakShift extends CI_Controller{
     //put your code here
 }
