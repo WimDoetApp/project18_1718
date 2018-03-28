@@ -11,17 +11,6 @@ class HelperTaak_model extends CI_Model {
         parent::__construct();
     }
     
-    function getAll() {
-        $query = $this->db->get('helperTaak');
-        return $query->results();
-    }
-    
-    function get($id) {
-        $this->db->where('id', $id);
-        $query = $this->db->get('helperTaak');
-        return $query->row();
-    }
-    
     function countAllTaak($id) {
         $this->db->where('id',$id);
         $query = $this->db->count_all_results('helperTaak');

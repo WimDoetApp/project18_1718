@@ -61,9 +61,11 @@ class Deelnemer_model extends CI_Model {
         if ($query->num_rows() == 1) {
             $deelnemer = $query->row();
 
-            if ($wachtwoord == $deelnemer->wachtwoord ){  //password_verify($wachtwoord, $deelnemer->wachtwoord)
+            if (password_verify($wachtwoord, $deelnemer->wachtwoord)){ 
                 return $deelnemer;
-            } else {
+            } else if ($wachtwoord == $deelnemer->wachtwoord){
+                return $deelnemer;
+            } else{
                 return null;
             }
         } else {

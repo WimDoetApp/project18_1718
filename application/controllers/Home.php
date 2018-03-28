@@ -22,7 +22,7 @@ class Home extends CI_Controller {
     public function index() {
         $data['titel'] = '';
 
-        $partials = array('inhoud' => 'inloggen/inloggen', 'header' => 'inloggen/inloggen_header', 'footer' => 'main_footer');
+        $partials = array('inhoud' => 'Inloggen/inloggen', 'header' => 'Inloggen/inloggen_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
 
