@@ -4,10 +4,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Activiteiten_Beheren extends CI_Controller {
 
+
+    // +----------------------------------------------------------
+    // | Personeelsfeest - Jari
+    // +----------------------------------------------------------
+    // | Activiteiten beheren controller
+    // |
+    // +----------------------------------------------------------
+    // | Thomas More Kempen
+    // +----------------------------------------------------------
+
     /**
      * Controller Dagonderdelen beheren
      * @author Jari Mathé
      */
+
 
 
     public function __construct() {

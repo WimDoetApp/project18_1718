@@ -88,4 +88,3 @@ class Locatie extends CI_Controller {
         }
     }
 }
-

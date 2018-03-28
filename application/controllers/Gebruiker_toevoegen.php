@@ -4,10 +4,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Gebruiker_Toevoegen extends CI_Controller {
 
+
+    // +----------------------------------------------------------
+    // | Personeelsfeest 
+    // +----------------------------------------------------------
+    // | Gebruiker toevoegen controller
+    // |
+    // +----------------------------------------------------------
+    // | Thomas More Kempen
+    // +----------------------------------------------------------
+
     /**
      * Controller: Gebruiker toevoegen
      * @author Jari Mathé, Wim Naudts
      */
+
 
 
     public function __construct() {
