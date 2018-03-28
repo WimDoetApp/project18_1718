@@ -20,13 +20,23 @@ class FotosBeheren extends CI_Controller {
          * Laad de helper voor formulieren
         */
         $this->load->helper('form');
+        $this->load->helper('html');
     }
     
     /**
     * 
     */
     public function index() {
+        $data['titel']  = "Foto's beheren";
 
+        $this->load->model('crud_model');
+        $data['jaartallen'] = $this->crud_model->getAll('personeelsfeest');
+        
+        $this->load->model('crud_model');
+        $data['fotos'] = $this->crud_model->getAll('foto');
+
+        $partials = array('inhoud' => 'fotos beheren/fotosBeheren', 'header' => 'main_header', 'footer' => 'main_footer');
+        $this->template->load('main_master', $partials, $data);
     }
 } 
 /* 
