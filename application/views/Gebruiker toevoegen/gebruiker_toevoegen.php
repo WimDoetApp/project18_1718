@@ -3,8 +3,12 @@
 * Formulier openen
 */
 
-    $attributes = array('name' => 'mijnFormulier');
-    echo form_open('Gebruiker_Toevoegen/registreer', $attributes);
+$attributes = array('name' => 'mijnFormulier');
+echo form_open('Gebruiker_toevoegen/registreer', $attributes);
+/**
+* We geven altijd naar elke pagina door over welk personeelsfeest het gaat
+ */
+echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value' => $personeelsfeest));
 ?>
 <table>
         <tr>
