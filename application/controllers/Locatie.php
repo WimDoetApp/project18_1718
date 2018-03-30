@@ -1,26 +1,34 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Locatie extends CI_Controller {
-
     /**
      * Controller Locatie beheren
-     * Verantwoordelijke: Yen Aarts
+     * @author Yen Aarts
      */
-
-
     public function __construct() {
         parent::__construct();
         $this->load->helper('form');
+        
+        /**
+         * Kijken of de gebruiker de juiste rechten heeft
+         */
+        if (!$this->authex->isAangemeld()) {
+            redirect('Home/index');
+        } else {
+            $gebruiker = $this->authex->getDeelnemerInfo();
+            if ($gebruiker->soortId < 3) {
+                redirect('Home/toonStartScherm');
+            }
+        }
     }
     
     public function index() {
         /*Inladen van pagina*/
         $data['titel'] = 'Locaties Beheren';
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
-        $this->load->model('locatie_model');
-        $data['locaties'] = $this->locatie_model->getAll();
+        $this->load->model('CRUD_Model');
+        $data['locaties'] = $this->CRUD_Model->getAll('locatie');
         
         $partials = array('inhoud' => 'LocatieBeheren/locatie_scherm', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
@@ -32,8 +40,8 @@ class Locatie extends CI_Controller {
         $locatie['naam'] = $this->input->post('naam');
         $locatie['beschrijving'] = $this->input->post('beschrijving');
         
-        $this->load->model('locatie_model');
-        $this->locatie_model->update($id, $locatie);
+        $this->load->model('CRUD_Model');
+        $this->CRUD_Model->update($id, $locatie, 'locatie');
         
         $this->index();
     }
@@ -42,8 +50,8 @@ class Locatie extends CI_Controller {
         /*Stuurt naar database id om te verwijderen*/
         $id = $this->input->post('id');
         
-        $this->load->model('locatie_model');
-        $this->locatie_model->delete($id);
+        $this->load->model('CRUD_Model');
+        $this->CRUD_Model->delete($id, 'locatie');
         
         $this->index();
     }
@@ -55,8 +63,8 @@ class Locatie extends CI_Controller {
         $locatie->naam = "";
         $locatie->beschrijving = "";
         
-        $this->load->model('locatie_model');
-        $this->locatie_model->add($locatie);
+        $this->load->model('CRUD_Model');
+        $this->CRUD_Model->add($locatie, 'locatie');
         
         $this->index();
     }
@@ -75,4 +83,3 @@ class Locatie extends CI_Controller {
         }
     }
 }
-

@@ -5,14 +5,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class OrganisatorenBeheren extends CI_Controller {
 
     /**
-     * Controller organisatoren beheren
-     * Verantwoordelijke: Wim Naudts
+     * Controller Dagonderdelen beheren
+     * @author Wim Naudts
      */
 
     public function __construct() {
         parent::__construct();
         
         $this->load->helper('form');
+        $this->load->model('Deelnemer_model');
+        
+        /**
+         * Kijken of de gebruiker de juiste rechten heeft
+         */
+        if (!$this->authex->isAangemeld()) {
+            redirect('Home/index');
+        } else {
+            $gebruiker = $this->authex->getDeelnemerInfo();
+            if ($gebruiker->soortId != 4) {
+                redirect('Home/toonStartScherm');
+            }
+        }
     }
     
     /**
@@ -22,10 +35,9 @@ class OrganisatorenBeheren extends CI_Controller {
     public function toonPersoneelsleden($personeelsfeestId){
         $data['titel']  = 'Organisatoren beheren';
         $data['personeelsfeest'] = $personeelsfeestId;
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
-        $this->load->model('deelnemer_model');
-        
-        $data['personeelsleden'] = $this->deelnemer_model->getAllPersoneelsleden($personeelsfeestId);
+        $data['personeelsleden'] = $this->Deelnemer_model->getAllPersoneelsleden($personeelsfeestId);
         
         $partials = array('inhoud' => 'organisatorenbeheren/organisatoren', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
@@ -38,8 +50,7 @@ class OrganisatorenBeheren extends CI_Controller {
         /**
          * declareren variabelen
          */
-        $personeelsfeestId = $this->input->post('personeelsfeestId');
-        $this->load->model('deelnemer_model');        
+        $personeelsfeestId = $this->input->post('personeelsfeestId');       
         /**
          * deelnemer wegschrijven
          */
@@ -57,7 +68,7 @@ class OrganisatorenBeheren extends CI_Controller {
                 $personeelslid->soortId = 3;
             }
             
-            $this->deelnemer_model->update($personeelslid);
+            $this->Deelnemer_model->update($personeelslid);
         }
         
         /**

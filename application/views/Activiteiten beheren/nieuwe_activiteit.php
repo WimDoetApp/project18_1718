@@ -23,7 +23,7 @@ foreach($dagonderdelen as $dagonderdeel){
 */
 
     $attributes = array('name' => 'mijnFormulier');
-    echo form_open('activiteiten_beheren/registreer', $attributes);
+    echo form_open('Activiteiten_beheren/registreer', $attributes);
 ?>
 <table>
         <tr>

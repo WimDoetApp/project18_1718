@@ -10,6 +10,18 @@ class Taak_model extends CI_Model {
     {
         parent::__construct();
     }
+    
+    function getAllByDagOnderdeel($id) {
+        $this->db->where('dagOnderdeelId', $id);
+        $query = $this->db->get('taak');
+        return $query->results();
+    }
+    
+    function getAllByoptieId($id) {
+        $this->db->where('optieId', $id);
+        $query = $this->db->get('taak');
+        return $query->results();
+    }
 }
 
 
