@@ -48,11 +48,11 @@ class Activiteiten_Beheren extends CI_Controller {
         $data['titel']  = 'Leveranciers';
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
-        $this->load->model('locatie_model');
-        $data['locaties'] = $this->locatie_model->getAllesBijLocatie();
+        $this->load->model('Locatie_model');
+        $data['locaties'] = $this->Locatie_model->getAllesBijLocatie();
         
-        $this->load->model('dagonderdeel_model');
-        $data['dagonderdelen'] = $this->dagonderdeel_model->getAllesBijDagonderdeel();
+        $this->load->model('DagOnderdeel_model');
+        $data['dagonderdelen'] = $this->DagOnderdeel_model->getAllesBijDagonderdeel();
         
         $partials = array('inhoud' => 'Activiteiten beheren/nieuwe_activiteit', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
@@ -86,12 +86,12 @@ class Activiteiten_Beheren extends CI_Controller {
              /**
      * zorgen dat het naar de optie database wordt gestuurrd
      */   
-            $this->load->model('optie_model');
-            $id = $this->optie_model->insert($info);
+            $this->load->model('Optie_model');
+            $id = $this->Optie_model->insert($info);
      /**
      * herlaad de pagina
      */
-            redirect('activiteiten_beheren/index');
+            redirect('Activiteiten_beheren/index');
 	}
 }
 

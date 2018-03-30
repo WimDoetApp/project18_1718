@@ -13,17 +13,17 @@ class OrganisatorenBeheren extends CI_Controller {
         parent::__construct();
         
         $this->load->helper('form');
-        $this->load->model('deelnemer_model');
+        $this->load->model('Deelnemer_model');
         
         /**
          * Kijken of de gebruiker de juiste rechten heeft
          */
         if (!$this->authex->isAangemeld()) {
-            redirect('home/index');
+            redirect('Home/index');
         } else {
             $gebruiker = $this->authex->getDeelnemerInfo();
             if ($gebruiker->soortId != 4) {
-                redirect('home/toonStartScherm');
+                redirect('Home/toonStartScherm');
             }
         }
     }
@@ -37,7 +37,7 @@ class OrganisatorenBeheren extends CI_Controller {
         $data['personeelsfeest'] = $personeelsfeestId;
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
-        $data['personeelsleden'] = $this->deelnemer_model->getAllPersoneelsleden($personeelsfeestId);
+        $data['personeelsleden'] = $this->Deelnemer_model->getAllPersoneelsleden($personeelsfeestId);
         
         $partials = array('inhoud' => 'organisatorenbeheren/organisatoren', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
@@ -68,7 +68,7 @@ class OrganisatorenBeheren extends CI_Controller {
                 $personeelslid->soortId = 3;
             }
             
-            $this->deelnemer_model->update($personeelslid);
+            $this->Deelnemer_model->update($personeelslid);
         }
         
         /**

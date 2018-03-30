@@ -12,8 +12,8 @@ class Home extends CI_Controller {
         parent::__construct();
         
         $this->load->helper('form');
-        $this->load->model('personeelsfeest_model');
-        $this->load->model('deelnemer_model');
+        $this->load->model('Personeelsfeest_model');
+        $this->load->model('Deelnemer_model');
     }
 
     /**
@@ -39,7 +39,7 @@ class Home extends CI_Controller {
         /**
          * Bepalen wat het huidige personeelsfeest is
          */
-        $personeelsfeest = $this->personeelsfeest_model->getLaatsteId();
+        $personeelsfeest = $this->Personeelsfeest_model->getLaatsteId();
         $personeelsfeestId = $personeelsfeest->id;
         $data['personeelsfeest'] = $personeelsfeestId;
         
