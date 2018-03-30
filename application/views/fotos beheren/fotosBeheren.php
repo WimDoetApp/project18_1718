@@ -3,6 +3,7 @@
      * @author Jari Mathé
      */
 $teller = 0;
+$id = 0;
 
 $filterOpties= "";
 foreach($jaartallen as $jaartal){
@@ -10,19 +11,20 @@ foreach($jaartallen as $jaartal){
 }
 
 $attributes = array('name' => 'mijnFormulier');
-    echo form_open('Activiteiten_beheren/registreer', $attributes);
+    echo form_open('FotosBeheren/do_upload', $attributes);
 ?>
 <div class="table-responsive">
 <table class="table">
      <tr>
-            <td><?php echo form_label('Filteren:', 'filteren'); echo form_dropdown('filteren', $filterOpties, '0'); ?></td>
-            <td><?php echo smallDivAnchor('FotosBeheren/index', 'Foto Uploaden', 'class="btn btn-info"'); ?> </td>
+            <td><?php echo form_label('Filteren:', 'filteren'); echo form_dropdown('filteren', $filterOpties, '0', $id++); ?></td>
+            <td><input type="file" name="userfile" size="20" /> <input type="submit" value="upload" /></td>
+            
     </tr>
     <tr>
         
     <?php 
     foreach ($fotos as $foto){ 
-       if($foto->personeelsfeestId == $filterOpties){
+       if($foto->personeelsfeestId == $id){
         $teller++ ?>
         
             <td><?php echo toonAfbeelding($foto->foto, "width='350px'") ?></td>
