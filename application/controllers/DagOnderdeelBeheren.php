@@ -38,8 +38,8 @@ class DagOnderdeelBeheren extends CI_Controller {
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
 
         $this->load->model('Locatie_model');
-        $data['dagonderdelen'] = $this->dagonderdeel_model->getAllByStartTijd($personeelsfeestId);
-        $data['locaties'] = $this->locatie_model->getAllesBijLocatie();
+        $data['dagonderdelen'] = $this->DagOnderdeel_model->getAllByStartTijd($personeelsfeestId);
+        $data['locaties'] = $this->Locatie_model->getAllesBijLocatie();
         $data['personeelsfeest'] = $personeelsfeestId;
 
         $partials = array('inhoud' => 'dagonderdelenbeheren/dagonderdelen', 'header' => 'main_header', 'footer' => 'main_footer');
@@ -66,7 +66,7 @@ class DagOnderdeelBeheren extends CI_Controller {
                  * Dagonderdeel verwijderen
                  */
                 $teller = $this->input->post('buttonVerwijder');
-                $this->dagonderdeel_model->delete($this->input->post("id[$teller]"));
+                $this->DagOnderdeel_model->delete($this->input->post("id[$teller]"));
                 $this->toonDagonderdelen($personeelsfeestId); 
             }else{
                 /**
@@ -106,7 +106,7 @@ class DagOnderdeelBeheren extends CI_Controller {
             $dagonderdeel->vrijwilligerMeedoen = $vrijwilligerMeedoen;
         }
             
-        $this->dagonderdeel_model->update($dagonderdeel);
+        $this->DagOnderdeel_model->update($dagonderdeel);
         $this->toonDagonderdelen($personeelsfeestId); 
     }
     
@@ -125,6 +125,6 @@ class DagOnderdeelBeheren extends CI_Controller {
         $dagonderdeel->vrijwilligerMeeDoen = '0';
         $dagonderdeel->locatieId = 1;   
 
-        $this->dagonderdeel_model->insert($dagonderdeel);
+        $this->DagOnderdeel_model->insert($dagonderdeel);
     }
 }

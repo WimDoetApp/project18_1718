@@ -28,7 +28,7 @@ class Locatie extends CI_Controller {
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
         $this->load->model('CRUD_Model');
-        $data['locaties'] = $this->crud_model->getAll('locatie');
+        $data['locaties'] = $this->CRUD_Model->getAll('locatie');
         
         $partials = array('inhoud' => 'LocatieBeheren/locatie_scherm', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
@@ -41,7 +41,7 @@ class Locatie extends CI_Controller {
         $locatie['beschrijving'] = $this->input->post('beschrijving');
         
         $this->load->model('CRUD_Model');
-        $this->crud_model->update($id, $locatie, 'locatie');
+        $this->CRUD_Model->update($id, $locatie, 'locatie');
         
         $this->index();
     }
@@ -51,7 +51,7 @@ class Locatie extends CI_Controller {
         $id = $this->input->post('id');
         
         $this->load->model('CRUD_Model');
-        $this->crud_model->delete($id, 'locatie');
+        $this->CRUD_Model->delete($id, 'locatie');
         
         $this->index();
     }
@@ -64,7 +64,7 @@ class Locatie extends CI_Controller {
         $locatie->beschrijving = "";
         
         $this->load->model('CRUD_Model');
-        $this->crud_model->add($locatie, 'locatie');
+        $this->CRUD_Model->add($locatie, 'locatie');
         
         $this->index();
     }

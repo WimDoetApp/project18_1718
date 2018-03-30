@@ -39,7 +39,7 @@ class Home extends CI_Controller {
         /**
          * Bepalen wat het huidige personeelsfeest is
          */
-        $personeelsfeest = $this->personeelsfeest_model->getLaatsteId();
+        $personeelsfeest = $this->Personeelsfeest_model->getLaatsteId();
         $personeelsfeestId = $personeelsfeest->id;
         $data['personeelsfeest'] = $personeelsfeestId;
         

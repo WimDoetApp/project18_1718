@@ -49,10 +49,10 @@ class Activiteiten_Beheren extends CI_Controller {
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
         $this->load->model('Locatie_model');
-        $data['locaties'] = $this->locatie_model->getAllesBijLocatie();
+        $data['locaties'] = $this->Locatie_model->getAllesBijLocatie();
         
         $this->load->model('DagOnderdeel_model');
-        $data['dagonderdelen'] = $this->dagonderdeel_model->getAllesBijDagonderdeel();
+        $data['dagonderdelen'] = $this->DagOnderdeel_model->getAllesBijDagonderdeel();
         
         $partials = array('inhoud' => 'Activiteiten beheren/nieuwe_activiteit', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
@@ -87,7 +87,7 @@ class Activiteiten_Beheren extends CI_Controller {
      * zorgen dat het naar de optie database wordt gestuurrd
      */   
             $this->load->model('Optie_model');
-            $id = $this->optie_model->insert($info);
+            $id = $this->Optie_model->insert($info);
      /**
      * herlaad de pagina
      */

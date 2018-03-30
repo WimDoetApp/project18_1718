@@ -96,7 +96,7 @@ class Gebruiker_Toevoegen extends CI_Controller {
          */
         $this->stuurMail($email, "Hey $voornaam \n\nU bent nu geregistreerd op de applicatie Personeelsfeest.\nInloggen kan met deze gegevens\n\nemail: $email \nwachtwoord: $wachtwoord", "Registratie personeelfeest");
             
-        $this->deelnemer_model->insert($deelnemer);
+        $this->Deelnemer_model->insert($deelnemer);
         $this->index($personeelsfeestId);
     }
     
