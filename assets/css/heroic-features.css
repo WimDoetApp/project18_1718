@@ -4,10 +4,6 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
-body {
-    padding-bottom: 80px;
-}
-
 .hero-spacer {
     margin-top: 50px;
 }
@@ -21,6 +17,7 @@ footer {
     text-align: center;
     padding: 25px;
     color: #009cab !important;
+    margin: 0px !important;
 }
 
 .left{

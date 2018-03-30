@@ -20,10 +20,17 @@ class Home extends CI_Controller {
      * Inlogscherm
      */
     public function index() {
-        $data['titel'] = '';
+        /**
+         * Als de gebruiker al is aangemeld, wordt hij meteen naar zijn startscherm doorverwezen
+         */
+        if($this->authex->isAangemeld()){
+            $this->toonStartScherm();
+        }else{
+            $data['titel'] = '';
 
-        $partials = array('inhoud' => 'Inloggen/inloggen', 'header' => 'Inloggen/inloggen_header', 'footer' => 'main_footer');
-        $this->template->load('main_master', $partials, $data);
+            $partials = array('inhoud' => 'Inloggen/inloggen', 'header' => 'Inloggen/inloggen_header', 'footer' => 'main_footer');
+            $this->template->load('main_master', $partials, $data);
+        }
     }
 
     /**

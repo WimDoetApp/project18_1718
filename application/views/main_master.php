@@ -34,5 +34,23 @@
         </div>
         
         <?php echo $footer; ?>
+        
+        <script>
+            $( document ).ready(function() {
+                /**
+                 * Zorgen dat de footer op alle pagina's, ook op mobile, vanonder op de pagina staat
+                 * @type jQuery
+                 */
+                var div = $(".container").height();
+                var docHeight = $(window).height();
+                var docWidth = $(window).width();
+
+                if (div > docHeight || docWidth < 650) {
+                    $("#footer").removeClass('navbar-fixed-bottom');
+                }else{
+                    $("#footer").addClass('navbar-fixed-bottom');
+                }
+            });
+        </script>
     </body>
 </html>

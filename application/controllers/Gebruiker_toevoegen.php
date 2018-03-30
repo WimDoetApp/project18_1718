@@ -94,7 +94,7 @@ class Gebruiker_Toevoegen extends CI_Controller {
         /**
          * Mail sturen
          */
-        $this->stuurMail($email, "Hey $voornaam \n\nU bent nu geregistreerd op de applicatie Personeelsfeest.\nInloggen kan met deze gegevens\n\nemail: $email \nwachtwoord: $wachtwoord", "Registratie personeelfeest");
+        $this->stuurMail($email, "<p>Hey $voornaam</p><br/><p>U bent nu geregistreerd op de applicatie Personeelsfeest.</p><p>Inloggen kan met deze gegevens:</p><br/><p>- email: $email</p><br/><p>- wachtwoord: $wachtwoord</p>", "Registratie personeelfeest");
             
         $this->Deelnemer_model->insert($deelnemer);
         $this->index($personeelsfeestId);
@@ -122,12 +122,12 @@ class Gebruiker_Toevoegen extends CI_Controller {
      */
     function wachtwoordGenereren() {
         $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-        $wachtwoord = "";
+        $wachtwoord = array();
         $alphaLength = strlen($alphabet) - 1;
         for ($i = 0; $i < 8; $i++) {
             $n = rand(0, $alphaLength);
-            $wachtwoord += $alphabet[$n];
+            $wachtwoord[] = $alphabet[$n];
         }
-        return $wachtwoord;
+        return implode($wachtwoord);
     }
 } 
