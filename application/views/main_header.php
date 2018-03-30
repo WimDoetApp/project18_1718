@@ -1,6 +1,6 @@
 <?php $soort = $gebruiker->soortId; ?>
 
-<header>
+<header id="#header">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">

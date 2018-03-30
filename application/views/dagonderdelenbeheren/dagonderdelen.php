@@ -16,7 +16,7 @@ $dataNieuw = array(
  * formulier openen
  */
 $attributes = array('name' => 'mijnFormulier');
-echo form_open('DagonderdeelBeheren/wijzig', $attributes);
+echo form_open('DagonderdeelBeheren/getInput', $attributes);
 /**
  * We geven altijd naar elke pagina door over welk personeelsfeest het gaat
  */

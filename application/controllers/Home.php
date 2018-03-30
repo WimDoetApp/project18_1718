@@ -12,18 +12,25 @@ class Home extends CI_Controller {
         parent::__construct();
         
         $this->load->helper('form');
-        $this->load->model('personeelsfeest_model');
-        $this->load->model('deelnemer_model');
+        $this->load->model('Personeelsfeest_model');
+        $this->load->model('Deelnemer_model');
     }
 
     /**
      * Inlogscherm
      */
     public function index() {
-        $data['titel'] = '';
+        /**
+         * Als de gebruiker al is aangemeld, wordt hij meteen naar zijn startscherm doorverwezen
+         */
+        if($this->authex->isAangemeld()){
+            $this->toonStartScherm();
+        }else{
+            $data['titel'] = '';
 
-        $partials = array('inhoud' => 'Inloggen/inloggen', 'header' => 'Inloggen/inloggen_header', 'footer' => 'main_footer');
-        $this->template->load('main_master', $partials, $data);
+            $partials = array('inhoud' => 'Inloggen/inloggen', 'header' => 'Inloggen/inloggen_header', 'footer' => 'main_footer');
+            $this->template->load('main_master', $partials, $data);
+        }
     }
 
     /**
@@ -39,7 +46,7 @@ class Home extends CI_Controller {
         /**
          * Bepalen wat het huidige personeelsfeest is
          */
-        $personeelsfeest = $this->personeelsfeest_model->getLaatsteId();
+        $personeelsfeest = $this->Personeelsfeest_model->getLaatsteId();
         $personeelsfeestId = $personeelsfeest->id;
         $data['personeelsfeest'] = $personeelsfeestId;
         
