@@ -1,11 +1,13 @@
-
 <?php
 /**
-*  We geven naar elke pagina door over welk personeelsfeest het gaat
-*/
+ *  We geven naar elke pagina door over welk personeelsfeest het gaat
+ */
 echo form_hidden("personeelsfeestid", $data->id);
 
+$attributen = array('name' => 'mijnFormulier');
+echo form_open('PersoneelsfeestBeheren/nieuwPersoneelsfeest/' . $data->id, $attributen);
 ?>
+
 <div class='Datums'>
     <h3>
         Datums:
@@ -14,7 +16,7 @@ echo form_hidden("personeelsfeestid", $data->id);
         <?php
         /**
          * datum
-        */
+         */
         echo form_labelpro('Datum:', 'datum');
         echo '<div class="input-group date">';
         echo form_input(array('name' => 'datum',
@@ -29,7 +31,7 @@ echo form_hidden("personeelsfeestid", $data->id);
         <?php
         /**
          * datum deadline
-        */
+         */
         echo '</div></br>';
         echo form_labelpro('Deadline inschrijvingen', 'deadline');
         echo '<div class="input-group date">';
@@ -71,10 +73,10 @@ echo form_hidden("personeelsfeestid", $data->id);
     </h3>
     <div class="form-group">
         <?php
-        echo smallDivAnchor("PersoneelsfeestBeheren/toonStartscherm/1");
-        echo smallDivAnchor("PersoneelsfeestBeheren/toonStartscherm/1");
-        echo smallDivAnchor("PersoneelsfeestBeheren/toonStartscherm/1");
-        echo smallDivAnchor("PersoneelsfeestBeheren/toonStartscherm/1");
+        echo smallDivAnchor("PersoneelsfeestBeheren/toonStartscherm/1", "Gebruikers toevoegen", 'class="btn btn-default"');
+        echo smallDivAnchor("DagOnderdeelBeheren/toonDagonderdelen/$data->id", "Dagonderdelen beheren", 'class="btn btn-default"');
+        echo smallDivAnchor("Locatie/index", "Locatie beheren", 'class="btn btn-default"');
+        echo smallDivAnchor("OrganisatorenBeheren/toonPersoneelsleden/$data->id", "Organisatoren beheren", 'class="btn btn-default"');
         ?>
     </div>
 </div>
@@ -83,7 +85,9 @@ echo form_hidden("personeelsfeestid", $data->id);
         Nieuw personeelsfeest:
     </h3>
     <div class="form-group">
-        <button data-toggle="modal" data-target="#myModal">Nieuw personeelsfeest</button>
+        <?php
+        echo smallDivAnchor("#", "Nieuw personeelsfeest", 'data-toggle="modal" data-target="#myModal" class="btn btn-default"')
+        ?>
         <!-- Modal -->
         <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -95,12 +99,12 @@ echo form_hidden("personeelsfeestid", $data->id);
                         <h4 class="modal-title">Nieuw personeelsfeest</h4>
                     </div>
                     <div class="modal-body">
-                        <input type="checkbox" name="nieuwDagonderdeel[]" value="0"/>Dagonderdelen met de opties van vorig jaar behouden</br>
-                        <input type="checkbox" name="nieuwTaken[]" value="0"/>Taken van vorig jaar behouden</br>
-                        <input type="checkbox" name="nieuwOrganisatoren[]" value="0"/>Organisatoren behouden</br>
+                        <input type="checkbox" name="nieuwDagonderdeel"/>Dagonderdelen met de opties van
+                        vorig jaar behouden</br>
+                        <input type="checkbox" name="nieuwOrganisatoren"/>Organisatoren behouden</br>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" name="nieuwPersoneelsfeest" value="nieuw" class="btn btn-default" data-dismiss="modal">Bevestigen</button>
+                        <?php echo form_submit('knop', 'Bevestig', 'class="btn btn-default"') ?>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
                     </div>
                 </div>
@@ -108,4 +112,4 @@ echo form_hidden("personeelsfeestid", $data->id);
         </div>
     </div>
 </div>
-
+</form>

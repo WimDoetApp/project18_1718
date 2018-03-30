@@ -4,12 +4,14 @@
  * Team 18 - Project APP 2APP-BIT - Thomas More
  */
 
-class Personeelsfeest_model extends CI_Model {
-    
+class Personeelsfeest_model extends CI_Model
+{
+
     function __construct()
     {
         parent::__construct();
     }
+
     function getLaatstePersoneelsfeest()
     {
         $this->db->select('*');
@@ -18,7 +20,7 @@ class Personeelsfeest_model extends CI_Model {
         $query = $this->db->get();
         return $query->row();
     }
-    
+
     function getAllesVanPersoneelsfeest()
     {
         $this->db->select('*');
@@ -26,8 +28,8 @@ class Personeelsfeest_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
-    
-    function getJarenPersoneelsfeest() 
+
+    function getJarenPersoneelsfeest()
     {
         $this->db->select('id, YEAR(datum) as Jaar, inschrijfDeadline');
         $this->db->from('personeelsfeest');
@@ -38,31 +40,38 @@ class Personeelsfeest_model extends CI_Model {
     function insertPersoneelsfeest($personeelsfeest)
     {
         $this->db->insert('personeelsfeest', $personeelsfeest);
+        var_dump($this->db->insert_id());
         return $this->db->insert_id();
     }
 
-    function insertDagonderdeel($dagonderdelen)
+    function insertDagonderdeel($dagonderdeel)
     {
-        $this->db->insert('personeelsfeest', $dagonderdelen);
+        $this->db->insert('dagonderdeel', $dagonderdeel);
         return $this->db->insert_id();
     }
 
-    function insertOrganisatoren($ids)
+    function insertOrganisatoren($organisator)
     {
-        $this->db->insert('personeelsfeest', $personeelsfeest);
+        $this->db->insert('deelnemer', $organisator);
         return $this->db->insert_id();
     }
 
-    function insertTaken($taken)
-    {
-        $this->db->insert('personeelsfeest', $taken);
-        return $this->db->insert_id();
-    }
     function getDagonderdelenVanPersoneelsfeest($id)
     {
+        $this->db->select('starttijd, eindtijd, naam, personeelsfeestId, heeftTaak, vrijwilligerMeeDoen,locatieId');
         $this->db->where('personeelsfeestId', $id);
-        $query = $this->db->get('dagonderdeel');
-        return $query->row();
+        $this->db->from('dagonderdeel');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function getOrganisatorenVanPersoneelsfeest($id)
+    {
+        $this->db->select('naam, voornaam, email, wachtwoord, soortId, personeelsfeestId');
+        $this->db->where('personeelsfeestId', $id);
+        $this->db->from('deelnemer');
+        $query = $this->db->get();
+        return $query->result();
     }
 }
 

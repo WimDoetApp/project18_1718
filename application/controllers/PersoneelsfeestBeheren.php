@@ -2,7 +2,8 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class PersoneelsfeestBeheren extends CI_Controller {
+class PersoneelsfeestBeheren extends CI_Controller
+{
 
     // +----------------------------------------------------------
     // | Personeelsfeest
@@ -14,13 +15,15 @@ class PersoneelsfeestBeheren extends CI_Controller {
     // +----------------------------------------------------------
 
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->load->helper('form');
         $this->load->helper('notation');
     }
 
-    public function index() {
+    public function index()
+    {
         $this->load->model('Personeelsfeest_model');
 
         $data['titel'] = 'Instellingen';
@@ -31,7 +34,8 @@ class PersoneelsfeestBeheren extends CI_Controller {
         $this->template->load('main_master', $partials, $data);
     }
 
-    public function toonStartScherm($gebruiker) {
+    public function toonStartScherm($gebruiker)
+    {
         $data['titel'] = 'Personeelsfeest';
         $data['gebruiker'] = $gebruiker;
 
@@ -39,7 +43,8 @@ class PersoneelsfeestBeheren extends CI_Controller {
         $this->template->load('main_master', $partials, $data);
     }
 
-    function getEmptyDagonderdeel($personeelsfeestId) {
+    function getEmptyDagonderdeel($personeelsfeestId)
+    {
         $dagonderdeel = new stdClass();
         $dagonderdeel->starttijd = '00:00:00';
         $dagonderdeel->eindtijd = '00:00:00';
@@ -53,35 +58,40 @@ class PersoneelsfeestBeheren extends CI_Controller {
         $this->dagonderdeel_model->insert($dagonderdeel);
     }
 
-    public function nieuwPersoneelsfeest() {
-        $this->model->load('Personeelsfeest_model');
+    public function nieuwPersoneelsfeest($id)
+    {
+        $this->load->model('Personeelsfeest_model');
 
+        /**
+         * Nieuw personeelsfeest aanmaken
+         */
         $personeelsfeest = new stdClass();
-        $id = $personeelsfeest->id;
+        $personeelsfeest->id = $id + 1;
         $personeelsfeest->datum = '00:00:00';
         $personeelsfeest->inschrijfDeadline = '00:00:00';
-        $teller = $this->input->post('nieuwPersoneelsfeest');
 
-        $behoudenDagonderdelen = $this->input->post("nieuwDagonderdelen[$teller]");
-        $behoudenTaken = $this->input->post("nieuwTaken[$teller]");
-        $behoudenOrganisatoren = $this->input->post("nieuwOrganisatoren[$teller]");
+        $this->Personeelsfeest_model->insertPersoneelsfeest($personeelsfeest);
 
-        if ($behoudenDagonderdelen == "") {
+        if (isset($_POST['nieuwDagonderdeel'])) {
+            $dagonderdelen = $this->Personeelsfeest_model->getDagonderdelenVanPersoneelsfeest($id);
+            foreach ($dagonderdelen as $dagonderdeel){
+                $dagonderdeel->personeelsfeestId += 1;
+                $this->Personeelsfeest_model->insertDagonderdeel($dagonderdeel);
+            }
+        } else {
+            var_dump("leeg");
         }
-        else {
-            $this->model->load('Personeelsfeest_model');
-            $dagonderdeel = $this->Personeelsfeest_model->getDagonderdelenVanPersoneelsfeest();
-            $this->Personeelsfeest_model->insertDagonderdeel($dagonderdeel);
-        }
-        if ($behoudenTaken == "") {
-        }
-        else {
+        if (isset($_POST['nieuwOrganisatoren'])) {
+            $organisatoren = $this->Personeelsfeest_model->getOrganisatorenVanPersoneelsfeest($id);
 
+            foreach ($organisatoren as $organisator){
+                $organisator->personeelsfeestId +=1;
+                $this->Personeelsfeest_model->insertOrganisatoren($organisator);
         }
-        if ($behoudenOrganisatoren == "") {
+        } else {
+            var_dump("leeg");
         }
-        else {
 
-        }
+        $this->index();
     }
 }
