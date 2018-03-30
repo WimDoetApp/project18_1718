@@ -7,8 +7,8 @@
  */
 $naamInput = array ('name' => 'naam', 'value' => '', 'size' => '15');
 $beschrijvingInput = array ('name' => 'beschrijving', 'value' => '', 'size' => '50');
-$KnopWijzig = array ('name' => 'action', 'value' => 'wijzig', 'content' => "<span class='glyphicon glyphicon-edit'></span>", 'class' => 'btn btn-warning');
-$KnopVerwijder = array ('name' => 'action', 'value' => 'verwijder', 'content' => "<span class='glyphicon glyphicon-trash'></span>", 'class' => 'btn btn-danger');
+$KnopWijzig = array ('name' => 'action', 'value' => 'Wijzig', 'content' => "<span class='glyphicon glyphicon-edit'></span>", 'class' => 'btn btn-warning');
+$KnopVerwijder = array ('name' => 'action', 'value' => 'Verwijder', 'content' => "<span class='glyphicon glyphicon-trash'></span>", 'class' => 'btn btn-danger');
 ?>
 <br/>
 <div class="table-responsive">

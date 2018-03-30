@@ -12,5 +12,20 @@
  * @author yen
  */
 class TaakShift extends CI_Controller{
-    //put your code here
+    function __construct() {
+        parent::__construct();
+        $this->load->helper('form');
+    }
+    
+    function index($taakId, $doId) {
+        echo $taakId . $doId;
+    }
+    
+    function opslaan($doId) {
+        redirect("/taak/index/$doId");
+    }
+    
+    function annuleren($doId) {
+        redirect("/taak/index/$doId");
+    }
 }
