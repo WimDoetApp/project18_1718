@@ -13,17 +13,17 @@ class OrganisatorenBeheren extends CI_Controller {
         parent::__construct();
         
         $this->load->helper('form');
-        $this->load->model('deelnemer_model');
+        $this->load->model('Deelnemer_model');
         
         /**
          * Kijken of de gebruiker de juiste rechten heeft
          */
         if (!$this->authex->isAangemeld()) {
-            redirect('home/index');
+            redirect('Home/index');
         } else {
             $gebruiker = $this->authex->getDeelnemerInfo();
             if ($gebruiker->soortId != 4) {
-                redirect('home/toonStartScherm');
+                redirect('Home/toonStartScherm');
             }
         }
     }

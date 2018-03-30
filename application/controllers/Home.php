@@ -12,8 +12,8 @@ class Home extends CI_Controller {
         parent::__construct();
         
         $this->load->helper('form');
-        $this->load->model('personeelsfeest_model');
-        $this->load->model('deelnemer_model');
+        $this->load->model('Personeelsfeest_model');
+        $this->load->model('Deelnemer_model');
     }
 
     /**

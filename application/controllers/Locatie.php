@@ -13,11 +13,11 @@ class Locatie extends CI_Controller {
          * Kijken of de gebruiker de juiste rechten heeft
          */
         if (!$this->authex->isAangemeld()) {
-            redirect('home/index');
+            redirect('Home/index');
         } else {
             $gebruiker = $this->authex->getDeelnemerInfo();
             if ($gebruiker->soortId < 3) {
-                redirect('home/toonStartScherm');
+                redirect('Home/toonStartScherm');
             }
         }
     }
@@ -27,7 +27,7 @@ class Locatie extends CI_Controller {
         $data['titel'] = 'Locaties Beheren';
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
-        $this->load->model('crud_model');
+        $this->load->model('CRUD_Model');
         $data['locaties'] = $this->crud_model->getAll('locatie');
         
         $partials = array('inhoud' => 'LocatieBeheren/locatie_scherm', 'header' => 'main_header', 'footer' => 'main_footer');
@@ -40,7 +40,7 @@ class Locatie extends CI_Controller {
         $locatie['naam'] = $this->input->post('naam');
         $locatie['beschrijving'] = $this->input->post('beschrijving');
         
-        $this->load->model('crud_model');
+        $this->load->model('CRUD_Model');
         $this->crud_model->update($id, $locatie, 'locatie');
         
         $this->index();
@@ -50,7 +50,7 @@ class Locatie extends CI_Controller {
         /*Stuurt naar database id om te verwijderen*/
         $id = $this->input->post('id');
         
-        $this->load->model('crud_model');
+        $this->load->model('CRUD_Model');
         $this->crud_model->delete($id, 'locatie');
         
         $this->index();
@@ -63,7 +63,7 @@ class Locatie extends CI_Controller {
         $locatie->naam = "";
         $locatie->beschrijving = "";
         
-        $this->load->model('crud_model');
+        $this->load->model('CRUD_Model');
         $this->crud_model->add($locatie, 'locatie');
         
         $this->index();

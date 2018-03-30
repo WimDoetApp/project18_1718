@@ -13,17 +13,17 @@ class DagOnderdeelBeheren extends CI_Controller {
         parent::__construct();
         
         $this->load->helper('form');
-        $this->load->model('dagonderdeel_model');
+        $this->load->model('DagOnderdeel_model');
         
         /**
          * Kijken of de gebruiker de juiste rechten heeft
          */
         if (!$this->authex->isAangemeld()) {
-            redirect('home/index');
+            redirect('Home/index');
         } else {
             $gebruiker = $this->authex->getDeelnemerInfo();
             if ($gebruiker->soortId < 3) {
-                redirect('home/toonStartScherm');
+                redirect('Home/toonStartScherm');
             }
         }
     }
@@ -37,7 +37,7 @@ class DagOnderdeelBeheren extends CI_Controller {
         $data['titel']  = 'Dagonderdelen beheren';
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
 
-        $this->load->model('locatie_model');
+        $this->load->model('Locatie_model');
         $data['dagonderdelen'] = $this->dagonderdeel_model->getAllByStartTijd($personeelsfeestId);
         $data['locaties'] = $this->locatie_model->getAllesBijLocatie();
         $data['personeelsfeest'] = $personeelsfeestId;

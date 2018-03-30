@@ -27,18 +27,18 @@ class Gebruiker_Toevoegen extends CI_Controller {
          * Laad de helper voor formulieren
         */
         $this->load->helper('form');
-        $this->load->model('deelnemer_model');
+        $this->load->model('Deelnemer_model');
         date_default_timezone_set('Europe/Brussels');
         
         /**
          * Kijken of de gebruiker de juiste rechten heeft
          */
         if (!$this->authex->isAangemeld()) {
-            redirect('home/index');
+            redirect('Home/index');
         } else {
             $gebruiker = $this->authex->getDeelnemerInfo();
             if ($gebruiker->soortId < 3) {
-                redirect('home/toonStartScherm');
+                redirect('Home/toonStartScherm');
             }
         }
     }
