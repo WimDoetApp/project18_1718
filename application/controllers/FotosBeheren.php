@@ -38,12 +38,13 @@ class FotosBeheren extends CI_Controller {
         $data['fotos'] = $this->CRUD_Model->getAll('foto');
 
         $partials = array('inhoud' => 'fotos beheren/fotosBeheren' , 'header' => 'main_header', 'footer' => 'main_footer');
-        $this->template->load('main_master', $partials, $data);
+        $error = array('error' => ' ' );
+        $this->template->load('main_master', $partials, $data, $error);
     }
     
      public function do_upload()
         {
-                $config['upload_path']          = 'assets/images/';
+                $config['upload_path']          = './assets/images/';
                 $config['allowed_types']        = 'gif|jpg|png';
                 $config['max_size']             = 100;
                 $config['max_width']            = 1920;
@@ -53,13 +54,15 @@ class FotosBeheren extends CI_Controller {
 
                 if ( ! $this->upload->do_upload('userfile'))
                 {
-                        redirect('fotosBeheren/index');
+                    $error = array('error' => $this->upload->display_errors());
+                    
+                    redirect('fotosBeheren/index', $error);
                 }   
                 else
                 {
-                        $data = array('upload_data' => $this->upload->data());
+                    $data = array('upload_data' => $this->upload->data());
 
-                        redirect('fotosBeheren/index', $data);
+                    redirect('fotosBeheren/index', $data);
                 }
         }
 } 
