@@ -74,7 +74,7 @@ class PersoneelsfeestBeheren extends CI_Controller
 
         if (isset($_POST['nieuwDagonderdeel'])) {
             $dagonderdelen = $this->Personeelsfeest_model->getDagonderdelenVanPersoneelsfeest($id);
-            foreach ($dagonderdelen as $dagonderdeel){
+            foreach ($dagonderdelen as $dagonderdeel) {
                 $dagonderdeel->personeelsfeestId += 1;
                 $this->Personeelsfeest_model->insertDagonderdeel($dagonderdeel);
             }
@@ -84,14 +84,83 @@ class PersoneelsfeestBeheren extends CI_Controller
         if (isset($_POST['nieuwOrganisatoren'])) {
             $organisatoren = $this->Personeelsfeest_model->getOrganisatorenVanPersoneelsfeest($id);
 
-            foreach ($organisatoren as $organisator){
-                $organisator->personeelsfeestId +=1;
+            foreach ($organisatoren as $organisator) {
+                $organisator->personeelsfeestId += 1;
                 $this->Personeelsfeest_model->insertOrganisatoren($organisator);
-        }
+            }
         } else {
             var_dump("leeg");
         }
 
         $this->index();
+    }
+
+    public function importeer()
+    {
+        $target_dir = "../../assets/uploads/";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+        $uploadOk = 1;
+        $csvFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        /**
+         * Check if file already exists
+         */
+        if (file_exists($target_file)) {
+            echo "Sorry, deze bestandsnaam bestaat al";
+            $uploadOk = 0;
+        }
+
+        /**
+         * Check file size
+         */
+        if ($_FILES["fileToUpload"]["size"] > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+
+        /**
+         * Check file extension
+         */
+        if ($csvFileType != "csv") {
+            echo "Sorry, gelieve enkel een csv bestand te uploaden.";
+            $uploadOk = 0;
+        }
+
+        /**
+         * Check if $uploadOk is set to 0 by an error
+         */
+        if ($uploadOk == 0) {
+            echo "Sorry, je bestand werd niet geupload.";
+
+        }
+
+        /**
+         * if everything is ok, try to upload file
+         */
+        else {
+            $bestand = basename($_FILES["fileToUpload"]["name"]);
+            var_dump($_FILES["fileToUpload"]["tmp_name"]);
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                echo "Het bestand " . $bestand . " is succesvol geupload.";
+
+                /**
+                 *  Open and read file
+                 */
+                $myfile = fopen($bestand, "r") or die("Unable to open file!");
+                echo fread($myfile,filesize("$bestand"));
+
+                $data[] = array();
+                foreach ($bestand as $line) {
+                    $data[] = str_getcsv($line);
+                }
+                var_dump($data);
+
+                fclose($myfile);
+            } else {
+                echo "Sorry, er was een fout tijdens het uploaden van je bestand.";
+            }
+        }
+
+
     }
 }

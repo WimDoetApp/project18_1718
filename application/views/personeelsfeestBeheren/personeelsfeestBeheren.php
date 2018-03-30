@@ -46,17 +46,6 @@ echo form_open('PersoneelsfeestBeheren/nieuwPersoneelsfeest/' . $data->id, $attr
         </div>
     </div>
 </div>
-</div>
-<div class="Importeren">
-    <h3>
-        Importeren e-mailadressen:
-    </h3>
-    <div class="form-group">
-        <input type="checkbox" name="formImporteren[]" value="Personeelsleden"/>Personeelsleden</br>
-        <input type="checkbox" name="formImporteren[]" value="Vrijwilligers"/>Vrijwilligers</br>
-        <input type="submit" name="formImporterenSubmit" value="Importeren"/>
-    </div>
-</div>
 <div class="Exporteren">
     <h3>
         Overzicht exporteren:
@@ -99,9 +88,9 @@ echo form_open('PersoneelsfeestBeheren/nieuwPersoneelsfeest/' . $data->id, $attr
                         <h4 class="modal-title">Nieuw personeelsfeest</h4>
                     </div>
                     <div class="modal-body">
-                        <input type="checkbox" name="nieuwDagonderdeel"/>Dagonderdelen met de opties van
+                        <input type="checkbox" name="nieuwDagonderdeel"/> Dagonderdelen met de opties van
                         vorig jaar behouden</br>
-                        <input type="checkbox" name="nieuwOrganisatoren"/>Organisatoren behouden</br>
+                        <input type="checkbox" name="nieuwOrganisatoren"/> Organisatoren behouden</br>
                     </div>
                     <div class="modal-footer">
                         <?php echo form_submit('knop', 'Bevestig', 'class="btn btn-default"') ?>
@@ -113,3 +102,16 @@ echo form_open('PersoneelsfeestBeheren/nieuwPersoneelsfeest/' . $data->id, $attr
     </div>
 </div>
 </form>
+<div class="Importeren">
+    <h3>
+        Importeren e-mailadressen:
+    </h3>
+    <div class="form-group">
+        <form action="PersoneelsfeestBeheren/importeer" method="post" enctype="multipart/form-data">
+            <input type="checkbox" name="formImporteren[]" value="Importeer als personeelsleden"/>Personeelsleden</br>
+            <input type="checkbox" name="formImporteren[]" value="Importeer als vrijwilligers"/>Vrijwilligers</br>
+            <input type="file" name="fileToUpload" id="fileToUpload">
+            <input type="submit" name="submit" value="Importeren" class="btn btn-default"/>
+        </form>
+    </div>
+</div>
