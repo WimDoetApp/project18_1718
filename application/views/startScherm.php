@@ -51,11 +51,11 @@
     </div>
     <div>
         <h2>Pas hier het personeelsfeest aan</h2>
-        <?php echo smallDivAnchor("", "", 'class="btn btn-default"') ?>
+        <?php echo smallDivAnchor("PersoneelsfeestBeheren", "", 'class="btn btn-default"') ?>
     </div>
     <div>
         <h2>Beheer hier de foto's</h2>
-        <?php echo smallDivAnchor("", "", 'class="btn btn-default"') ?>
+        <?php echo smallDivAnchor("FotosBeheren/index", "", 'class="btn btn-default"') ?>
     </div>
     <?php }?>
    
