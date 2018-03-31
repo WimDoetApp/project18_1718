@@ -37,7 +37,7 @@ class FotosBeheren extends CI_Controller {
         $this->load->model('CRUD_Model');
         $data['fotos'] = $this->CRUD_Model->getAll('foto');
 
-        $partials = array('inhoud' => 'fotos beheren/fotosBeheren' , 'header' => 'main_header', 'footer' => 'main_footer');
+        $partials = array('inhoud' => 'Fotos beheren/fotosBeheren' , 'header' => 'main_header', 'footer' => 'main_footer');
         $error = array('error' => ' ' );
         $this->template->load('main_master', $partials, $data, $error);
     }
@@ -56,13 +56,13 @@ class FotosBeheren extends CI_Controller {
                 {
                     $error = array('error' => $this->upload->display_errors());
                     
-                    redirect('fotosBeheren/index', $error);
+                    redirect('FotosBeheren/index', $error);
                 }   
                 else
                 {
                     $data = array('upload_data' => $this->upload->data());
 
-                    redirect('fotosBeheren/index', $data);
+                    redirect('FotosBeheren/index', $data);
                 }
         }
 } 

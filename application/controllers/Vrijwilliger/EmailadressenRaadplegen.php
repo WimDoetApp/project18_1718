@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Emailadressen_raadplegen extends CI_Controller {
+class EmailadressenRaadplegen extends CI_Controller {
 
     // +----------------------------------------------------------
     // | Personeelsfeest - Jari
@@ -28,7 +28,7 @@ class Emailadressen_raadplegen extends CI_Controller {
     public function index() {
         $data['titel']  = 'E-mail adressen';
 
-        $partials = array('inhoud' => 'Emailadressen raadplegen/emailadressen_raadplegen', 'header' => 'main_header', 'footer' => 'main_footer');
+        $partials = array('inhoud' => 'Emailadressen raadplegen/emailadressenRaadplegen', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
 } 

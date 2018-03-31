@@ -4,7 +4,7 @@
 */
 
 $attributes = array('name' => 'mijnFormulier');
-echo form_open('Gebruiker_toevoegen/registreer', $attributes);
+echo form_open('Personeelslid/GebruikerToevoegen/registreer', $attributes);
 /**
 * We geven altijd naar elke pagina door over welk personeelsfeest het gaat
  */

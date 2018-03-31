@@ -23,7 +23,7 @@ foreach($dagonderdelen as $dagonderdeel){
 */
 
     $attributes = array('name' => 'mijnFormulier');
-    echo form_open('Activiteiten_beheren/registreer', $attributes);
+    echo form_open('Organisator/ActiviteitenBeheren/registreer', $attributes);
 ?>
 <table>
         <tr>
@@ -51,7 +51,7 @@ foreach($dagonderdelen as $dagonderdeel){
         </tr>
         <tr>
             <td><?php echo form_submit(array('name' => 'knop', 'value' => 'Bevestigen', 'class' => 'btn btn-success')); ?></td>
-            <td><?php echo smallDivAnchor('home/index', "Annuleren", 'class="btn btn-info"');?></td>
+            <td><?php echo smallDivAnchor('Home/index', "Annuleren", 'class="btn btn-info"');?></td>
         </tr>
     </table>
 <?php 

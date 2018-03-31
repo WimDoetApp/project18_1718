@@ -30,7 +30,7 @@ class Locatie extends CI_Controller {
         $this->load->model('CRUD_Model');
         $data['locaties'] = $this->CRUD_Model->getAll('locatie');
         
-        $partials = array('inhoud' => 'LocatieBeheren/locatie_scherm', 'header' => 'main_header', 'footer' => 'main_footer');
+        $partials = array('inhoud' => 'Locatie beheren/locatieScherm', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
     

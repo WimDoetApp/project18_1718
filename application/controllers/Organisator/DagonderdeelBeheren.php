@@ -42,7 +42,7 @@ class DagOnderdeelBeheren extends CI_Controller {
         $data['locaties'] = $this->Locatie_model->getAllesBijLocatie();
         $data['personeelsfeest'] = $personeelsfeestId;
 
-        $partials = array('inhoud' => 'dagonderdelenbeheren/dagonderdelen', 'header' => 'main_header', 'footer' => 'main_footer');
+        $partials = array('inhoud' => 'Dagonderdelen beheren/dagonderdelen', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
     

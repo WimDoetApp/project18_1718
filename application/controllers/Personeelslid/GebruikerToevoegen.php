@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Gebruiker_Toevoegen extends CI_Controller {
+class GebruikerToevoegen extends CI_Controller {
 
 
     // +----------------------------------------------------------
@@ -51,7 +51,7 @@ class Gebruiker_Toevoegen extends CI_Controller {
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         $data['personeelsfeest'] = $personeelsfeestId;
 
-        $partials = array('inhoud' => 'Gebruiker toevoegen/gebruiker_toevoegen', 'header' => 'main_header', 'footer' => 'main_footer');
+        $partials = array('inhoud' => 'Gebruiker toevoegen/gebruikerToevoegen', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
     
@@ -90,13 +90,14 @@ class Gebruiker_Toevoegen extends CI_Controller {
         }
         
         $deelnemer->soortId = $soortId;
+        $id = $this->Deelnemer_model->insert($deelnemer);
         
         /**
          * Mail sturen
          */
-        $this->stuurMail($email, "<p>Hey $voornaam</p><br/><p>U bent nu geregistreerd op de applicatie Personeelsfeest.</p><p>Inloggen kan met deze gegevens:</p><br/><p>- email: $email</p><br/><p>- wachtwoord: $wachtwoord</p>", "Registratie personeelfeest");
+        $this->stuurMail($email, "<p>Hey $voornaam</p><br/><p>U bent nu geregistreerd op de applicatie Personeelsfeest.</p><p>Inloggen kan met deze gegevens:</p><br/><p>- email: $email</p><br/><p>- wachtwoord: $wachtwoord</p>"
+                . "<br/><p>Klik op onderstaande link om in te loggen</p><br/><p>" . base_url() . "index.php/Home/aanmelden?id=$id</p>", "Registratie personeelfeest");
             
-        $this->Deelnemer_model->insert($deelnemer);
         $this->index($personeelsfeestId);
     }
     

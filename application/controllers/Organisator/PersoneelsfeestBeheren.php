@@ -30,7 +30,7 @@ class PersoneelsfeestBeheren extends CI_Controller
         $data['data'] = $this->Personeelsfeest_model->getLaatstePersoneelsfeest();
         $data['exporteren'] = $this->Personeelsfeest_model->getJarenPersoneelsfeest();
 
-        $partials = array('inhoud' => 'personeelsfeestBeheren/personeelsfeestBeheren', 'header' => 'main_header', 'footer' => 'main_footer');
+        $partials = array('inhoud' => 'Personeelsfeest beheren/personeelsfeestBeheren', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
 
@@ -54,7 +54,7 @@ class PersoneelsfeestBeheren extends CI_Controller
         $dagonderdeel->vrijwilligerMeeDoen = '0';
         $dagonderdeel->locatieId = 1;
 
-        $this->load->model('dagonderdeel_model');
+        $this->load->model('DagoOderdeel_model');
         $this->dagonderdeel_model->insert($dagonderdeel);
     }
 

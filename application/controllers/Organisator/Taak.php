@@ -23,11 +23,11 @@ class Taak extends CI_Controller {
         $taken = array();
         
         //Ophalen van taken via het meegegeven id, zetten in TakenIC (Taken InComplete - Niet Volledig)
-        $this->load->model('taak_model');
+        $this->load->model('Taak_model');
         $takenIC = $this->taak_model->getAllByDagOnderdeel($id);
         
         //Voor elke taak-object extra attributen meegegeven (Tijd en Aantal plaatsen) -> TakenIC uitpakken
-        $this->load->model('taakshift_model');  
+        $this->load->model('Taakshift_model');  
         foreach ($takenIC as $taak) {
             //Ophalen tijd en aantal plaatsen attributen
             $begin = $this->taakshift_model->getEersteTijd($taak->id);
@@ -52,7 +52,7 @@ class Taak extends CI_Controller {
         $data['titel'] = 'Tennis';
         
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
-        $partials = array('inhoud' => 'TaakBeheren/overzichttaken', 'header' => 'main_header', 'footer' => 'main_footer');
+        $partials = array('inhoud' => 'Taak beheren/overzichtTaken', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
     

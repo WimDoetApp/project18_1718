@@ -5,7 +5,7 @@
 echo form_hidden("personeelsfeestid", $data->id);
 
 $attributen = array('name' => 'mijnFormulier');
-echo form_open('PersoneelsfeestBeheren/nieuwPersoneelsfeest/' . $data->id, $attributen);
+echo form_open('Organisator/PersoneelsfeestBeheren/nieuwPersoneelsfeest/' . $data->id, $attributen);
 ?>
 
 <div class='Datums'>
@@ -63,9 +63,9 @@ echo form_open('PersoneelsfeestBeheren/nieuwPersoneelsfeest/' . $data->id, $attr
     <div class="form-group">
         <?php
         echo smallDivAnchor("PersoneelsfeestBeheren/toonStartscherm/1", "Gebruikers toevoegen", 'class="btn btn-default"');
-        echo smallDivAnchor("DagOnderdeelBeheren/toonDagonderdelen/$data->id", "Dagonderdelen beheren", 'class="btn btn-default"');
-        echo smallDivAnchor("Locatie/index", "Locatie beheren", 'class="btn btn-default"');
-        echo smallDivAnchor("OrganisatorenBeheren/toonPersoneelsleden/$data->id", "Organisatoren beheren", 'class="btn btn-default"');
+        echo smallDivAnchor("Organisator/DagOnderdeelBeheren/toonDagonderdelen/$data->id", "Dagonderdelen beheren", 'class="btn btn-default"');
+        echo smallDivAnchor("Organisator/Locatie/index", "Locatie beheren", 'class="btn btn-default"');
+        echo smallDivAnchor("HoofdOrganisator/OrganisatorenBeheren/toonPersoneelsleden/$data->id", "Organisatoren beheren", 'class="btn btn-default"');
         ?>
     </div>
 </div>

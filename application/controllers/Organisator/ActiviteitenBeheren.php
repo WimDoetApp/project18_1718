@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Activiteiten_Beheren extends CI_Controller {
+class ActiviteitenBeheren extends CI_Controller {
 
 
     // +----------------------------------------------------------
@@ -54,7 +54,7 @@ class Activiteiten_Beheren extends CI_Controller {
         $this->load->model('DagOnderdeel_model');
         $data['dagonderdelen'] = $this->DagOnderdeel_model->getAllesBijDagonderdeel();
         
-        $partials = array('inhoud' => 'Activiteiten beheren/nieuwe_activiteit', 'header' => 'main_header', 'footer' => 'main_footer');
+        $partials = array('inhoud' => 'Activiteiten beheren/nieuweActiviteit', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
     
@@ -91,7 +91,7 @@ class Activiteiten_Beheren extends CI_Controller {
      /**
      * herlaad de pagina
      */
-            redirect('Activiteiten_beheren/index');
+            redirect('ActiviteitenBeheren/index');
 	}
 }
 

@@ -39,7 +39,7 @@ class OrganisatorenBeheren extends CI_Controller {
         
         $data['personeelsleden'] = $this->Deelnemer_model->getAllPersoneelsleden($personeelsfeestId);
         
-        $partials = array('inhoud' => 'organisatorenbeheren/organisatoren', 'header' => 'main_header', 'footer' => 'main_footer');
+        $partials = array('inhoud' => 'Organisatoren beheren/organisatoren', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
     

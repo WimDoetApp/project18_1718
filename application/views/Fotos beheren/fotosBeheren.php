@@ -12,7 +12,7 @@ foreach($jaartallen as $jaartal){
 }
 
 $attributes = array('name' => 'mijnFormulier');
-    echo form_open('FotosBeheren/do_upload', $attributes);
+    echo form_open('Organisator/FotosBeheren/do_upload', $attributes);
 ?>
 
 <div class="table-responsive">
