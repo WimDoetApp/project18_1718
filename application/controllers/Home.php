@@ -81,6 +81,17 @@ class Home extends CI_Controller {
     }
     
     /**
+     * Directe link in mail om aan te melden
+     */
+    public function aanmelden(){
+        $id = $this->input->get('id');
+        $deelnemer = $this->Deelnemer_model->get($id);
+        
+        $this->authex->meldAan($deelnemer->email, $deelnemer->wachtwoord, $deelnemer->personeelsfeestId);
+        $this->toonStartScherm();
+    }
+    
+    /**
      * Afmelden
      */
     public function afmelden(){

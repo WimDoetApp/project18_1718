@@ -19,7 +19,7 @@ class DagOnderdeel_model extends CI_Model {
     function get($id) 
     {
         $this->db->where('id', $id);
-        $query = $this->db->get('dagonderdeel');
+        $query = $this->db->get('dagOnderdeel');
         return $query->row();  
     }
     /**
@@ -30,7 +30,7 @@ class DagOnderdeel_model extends CI_Model {
         $this->db->select('*');
         $this->db->group_by('naam');
         
-        $query = $this->db->get('dagonderdeel');
+        $query = $this->db->get('dagOnderdeel');
         return $query->result();                
     }
     /**
@@ -42,7 +42,7 @@ class DagOnderdeel_model extends CI_Model {
     {
         $this->db->where('personeelsfeestId', $personeelsfeestId);
         $this->db->order_by('starttijd', 'asc');
-        $query = $this->db->get('dagonderdeel');
+        $query = $this->db->get('dagOnderdeel');
         return $query->result();
     }
     
@@ -53,7 +53,7 @@ class DagOnderdeel_model extends CI_Model {
      */
     function insert($dagonderdeel)
     {
-        $this->db->insert('dagonderdeel', $dagonderdeel);
+        $this->db->insert('dagOnderdeel', $dagonderdeel);
         return $this->db->insert_id();
     }
     
@@ -64,7 +64,7 @@ class DagOnderdeel_model extends CI_Model {
     function update($dagonderdeel)
     {
         $this->db->where('id', $dagonderdeel->id);
-        $this->db->update('dagonderdeel', $dagonderdeel);
+        $this->db->update('dagOnderdeel', $dagonderdeel);
     }
     
     /**
@@ -74,7 +74,7 @@ class DagOnderdeel_model extends CI_Model {
     function delete($id)
     {
         $this->db->where('id', $id);
-        $this->db->delete('dagonderdeel');
+        $this->db->delete('dagOnderdeel');
     }
 }
 
