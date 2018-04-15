@@ -85,9 +85,17 @@ class Home extends CI_Controller {
      */
     public function aanmelden(){
         $id = $this->input->get('id');
-        $deelnemer = $this->Deelnemer_model->get($id);
+        $email = $this->input->get('email');
+        $deelnemers = $this->Deelnemer_model->getGebruikerByEmail($email);
+        $gebruiker = "";
         
-        $this->authex->meldAan($deelnemer->email, $deelnemer->wachtwoord, $deelnemer->personeelsfeestId);
+        foreach($deelnemers as $deelnemer){
+            if(sha1($deelnemer->id) == $id){
+                $gebruiker = $deelnemer;
+            }
+        }
+        
+        $this->authex->meldAan($gebruiker->email, $gebruiker->wachtwoord, $gebruiker->personeelsfeestId);
         $this->toonStartScherm();
     }
     
