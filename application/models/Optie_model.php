@@ -36,8 +36,9 @@ class Optie_model extends CI_Model {
         /**
          * Per optie ophalen hoeveel mensen er zijn ingeschreven
          */
+        $this->load->model('InschrijvingsOptie_model');
         foreach($opties as $optie){
-            
+            $optie->aantalIngeschreven = $this->InschrijvingsOptie_model->countInschrijvingenByOptie($optie->id);
         }
     }
     
