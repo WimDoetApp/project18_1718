@@ -56,6 +56,18 @@ class Optie_model extends CI_Model {
         foreach($opties as $optie){
             $optie->taak = $this->Taak_model->getAllByOptieIdWithShiften($optie->id);
         }
+    function getAllByIds($ids) {
+        //aanmaken tussen array
+        $titels = array();
+        
+        //ophalen alle titels
+        foreach ($ids as $id) {
+            $this->load->model('CRUD_Model');
+            $titel = $this->CRUD_Model->get($id, 'optie');
+            array_push($titels, $titel->naam);
+        }
+        
+        return $titels;
     }
 }
 

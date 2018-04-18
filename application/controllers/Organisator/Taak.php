@@ -18,29 +18,72 @@ class Taak extends CI_Controller {
     }
     
     function index($id) {
+        //!!! $id is id van dagonderdeel
         //Index pagina laden van Taken Beheren
         //Aanmaken array taken
         $taken = array();
+        $opties = array();
+        
+        //Titel Volume 1
+        $titel = "";
+        
+        $this->load->model('CRUD_Model');
+        $doTitel = $this->CRUD_Model->get($id, 'dagOnderdeel');
+        $titel .= $doTitel->naam;
         
         //Ophalen van taken via het meegegeven id, zetten in TakenIC (Taken InComplete - Niet Volledig)
         $this->load->model('Taak_model');
+<<<<<<< HEAD:application/controllers/Organisator/Taak.php
         $takenIC = $this->taak_model->getAllByDagOnderdeel($id);
         
         //Voor elke taak-object extra attributen meegegeven (Tijd en Aantal plaatsen) -> TakenIC uitpakken
         $this->load->model('Taakshift_model');  
+=======
+        $takenIC = $this->Taak_model->getAllByDagOnderdeel($id);
+        
+        //Voor elke taak-object extra attributen meegegeven (Tijd en Aantal plaatsen) -> TakenIC uitpakken
+        $this->load->model('TaakShift_model');  
+>>>>>>> ???:application/controllers/Taak.php
         foreach ($takenIC as $taak) {
             //Ophalen tijd en aantal plaatsen attributen
-            $begin = $this->taakshift_model->getEersteTijd($taak->id);
-            $einde = $this->taakshift_model->getLaatsteTijd($taak->id);
-            $aantal = $this->taakshift_model->getSUM($taak->id); 
+            $begin = $this->TaakShift_model->getEersteTijd($taak->id);
+            $einde = $this->TaakShift_model->getLaatsteTijd($taak->id);
+            $aantal = $this->TaakShift_model->getSUM($taak->id); 
             
             //Samanstellen van het tijd attribuut van taak
             $taak->tijd = $begin->begintijd . " - " . $einde->eindtijd;
-            
             $taak->aantalPlaatsen = $aantal->aantalPlaatsen;
             
             //Het object taak in de array Taken plaatsen
             array_push($taken, $taak);
+        }
+        
+        //Titel Volume 2
+        foreach ($taken as $taak) {
+            if ($taak->optieId !== null && !in_array($taak->optieId . "", $opties)) {
+                array_push($opties, $taak->optieId);
+            }
+        }
+        
+        if (count($opties) > 0) {
+            $this->load->model('Optie_model');
+            $optieTitels = $this->Optie_model->getAllByIds($opties);
+            
+            if (count($optieTitels) > 1) {
+                $titel .= " - Opties: ";
+            } else {
+                $titel .= " - Optie: ";
+            }
+            
+            $i = 0;
+            foreach ($optieTitels as $optieTitel) {
+                if ($i > 0) {
+                    $titel .= ", ";
+                }
+                
+                $titel .= $optieTitel;
+                $i++;
+            }
         }
         
         //de array Taken in de Array Data zetten om doorgestuurd te worden
@@ -49,7 +92,7 @@ class Taak extends CI_Controller {
         //het dagonderdeelId in een variabele zetten voor andere functies te kunnen laten werken
         $data['doId'] = $id;
         
-        $data['titel'] = 'Tennis';
+        $data['titel'] = $titel;
         
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         $partials = array('inhoud' => 'Taak beheren/overzichtTaken', 'header' => 'main_header', 'footer' => 'main_footer');
@@ -78,5 +121,9 @@ class Taak extends CI_Controller {
         
         //De methode index uitvoeren van deze controller, er wordt het dagonderdeelid meegegeven waarvoor zojuist een nieuwe record was aangemaakt.
         $this->index($doId);
+    }
+    
+    function verwijderen($id) {
+        echo $id;
     }
 }
