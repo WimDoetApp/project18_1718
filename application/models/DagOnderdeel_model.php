@@ -68,6 +68,11 @@ class DagOnderdeel_model extends CI_Model {
         return $dagonderdelen;
     }
     
+    /**
+     * Haalt alle dagonderdelen op, met opties, met taken en taakshiften, gesorteerd op starttijd.
+     * @param $personeelsfeesetId id van het huidige personeelsfeest
+     * @return de opgevraagde recordss
+     */
     function getAllByStartTijdWithOptiesWithTakenWithShiften($personeelsfeesetId){
         $this->db->where('personeelsfeestId', $personeelsfeesetId);
         $this->db->order_by('starttijd', 'asc');
@@ -78,8 +83,13 @@ class DagOnderdeel_model extends CI_Model {
          * Opties toewijzen per dagonderdeel
          */
         $this->load->model('Optie_model');
+        $this->load->model('Taak_model');
         foreach($dagonderdelen as $dagonderdeel){
-            $dagonderdeel->opties = $this->Optie_model->getAllByDagOnderdeelWithTaken($dagonderdeel->id);
+            if($dagonderdeel->heeftTaak == "1"){
+                $dagonderdeel->taken = $this->Taak_model->getAllByDagonderDeelWithShiften($dagonderdeel->id);
+            }else{
+                $dagonderdeel->opties = $this->Optie_model->getAllByDagOnderdeelWithTaken($dagonderdeel->id);
+            }
         }
         
         return $dagonderdelen;

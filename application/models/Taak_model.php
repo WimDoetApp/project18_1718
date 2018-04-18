@@ -30,7 +30,18 @@ class Taak_model extends CI_Model {
         
         $this->load->model('TaakShift_model');
         foreach($taken as $taak){
-            
+            $taak->shiften = $this->TaakShift_model->getAllByTaak($taak->id);
+        }
+    }
+    
+    function getAllByDagonderDeelWithShiften($dagonderdeelId){
+        $this->db->where('dagOnderdeelId', $dagonderdeelId);
+        $query = $this->db->get('taak');
+        $taken = $query->result();
+        
+        $this->load->model('TaakShift_model');
+        foreach($taken as $taak){
+            $taak->shiften = $this->TaakShift_model->getAllByTaak($taak->id);
         }
     }
 }
