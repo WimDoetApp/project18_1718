@@ -41,6 +41,8 @@ class TaakShift_model extends CI_Model {
         foreach($taakShiften as $taakShift){
             $taakShift->aantalIngeschreven = $this->HelperTaak_model->countAllShift($taakShift->id);
         }
+        
+        return $taakShiften;
     }
 }
 

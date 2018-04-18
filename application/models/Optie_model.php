@@ -40,6 +40,8 @@ class Optie_model extends CI_Model {
         foreach($opties as $optie){
             $optie->aantalIngeschreven = $this->InschrijvingsOptie_model->countInschrijvingenByOptie($optie->id);
         }
+        
+        return $opties;
     }
     
     function getAllByDagOnderdeelWithTaken($dagOnderdeelId){
