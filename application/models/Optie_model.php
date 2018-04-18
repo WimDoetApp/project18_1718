@@ -36,6 +36,33 @@ class Optie_model extends CI_Model {
         $this->db->insert('optie', $info);
         return $this->db->insert_id();
     }
+    
+    function getAllByDagOnderdeel($dagOnderdeelId){
+        $this->db->where('dagOnderdeelId', $dagOnderdeelId);
+        $query = $this->db->get('optie');
+        $opties = $query->result();
+        
+        /**
+         * Per optie ophalen hoeveel mensen er zijn ingeschreven
+         */
+        foreach($opties as $optie){
+            
+        }
+    }
+    
+    function getAllByDagOnderdeelWithTaken($dagOnderdeelId){
+        $this->db->where('dagOnderdeelId', $dagOnderdeelId);
+        $query = $this->db->get('optie');
+        $opties = $query->result();
+        
+        /**
+         * Per optie ophalen hoeveel mensen er zijn ingeschreven
+         */
+        $this->model->load('Taak_model');
+        foreach($opties as $optie){
+            $optie->taak = $this->Taak_model->getAllByOptieIdWithShiften($optie->id);
+        }
+    }
 }
 
 

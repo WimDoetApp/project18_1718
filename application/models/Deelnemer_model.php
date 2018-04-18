@@ -24,6 +24,17 @@ class Deelnemer_model extends CI_Model {
     }
     
     /**
+     * Haalt alle deelnemers met dezelfde email op
+     * @param $email de email waarop we zoeken
+     * @return deelnemers
+     */
+    function getGebruikerByEmail($email){
+        $this->db->where('email', $email);
+        $query = $this->db->get('deelnemer');
+        return $query->result();
+    }
+    
+    /**
      * Alle personeelsleden ophalen
      * @param $personeelsfeestId id van het huidige personeelsfeest
      * @return de opgevraagde records
@@ -78,8 +89,14 @@ class Deelnemer_model extends CI_Model {
      */
     function insert($deelnemer)
     {
-        $this->db->insert('deelnemer', $deelnemer);
-        return $this->db->insert_id();
+        $this->db->where('email', $deelnemer->email);
+        $this->db->where('personeelsfeestId', $deelnemer->personeelsfeestId);
+        $query = $this->db->get('deelnemer');
+        
+        if($query->row() == null){
+            $this->db->insert('deelnemer', $deelnemer);
+            return $this->db->insert_id();
+        }
     }
 }
 
