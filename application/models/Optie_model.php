@@ -20,6 +20,15 @@ class Optie_model extends CI_Model {
         return $query->row();  
     }
     /**
+     * Naam ophalen aan de hand van dagOnderdeelId
+     */
+    function getOptieDagOnderdeelId($dagOnderdeelId) {
+        $this->db->where('dagOnderdeelId', $dagOnderdeelId);
+        $query = $this->db->get('optie');
+        return $query->result();
+    }
+
+    /**
     * Zorgen dat je de data in optie kan sturen
     */
     function insert($info)

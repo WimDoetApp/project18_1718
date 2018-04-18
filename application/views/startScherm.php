@@ -7,6 +7,7 @@
 <body>
     <?php 
     $soort = $gebruiker->soortId;
+
     ?>
     <div>
         <h2>Schrijf je hier in voor het personeelsfeest</h2>
@@ -14,7 +15,7 @@
     </div>
     <div>
         <h2>Bied hier je hulp aan voor het personeelsfeest</h2>
-        <?php echo smallDivAnchor("", "", 'class="btn btn-default"') ?>
+        <?php echo smallDivAnchor("Vrijwilliger/HulpAanbieden/index/$personeelsfeest", "", 'class="btn btn-default"') ?>
     </div>
     <?php
     /**

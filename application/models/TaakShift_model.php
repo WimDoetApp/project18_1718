@@ -31,6 +31,12 @@ class TaakShift_model extends CI_Model {
         $query = $this->db->get('taakShift');
         return $query->row();
     }
+
+    function getAantalPlaatsen($taakId) {
+        $this->db->where('taakId', $taakId);
+        $query = $this->db->get('taakShift');
+        return $query->result();
+    }
 }
 
 

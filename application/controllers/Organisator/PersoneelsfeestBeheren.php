@@ -54,7 +54,7 @@ class PersoneelsfeestBeheren extends CI_Controller
         $dagonderdeel->vrijwilligerMeeDoen = '0';
         $dagonderdeel->locatieId = 1;
 
-        $this->load->model('DagoOderdeel_model');
+        $this->load->model('DagOnderdeel_model');
         $this->dagonderdeel_model->insert($dagonderdeel);
     }
 
@@ -148,10 +148,23 @@ class PersoneelsfeestBeheren extends CI_Controller
 
                 $data = fread($myfile, filesize("$bestand"));
 
-                $voornaam = 
+                $aantalrecords = substr_count($data, ';');
+                $startpositiesubstring = 0;
+                for ($i = 1; $i < $aantalrecords; $i++) {
+
+                    $startpositiemail = strpos($data, ';', $startpositiesubstring);
+                    $naam = substr($data, $startpositiesubstring, $startpositiemail);
+                    $startpositienaam = strpos($data, ' ',$startpositiesubstring);
+                    $voornaam = substr($naam, 0, $startpositienaam);
+                    $naam = substr($naam, $startpositienaam + 1, $startpositiemail - $startpositienaam);
+
+                    var_dump($naam, $voornaam, $startpositiesubstring);
+                    $startpositiesubstring = strpos($data, ' ', $startpositiemail);
+                }
 
 
-                var_dump($data);
+
+                var_dump($naam, $voornaam);
 
                 fclose($myfile);
             } else {
