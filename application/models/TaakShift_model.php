@@ -32,7 +32,6 @@ class TaakShift_model extends CI_Model {
         return $query->row();
     }
     
-<<<<<<< HEAD
     function getAllByTaak($taakId){
         $this->db->where('taakId', $taakId);
         $query = $this->db->get('taakShift');
@@ -44,12 +43,12 @@ class TaakShift_model extends CI_Model {
         }
         
         return $taakShiften;
-=======
+    }
+
     function getAllByTaakId($id) {
         $this->db->where('taakId', $id);
         $query = $this->db->get('taakShift');
         return $query->result();
->>>>>>> ???
     }
 }
 

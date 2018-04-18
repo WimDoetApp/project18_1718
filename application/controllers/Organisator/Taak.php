@@ -33,17 +33,13 @@ class Taak extends CI_Controller {
         
         //Ophalen van taken via het meegegeven id, zetten in TakenIC (Taken InComplete - Niet Volledig)
         $this->load->model('Taak_model');
-<<<<<<< HEAD:application/controllers/Organisator/Taak.php
-        $takenIC = $this->taak_model->getAllByDagOnderdeel($id);
-        
-        //Voor elke taak-object extra attributen meegegeven (Tijd en Aantal plaatsen) -> TakenIC uitpakken
-        $this->load->model('Taakshift_model');  
-=======
         $takenIC = $this->Taak_model->getAllByDagOnderdeel($id);
         
         //Voor elke taak-object extra attributen meegegeven (Tijd en Aantal plaatsen) -> TakenIC uitpakken
+        $this->load->model('Taakshift_model');  
+        
+        //Voor elke taak-object extra attributen meegegeven (Tijd en Aantal plaatsen) -> TakenIC uitpakken
         $this->load->model('TaakShift_model');  
->>>>>>> ???:application/controllers/Taak.php
         foreach ($takenIC as $taak) {
             //Ophalen tijd en aantal plaatsen attributen
             $begin = $this->TaakShift_model->getEersteTijd($taak->id);

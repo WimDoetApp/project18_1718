@@ -24,20 +24,17 @@
                     echo "<tr><td><label class=\"fw\">". $taken[$i]->naam . "</label></td>\n";
                     echo "<td><label class=\"fw\">" . $taken[$i]->tijd . "</label></td>\n";
                     echo "<td><label class=\"fw\">" . $taken[$i]->aantalPlaatsen . "</label></td>\n";
-<<<<<<< HEAD:application/views/Taak beheren/overzichtTaken.php
                     echo "<td>" . smallDivAnchor('Organisator/Taak/wijzig/' . $taken[$i]->id . "/$doId", 'Wijzigen', 'class="btn btn-warning"') . "</td></tr>\n";
                 }
             ?>
             <tr>
                 <td colspan="3"><?php echo smallDivAnchor('Organisator/Taak/voegToe/' . $doId, 'Nieuwe taak aanmaken', 'class="btn btn-success"')?></td>
-=======
                     echo "<td>" . smallDivAnchor('Taak/wijzig/' . $taken[$i]->id . "/$doId", 'Wijzigen', 'class="btn btn-warning"') . "</td>";
                     echo "<td>" . smallDivAnchor('Taak/verwijderen/' . $taken[$i]->id, 'Verwijderen', 'class="btn btn-danger"') . "</td></tr>\n";
                 }
             ?>
             <tr>
                 <td colspan="4"><?php echo smallDivAnchor('Taak/voegToe/' . $doId, 'Nieuwe taak aanmaken', 'class="btn btn-success"')?></td>
->>>>>>> ???:application/views/TaakBeheren/overzichtTaken.php
                 <td><?php echo smallDivAnchor('home/index', 'Terug gaan', 'class="btn btn-info"')?></td>
             </tr>
         </tbody>
