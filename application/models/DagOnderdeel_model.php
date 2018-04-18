@@ -34,7 +34,7 @@ class DagOnderdeel_model extends CI_Model {
         return $query->result();                
     }
     /**
-     * Haalt alle dagonderdelen op, met bijhorende locaties, gesorteerd op starttijd.
+     * Haalt alle dagonderdelen op, gesorteerd op starttijd.
      * @param $personeelsfeestId id van het huidige personeelsfeest
      * @return de opgevraagde records
      */
@@ -44,6 +44,45 @@ class DagOnderdeel_model extends CI_Model {
         $this->db->order_by('starttijd', 'asc');
         $query = $this->db->get('dagOnderdeel');
         return $query->result();
+    }
+    
+    /**
+     * Haalt alle dagonderdelen op, met bijhorende opties, gesorteerd op starttijd
+     * @param $personeelsfeesetId id van het huidige personeelsfeest
+     * @return de opgevraagde recordss
+     */
+    function getAllByStartTijdWithOpties($personeelsfeesetId){
+        $this->db->where('personeelsfeestId', $personeelsfeesetId);
+        $this->db->order_by('starttijd', 'asc');
+        $query = $this->db->get('dagOnderdeel');
+        $dagonderdelen = $query->result();
+        
+        /**
+         * Opties toewijzen per dagonderdeel
+         */
+        $this->load->model('Optie_model');
+        foreach($dagonderdelen as $dagonderdeel){
+            $dagonderdeel->opties = $this->Optie_model->getAllByDagOnderdeel($dagonderdeel->id);
+        }
+        
+        return $dagonderdelen;
+    }
+    
+    function getAllByStartTijdWithOptiesWithTakenWithShiften($personeelsfeesetId){
+        $this->db->where('personeelsfeestId', $personeelsfeesetId);
+        $this->db->order_by('starttijd', 'asc');
+        $query = $this->db->get('dagOnderdeel');
+        $dagonderdelen = $query->result();
+        
+        /**
+         * Opties toewijzen per dagonderdeel
+         */
+        $this->load->model('Optie_model');
+        foreach($dagonderdelen as $dagonderdeel){
+            $dagonderdeel->opties = $this->Optie_model->getAllByDagOnderdeelWithTaken($dagonderdeel->id);
+        }
+        
+        return $dagonderdelen;
     }
     
     /**
