@@ -36,19 +36,29 @@ class FotosBeheren extends CI_Controller {
         
         $this->load->model('CRUD_Model');
         $data['fotos'] = $this->CRUD_Model->getAll('foto');
-
+        
         $partials = array('inhoud' => 'Fotos beheren/fotosBeheren' , 'header' => 'main_header', 'footer' => 'main_footer');
         $error = array('error' => ' ' );
         $this->template->load('main_master', $partials, $data, $error);
     }
     
+    public function loadFotosAjax() {
+        
+        $personeelsfeestId = $this->input->get('personeelsfeestId');
+        
+        $this->load->model('Foto_model');
+        $data['fotos'] = $this->Foto_model->getAlleFotosZoalsPersoneelsfeestId($personeelsfeestId);
+        
+        $this->load->view('Fotos beheren/fotosBeherenAjax', $data);
+    }
+    
      public function do_upload()
         {
                 $config['upload_path']          = './assets/images/';
-                $config['allowed_types']        = 'gif|jpg|png';
-                $config['max_size']             = 100;
-                $config['max_width']            = 1920;
-                $config['max_height']           = 1080;
+                $config['allowed_types']        = 'jpg|png';
+            //    $config['max_size']             = 100;
+            //    $config['max_width']            = 1920;
+            //    $config['max_height']           = 1080;
 
                 $this->load->library('upload', $config);
 
@@ -56,13 +66,13 @@ class FotosBeheren extends CI_Controller {
                 {
                     $error = array('error' => $this->upload->display_errors());
                     
-                    redirect('FotosBeheren/index', $error);
+                    redirect('Organisator/FotosBeheren/index', $error);
                 }   
                 else
                 {
                     $data = array('upload_data' => $this->upload->data());
 
-                    redirect('FotosBeheren/index', $data);
+                    redirect('Organisator/FotosBeheren/index', $data);
                 }
         }
 } 

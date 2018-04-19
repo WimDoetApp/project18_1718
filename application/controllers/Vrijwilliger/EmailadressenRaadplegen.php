@@ -27,6 +27,13 @@ class EmailadressenRaadplegen extends CI_Controller {
     */
     public function index() {
         $data['titel']  = 'E-mail adressen';
+        
+        
+        $this->load->model('Deelnemer_model');
+        $data['vrijwilligers'] = $this->Deelnemer_model->getAllVrijwilligers();
+        
+        $this->load->model('Deelnemer_model');
+        $data['organisatoren'] = $this->Deelnemer_model->getAllOrganisatoren();
 
         $partials = array('inhoud' => 'Emailadressen raadplegen/emailadressenRaadplegen', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
