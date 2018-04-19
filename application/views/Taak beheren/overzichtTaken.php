@@ -15,6 +15,7 @@
                 <th>Tijd</th>
                 <th>Vrijwilligers</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +29,12 @@
             ?>
             <tr>
                 <td colspan="3"><?php echo smallDivAnchor('Organisator/Taak/voegToe/' . $doId, 'Nieuwe taak aanmaken', 'class="btn btn-success"')?></td>
+                    echo "<td>" . smallDivAnchor('Taak/wijzig/' . $taken[$i]->id . "/$doId", 'Wijzigen', 'class="btn btn-warning"') . "</td>";
+                    echo "<td>" . smallDivAnchor('Taak/verwijderen/' . $taken[$i]->id, 'Verwijderen', 'class="btn btn-danger"') . "</td></tr>\n";
+                }
+            ?>
+            <tr>
+                <td colspan="4"><?php echo smallDivAnchor('Taak/voegToe/' . $doId, 'Nieuwe taak aanmaken', 'class="btn btn-success"')?></td>
                 <td><?php echo smallDivAnchor('home/index', 'Terug gaan', 'class="btn btn-info"')?></td>
             </tr>
         </tbody>

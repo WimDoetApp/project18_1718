@@ -22,6 +22,32 @@ class Taak_model extends CI_Model {
         $query = $this->db->get('taak');
         return $query->result();
     }
+    
+    function getAllByOptieIdWithShiften($optieId){
+        $this->db->where('optieId', $optieId);
+        $query = $this->db->get('taak');
+        $taken = $query->result();
+        
+        $this->load->model('TaakShift_model');
+        foreach($taken as $taak){
+            $taak->shiften = $this->TaakShift_model->getAllByTaak($taak->id);
+        }
+        
+        return $taken;
+    }
+    
+    function getAllByDagonderDeelWithShiften($dagonderdeelId){
+        $this->db->where('dagOnderdeelId', $dagonderdeelId);
+        $query = $this->db->get('taak');
+        $taken = $query->result();
+        
+        $this->load->model('TaakShift_model');
+        foreach($taken as $taak){
+            $taak->shiften = $this->TaakShift_model->getAllByTaak($taak->id);
+        }
+        
+        return $taken;
+    }
 }
 
 

@@ -12,13 +12,13 @@ class Authex {
     public function __construct() {
         $CI = & get_instance();
 
-        $CI->load->model('deelnemer_model');
+        $CI->load->model('Deelnemer_model');
     }
     
     function meldAan($email, $wachtwoord, $personeelsfeestId) {
         $CI = & get_instance();
 
-        $deelnemer = $CI->deelnemer_model->getDeelnemer($email, $wachtwoord, $personeelsfeestId);
+        $deelnemer = $CI->Deelnemer_model->getDeelnemer($email, $wachtwoord, $personeelsfeestId);
 
         if ($deelnemer == null) {
             return false;
@@ -35,7 +35,7 @@ class Authex {
             return null;
         } else {
             $id = $CI->session->userdata('deelnemer_id');
-            return $CI->deelnemer_model->get($id);
+            return $CI->Deelnemer_model->get($id);
         }
     }
 

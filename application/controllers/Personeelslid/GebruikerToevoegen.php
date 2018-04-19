@@ -19,7 +19,10 @@ class GebruikerToevoegen extends CI_Controller {
      * @author Jari Mathé, Wim Naudts
      */
 
-
+    /**
+     * Als deze variable true is, laten we een errormessage zien op de pagina om de gebruiker toe te voegen
+     */
+    public $error = false;
 
     public function __construct() {
         parent::__construct();
@@ -37,7 +40,7 @@ class GebruikerToevoegen extends CI_Controller {
             redirect('Home/index');
         } else {
             $gebruiker = $this->authex->getDeelnemerInfo();
-            if ($gebruiker->soortId < 3) {
+            if ($gebruiker->soortId < 2) {
                 redirect('Home/toonStartScherm');
             }
         }
@@ -50,6 +53,14 @@ class GebruikerToevoegen extends CI_Controller {
         $data['titel']  = 'Gebruiker toevoegen';
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         $data['personeelsfeest'] = $personeelsfeestId;
+        $data['errorMessage'] = "Er bestaat al een gebruiker met deze mail!";
+        $data['error'] = $this->error;
+        
+        /**
+         * checken of de gebruiker een organisator of personeelslid is
+         */
+        $gebruiker = $this->authex->getDeelnemerInfo();
+        $data['soortId'] = $gebruiker->soortId;
 
         $partials = array('inhoud' => 'Gebruiker toevoegen/gebruikerToevoegen', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
@@ -93,17 +104,27 @@ class GebruikerToevoegen extends CI_Controller {
         $id = $this->Deelnemer_model->insert($deelnemer);
         
         /**
-         * Mail sturen
+         * Alleen als de gebruiker succesvol is toegevoegd sturen we een mail
          */
-        $this->stuurMail($email, "<p>Hey $voornaam</p><br/><p>U bent nu geregistreerd op de applicatie Personeelsfeest.</p><p>Inloggen kan met deze gegevens:</p><br/><p>- email: $email</p><br/><p>- wachtwoord: $wachtwoord</p>"
-                . "<br/><p>Klik op onderstaande link om in te loggen</p><br/><p>" . base_url() . "index.php/Home/aanmelden?id=$id</p>", "Registratie personeelfeest");
+        if($id != null){
+            $encryptedId = sha1($id);
+        
+            /**
+            * Mail sturen
+            */
+            $this->stuurMail($email, "<p>Hey $voornaam</p><br/><p>U bent nu geregistreerd op de applicatie Personeelsfeest.</p><p>Inloggen kan met deze gegevens:</p><br/><p>- email: $email</p><br/><p>- wachtwoord: $wachtwoord</p>"
+                . "<br/><p>Klik op onderstaande link om in te loggen</p><br/><p>" . base_url() . "index.php/Home/aanmelden?id=$encryptedId&email=$email</p>", "Registratie personeelfeest");
             
+            $this->error = false;
+        }else{
+            $this->error = true;
+        }
+        
         $this->index($personeelsfeestId);
     }
     
     private function stuurMail($geadresseerde, $boodschap, $titel) {
         $this->load->library('email');
-
         $this->email->from('teamachtien@gmail.com', 'Team 18');
         $this->email->to($geadresseerde);
         $this->email->cc('');
@@ -119,7 +140,7 @@ class GebruikerToevoegen extends CI_Controller {
     }
     
     /**
-     * Misschien nog naar een andere file verplaatsen
+     * Wachtwoord genereren voor gebruikers
      */
     function wachtwoordGenereren() {
         $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';

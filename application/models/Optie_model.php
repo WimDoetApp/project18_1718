@@ -27,6 +27,50 @@ class Optie_model extends CI_Model {
         $this->db->insert('optie', $info);
         return $this->db->insert_id();
     }
+    
+    function getAllByDagOnderdeel($dagOnderdeelId){
+        $this->db->where('dagOnderdeelId', $dagOnderdeelId);
+        $query = $this->db->get('optie');
+        $opties = $query->result();
+        
+        /**
+         * Per optie ophalen hoeveel mensen er zijn ingeschreven
+         */
+        $this->load->model('InschrijvingsOptie_model');
+        foreach($opties as $optie){
+            $optie->aantalIngeschreven = $this->InschrijvingsOptie_model->countInschrijvingenByOptie($optie->id);
+        }
+        
+        return $opties;
+    }
+    
+    function getAllByDagOnderdeelWithTaken($dagOnderdeelId){
+        $this->db->where('dagOnderdeelId', $dagOnderdeelId);
+        $query = $this->db->get('optie');
+        $opties = $query->result();
+        
+        /**
+         * Per optie ophalen hoeveel mensen er zijn ingeschreven
+         */
+        $this->model->load('Taak_model');
+        foreach($opties as $optie){
+            $optie->taak = $this->Taak_model->getAllByOptieIdWithShiften($optie->id);
+        }
+    }
+    
+    function getAllByIds($ids) {
+        //aanmaken tussen array
+        $titels = array();
+        
+        //ophalen alle titels
+        foreach ($ids as $id) {
+            $this->load->model('CRUD_Model');
+            $titel = $this->CRUD_Model->get($id, 'optie');
+            array_push($titels, $titel->naam);
+        }
+        
+        return $titels;
+    }
 }
 
 
