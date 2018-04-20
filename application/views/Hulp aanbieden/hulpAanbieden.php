@@ -1,19 +1,16 @@
 <?php
-foreach ($dagonderdelenTaken as $dagonderdeelTaak) {
-    echo $dagonderdeelTaak->naam;
+foreach ($dagonderdelen as $dagonderdeel) {
+    if ($dagonderdeel->heeftTaak == "1") {
+        echo $dagonderdeel->naam;
+        var_dump($dagonderdeel);
+    }
+    else {
+        var_dump($dagonderdeel->opties);
+        foreach ($dagonderdeel->opties as $optie){
+            echo $optie->naam;
+        }
+    }
 }
-foreach ($taken as $taak) {
-    echo $taak->naam;
-    echo $taak->beschrijving;
-}
-foreach ($taakShiften as $taakShift) {
-    echo $taakShift->aantalPlaatsen;
-}
-
-echo '<table class="table-striped">';
-
-echo '<tr><td></td><td></td></tr>';
-echo '<tr><td></td><td></td></tr>';
 
 
 

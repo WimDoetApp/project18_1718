@@ -59,10 +59,12 @@ class Optie_model extends CI_Model {
         /**
          * Per optie ophalen hoeveel mensen er zijn ingeschreven
          */
-        $this->model->load('Taak_model');
+        $this->load->model('Taak_model');
         foreach($opties as $optie){
             $optie->taak = $this->Taak_model->getAllByOptieIdWithShiften($optie->id);
         }
+
+        return $opties;
     }
 }
 

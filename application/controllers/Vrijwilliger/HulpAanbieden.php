@@ -33,49 +33,17 @@ class HulpAanbieden extends CI_Controller
 
     public function index($personeelsfeestId)
     {
-
         /**
          * Modellen laden
          */
         $this->load->model('DagOnderdeel_model');
-        $this->load->model('Taak_model');
-        $this->load->model('TaakShift_model');
-        $this->load->model('Optie_model');
 
-        $dagonderdelen = $this->DagOnderdeel_model->getAllByStartTijd($personeelsfeestId);
-
-        /**
-         * Arrays voor juiste taken en aantal plaatsen aanmaken
-         */
-        $dagonderdelenTaak = array();
-        $taken = array();
-        $taakShiften = array();
-        $opties = array();
-
-        /**
-         * Controleren welke gegevens voldoen
-         */
-        foreach ($dagonderdelen as $dagonderdeel) {
-            var_dump($dagonderdeel);
-            if ($dagonderdeel->heeftTaak === "1") {
-                array_push($opties, $this->Optie_model->getOptieDagOnderdeelId($dagonderdeel->id));
-                array_push($dagonderdelenTaak, $dagonderdeel);
-                array_push($taken, $this->Taak_model->getAllByDagOnderdeel($dagonderdeel->id));
-            }
-        }
-        foreach ($taken as $taak) {
-            array_push($taakShiften, $this->TaakShift_model->getAantalPlaatsen($taak->id));
-        }
-        var_dump($dagonderdelenTaak, $taken, $taakShiften, $opties);
         /**
          * Data opvullen en doorsturen naar de pagina
          */
         $data['titel'] = 'Hulp aanbieden';
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
-        $data['dagonderdelenTaken'] = $dagonderdelenTaak;
-        $data['taken'] = $taken;
-        $data['taakShiften'] = $taakShiften;
-        $data['opties'] = $opties;
+        $data['dagonderdelen'] = $this->DagOnderdeel_model->getAllByStartTijdWithOptiesWithTakenWithShiften($personeelsfeestId);
         $partials = array('inhoud' => 'Hulp aanbieden/hulpAanbieden', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
