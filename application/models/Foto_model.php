@@ -10,6 +10,13 @@ class Foto_model extends CI_Model {
     {
         parent::__construct();
     }
+    
+    function getAlleFotosZoalsPersoneelsfeestId($personeelsfeestId)
+    {
+        $this->db->where('personeelsfeestId', $personeelsfeestId);
+        $query = $this->db->get('foto');
+        return $query->result();
+    }
 }
 
 

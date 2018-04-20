@@ -13,7 +13,7 @@ class InschrijvingsOptie_model extends CI_Model {
     
     function countInschrijvingenByOptie($optieId){
         $this->db->where('optieId', $optieId);
-        return $this->db->count_all_results('inschrijvingsOptie');
+        return $this->db->count_all_results('inschrijfOptie');
     }
 }
 

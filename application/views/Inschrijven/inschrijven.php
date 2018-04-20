@@ -33,7 +33,7 @@ foreach($dagonderdelen as $dagonderdeel){ ?>
         /**
          * Alle opties weergeven
          */
-        foreach($dagonderdeel->opties as $optie){
+        foreach($dagonderdeel->opties as $dagonderdeel){
             
         $checkbox = "<td><input type=radio class=radioButton name=optie$dagonderdeel->id value=$optie->id />";
         ?>

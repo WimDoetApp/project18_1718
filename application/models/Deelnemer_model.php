@@ -85,7 +85,7 @@ class Deelnemer_model extends CI_Model {
     }
     
     /**
-     * Jari - nieuwe gegevens in deelnemers zetten
+     * nieuwe gegevens in deelnemers zetten
      */
     function insert($deelnemer)
     {
@@ -97,6 +97,23 @@ class Deelnemer_model extends CI_Model {
             $this->db->insert('deelnemer', $deelnemer);
             return $this->db->insert_id();
         }
+    }
+    
+    /**
+     * Alle vrijwilligers laten zien
+     */
+    function getAllVrijwilligers()
+    {
+        $this->db->where("(soortId='1')");
+        $query = $this->db->get('deelnemer');
+        return $query->result();
+    }
+    
+    function getAllOrganisatoren()
+    {
+        $this->db->where("(soortId='3' OR soortId='4')");
+        $query = $this->db->get('deelnemer');
+        return $query->result();
     }
 }
 

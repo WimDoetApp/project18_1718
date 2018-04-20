@@ -49,6 +49,8 @@ class Optie_model extends CI_Model {
         foreach($opties as $optie){
             $optie->aantalIngeschreven = $this->InschrijvingsOptie_model->countInschrijvingenByOptie($optie->id);
         }
+        
+        return $opties;
     }
     
     function getAllByDagOnderdeelWithTaken($dagOnderdeelId){
@@ -65,6 +67,20 @@ class Optie_model extends CI_Model {
         }
 
         return $opties;
+    }
+    
+    function getAllByIds($ids) {
+        //aanmaken tussen array
+        $titels = array();
+        
+        //ophalen alle titels
+        foreach ($ids as $id) {
+            $this->load->model('CRUD_Model');
+            $titel = $this->CRUD_Model->get($id, 'optie');
+            array_push($titels, $titel->naam);
+        }
+        
+        return $titels;
     }
 }
 

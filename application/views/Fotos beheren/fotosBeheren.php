@@ -1,3 +1,28 @@
+<script>
+    $(document).ready(function(){
+        // eerste keer laden
+        loadData();
+    
+        // laad bij change
+        $("[name='filteren']").change(function(){
+            loadData();
+        });
+        
+        function loadData() {
+            $.ajax({type : "GET",
+            url : site_url + "/Organisator/FotosBeheren/loadFotosAjax",
+            data : {personeelsfeestId : $("[name='filteren']").val()},
+            success : function(result){
+                $("#resultaatTable tbody").html(result);
+            },
+            error: function (xhr, status, error) {
+                alert("-- ERROR IN AJAX --\n\n" + xhr.responseText);
+            }
+        });
+        }
+    });
+</script>
+
 <?php
     /**
      * @author Jari Mathé
@@ -18,26 +43,17 @@ $attributes = array('name' => 'mijnFormulier');
 <div class="table-responsive">
 <table class="table">
      <tr>
-            <td ><?php echo form_label('Filteren:', 'filteren'); echo form_dropdown('filteren', $filterOpties, '0', $id++); ?></td>
+            <td ><?php echo form_label('Filteren:', 'filteren'); echo form_dropdown('filteren', $filterOpties, '0', $id++);?></td>
             <td><input type="file" name="userfile" size="20" /> <input type="submit" value="upload" /></td>
             <td><?php echo $error;?></td>   
     </tr>
-    <tr>
-    <?php 
-    foreach ($fotos as $foto){ 
-       if($foto->personeelsfeestId == $id){
-        $teller++ ?>
+</table>
+<table class="table" id="resultaatTable">
+    <tbody>
         
-            <td><?php echo toonAfbeelding($foto->foto, "width='350px'") ?></td>
-        
-        <?php
-        if ($teller >= 3){
-            echo "</tr><tr>";
-            
-            $teller = 0;
-        }
-        ?>
-    <?php }} ?>
+    </tbody>
+</table>
+<table class="table">
     <tr>
             <td><?php echo smallDivAnchor('home/index', 'Terug gaan', 'class="btn btn-info"')?></td>
     </tr>    

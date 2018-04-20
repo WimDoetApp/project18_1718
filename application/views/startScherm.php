@@ -56,7 +56,7 @@
     </div>
     <div>
         <h2>Beheer hier de foto's</h2>
-        <?php echo smallDivAnchor("FotosBeheren/index", "", 'class="btn btn-default"') ?>
+        <?php echo smallDivAnchor("Organisator/FotosBeheren/index", "", 'class="btn btn-default"') ?>
     </div>
     <?php }?>
    
