@@ -65,10 +65,10 @@ echo form_hidden("personeelsfeestid", $data->id);
     <div class="panel-body form-group">
         <?php
         echo smallDivAnchor("Personeelslid/GebruikerToevoegen/index/$data->id", "Gebruikers toevoegen", 'class="btn btn-default"');
-        echo smallDivAnchor("Organisator/DagOnderdeelBeheren/toonDagonderdelen/$data->id", "Dagonderdelen beheren", 'class="btn btn-default"');
+        echo smallDivAnchor("Organisator/DagonderdeelBeheren/toonDagonderdelen/$data->id", "Dagonderdelen beheren", 'class="btn btn-default"');
         echo smallDivAnchor("Organisator/Locatie/index", "Locaties beheren", 'class="btn btn-default"');
         if($gebruiker->soortId == 4){
-            echo smallDivAnchor("HoofdOrganisator/OrganisatorenBeheren/toonPersoneelsleden/$data->id", "Organisatoren beheren", 'class="btn btn-default"');
+            echo smallDivAnchor("Hoofdorganisator/OrganisatorenBeheren/toonPersoneelsleden/$data->id", "Organisatoren beheren", 'class="btn btn-default"');
         }
         ?>
     </div>
