@@ -51,6 +51,9 @@ class ActiviteitenBeheren extends CI_Controller {
         $this->load->model('Locatie_model');
         $data['locaties'] = $this->Locatie_model->getAllesBijLocatie();
         
+        $this->load->model('Personeelsfeest_model');
+        $data['personeelsfeest'] = $this->Personeelsfeest_model->getLaatsteId()->id;
+        
         $this->load->model('DagOnderdeel_model');
         $data['dagonderdelen'] = $this->DagOnderdeel_model->getAllesBijDagonderdeel();
         

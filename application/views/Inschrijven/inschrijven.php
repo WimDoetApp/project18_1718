@@ -62,7 +62,7 @@ foreach($dagonderdelen as $dagonderdeel){
             }else{
                 $commentaar = '';
             }
-            echo "<td>" . form_input(array('type' => 'text', 'name' => "commentaar[$optie->id]", 'value' => $commentaar)) . "</td>";
+            echo "<td>" . form_input(array('type' => 'text', 'name' => "commentaar[$optie->id]", 'value' => $commentaar, 'class' => 'form-control')) . "</td>";
             echo $radiobutton;
             ?>
         </tr>  

@@ -1,18 +1,19 @@
+<a href="" data-toggle="modal" data-target="#modalHulp">Hulp nodig?</a>
 <?php
 /**
  *  We geven naar elke pagina door over welk personeelsfeest het gaat
  */
-echo form_hidden("personeelsfeestid", $data->id);
 
 $attributen = array('name' => 'mijnFormulier');
 echo form_open('Organisator/PersoneelsfeestBeheren/nieuwPersoneelsfeest/' . $data->id, $attributen);
+echo form_hidden("personeelsfeestid", $data->id);
 ?>
 
-<div class='Datums'>
-    <h3>
+<div class='panel panel-default Datums'>
+    <div class="panel-heading"><h3>
         Datums:
-    </h3>
-    <div class="form-group">
+    </h3></div>
+    <div class="panel-body form-group">
         <?php
         /**
          * datum
@@ -45,35 +46,38 @@ echo form_open('Organisator/PersoneelsfeestBeheren/nieuwPersoneelsfeest/' . $dat
             <span class="glyphicon glyphicon-th"></span>
         </div>
     </div>
+    </div>
 </div>
-<div class="Exporteren">
-    <h3>
+<!-- <div class="panel panel-default Exporteren">
+    <div class="panel-heading"><h3>
         Overzicht exporteren:
-    </h3>
-    <div class="form-group">
+    </h3></div>
+    <div class="panel-body form-group">
         <?php
-        echo form_dropdownpro('id', $exporteren, 'Jaar', 'Jaar', '0');
+        //echo form_dropdownpro('id', $exporteren, 'Jaar', 'Jaar', '0');
         ?>
     </div>
-</div>
-<div class="Aanpassen">
-    <h3>
+</div> -->
+<div class="panel panel-default Aanpassen">
+    <div class="panel-heading"><h3>
         Aanpassingen maken
-    </h3>
-    <div class="form-group">
+    </h3></div>
+    <div class="panel-body form-group">
         <?php
-        echo smallDivAnchor("PersoneelsfeestBeheren/toonStartscherm/1", "Gebruikers toevoegen", 'class="btn btn-default"');
+        echo smallDivAnchor("Personeelslid/GebruikerToevoegen/index/$data->id", "Gebruikers toevoegen", 'class="btn btn-default"');
         echo smallDivAnchor("Organisator/DagOnderdeelBeheren/toonDagonderdelen/$data->id", "Dagonderdelen beheren", 'class="btn btn-default"');
-        echo smallDivAnchor("Organisator/Locatie/index", "Locatie beheren", 'class="btn btn-default"');
-        echo smallDivAnchor("HoofdOrganisator/OrganisatorenBeheren/toonPersoneelsleden/$data->id", "Organisatoren beheren", 'class="btn btn-default"');
+        echo smallDivAnchor("Organisator/Locatie/index", "Locaties beheren", 'class="btn btn-default"');
+        if($gebruiker->soortId == 4){
+            echo smallDivAnchor("HoofdOrganisator/OrganisatorenBeheren/toonPersoneelsleden/$data->id", "Organisatoren beheren", 'class="btn btn-default"');
+        }
         ?>
     </div>
 </div>
-<div class="NieuwPersoneelsfeest">
-    <h3>
+<div class="panel panel-default NieuwPersoneelsfeest">
+    <div class="panel-heading"><h3>
         Nieuw personeelsfeest:
-    </h3>
-    <div class="form-group">
+    </h3></div>
+    <div class="panel-body form-group">
         <?php
         echo smallDivAnchor("#", "Nieuw personeelsfeest", 'data-toggle="modal" data-target="#myModal" class="btn btn-default"')
         ?>
@@ -101,12 +105,14 @@ echo form_open('Organisator/PersoneelsfeestBeheren/nieuwPersoneelsfeest/' . $dat
         </div>
     </div>
 </div>
-</form>
-<div class="Importeren">
-    <h3>
+<?php 
+echo form_close();
+?>
+<div class="panel panel-default Importeren">
+    <div class="panel-heading"><h3>
         Importeren e-mailadressen:
-    </h3>
-    <div class="form-group">
+    </h3></div>
+    <div class="panel-body form-group">
         <form action="PersoneelsfeestBeheren/importeer" method="post" enctype="multipart/form-data">
             <input type="checkbox" name="formImporteren[]" value="Importeer als personeelsleden"/>Personeelsleden</br>
             <input type="checkbox" name="formImporteren[]" value="Importeer als vrijwilligers"/>Vrijwilligers</br>
@@ -114,4 +120,45 @@ echo form_open('Organisator/PersoneelsfeestBeheren/nieuwPersoneelsfeest/' . $dat
             <input type="submit" name="submit" value="Importeren" class="btn btn-default"/>
         </form>
     </div>
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalHulp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Personeelsfeest beheren</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <p>Op deze pagina kan je het personeelsfeest beheren.</p>
+          <p>Je kan de datum van het feest en de deadline aanpassen in de eerste tab.</p>
+          <p>In de tweede tab krijg je links naar verschillende pagina's:</p>
+          <ul>
+              <li>Op de pagina 'Gebruikers toevoegen' kan je personeelsleden en vrijwilligers toevoegen. Deze krijgen dan een mail aan met hun inloggegevens en een link om direct in te loggen.</li>
+              <li>Op de pagina 'Dagonderdelen beheren' kan je de dagonderdelen beheren. Je kan dagonderdelen verwijderen, aanmaken en aanpassen. Je kan de naam instellen, het begin -en einduur, en of vrijwilligers mogen deelnemen</li>
+              <li>Op de pagina 'Locaties beheren' kan je locaties aanpassen, aanmaken en verwijderen. Je kan telkens de naam en beschrijving ingeven.</li>
+              <li>Op de pagina 'Organisatoren beheren' krijg je een lijst van alle personeelsleden waarin je op naam kan zoeken. Je kan telkens zien of deze organisator zijn of niet en dit aanpassen. Let zeker op dat je je aanpassingen telkens opslaagt!</li>
+          </ul>
+          <p>
+            In de derde tab staat een knop om een nieuw personeelsfeest aan te maken. Pas op! Als je dit doet
+            kan je geen aanpassingen meer maken aan het huidige personeelsfeest, dit wordt dan als afgesloten
+            beschouwd. Gebruikers zullen niet meer kunnen inloggen! Voor het nieuwe personeelsfeest kan je kiezen 
+            of je de dagonderdelen wilt behouden en of je de organisators mee wil overnemen, zodat zij hun 
+            account kunnen blijven gebruiken.</p>
+          <p>
+            In de vierde tab kan je emailadressen importeren. Hiervoor moet je een csv bestand uploaden. Dit kan
+            je via excel aanmaken. Je maakt 3 kolommen. Je zet telkens in de eerste kolom de voornaam, in de tweede
+            de achternaam, en in de derde het emailadres van de persoon. Je slaagt dit op als .csv bestand en kan
+            het dan importeren. Alle personen in dit bestand zullen automatisch een account krijgen. Je kan kiezen
+            om ze als vrijwilligers of als personeelsleden toe te voegen.
+          </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
