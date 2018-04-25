@@ -17,19 +17,25 @@ class Taak extends CI_Controller {
         $this->load->helper('form');
     }
     
-    function index($id) {
-        //!!! $id is id van dagonderdeel
+    function index($id, $isD = false) {
         //Index pagina laden van Taken Beheren
-        //Aanmaken array taken
+        
+        //Klaarzetten Variabelen
+        //Array Taken (Complete)
         $taken = array();
-        $opties = array();
         
-        //Titel Volume 1
-        $titel = "";
+        //Variabelen klaarzetten
+        $table= 'optie';
+        $taakColumn = 'optieId';
+        //Als $id een dagonderdeelId is
+        if ($isD) {
+            $table = 'dagOnderdeel';
+            $taakColumn = 'dagOnderdeelId';
+        }
         
+        //Titel van pagina ophalen
         $this->load->model('CRUD_Model');
-        $doTitel = $this->CRUD_Model->get($id, 'dagOnderdeel');
-        $titel .= $doTitel->naam;
+        $titel = $this->CRUD_Model->get($id, $table);
         
         //Ophalen van taken via het meegegeven id, zetten in TakenIC (Taken InComplete - Niet Volledig)
         $this->load->model('Taak_model');
@@ -40,6 +46,7 @@ class Taak extends CI_Controller {
         
         //Voor elke taak-object extra attributen meegegeven (Tijd en Aantal plaatsen) -> TakenIC uitpakken
         $this->load->model('TaakShift_model');  
+
         foreach ($takenIC as $taak) {
             //Ophalen tijd en aantal plaatsen attributen
             $begin = $this->TaakShift_model->getEersteTijd($taak->id);
@@ -54,53 +61,23 @@ class Taak extends CI_Controller {
             array_push($taken, $taak);
         }
         
-        //Titel Volume 2
-        foreach ($taken as $taak) {
-            if ($taak->optieId !== null && !in_array($taak->optieId . "", $opties)) {
-                array_push($opties, $taak->optieId);
-            }
-        }
-        
-        if (count($opties) > 0) {
-            $this->load->model('Optie_model');
-            $optieTitels = $this->Optie_model->getAllByIds($opties);
-            
-            if (count($optieTitels) > 1) {
-                $titel .= " - Opties: ";
-            } else {
-                $titel .= " - Optie: ";
-            }
-            
-            $i = 0;
-            foreach ($optieTitels as $optieTitel) {
-                if ($i > 0) {
-                    $titel .= ", ";
-                }
-                
-                $titel .= $optieTitel;
-                $i++;
-            }
-        }
-        
-        //de array Taken in de Array Data zetten om doorgestuurd te worden
-        $data['taken'] = $taken;
-        
-        //het dagonderdeelId in een variabele zetten voor andere functies te kunnen laten werken
+        $data['isD'] = $isD;
         $data['doId'] = $id;
         
-        $data['titel'] = $titel;
+        $data['titel'] = $titel->naam;
+        $data['taken'] = $taken;
         
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         $partials = array('inhoud' => 'Taak beheren/overzichtTaken', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
     
-    function wijzig($taakId, $doId) {
-        //Het taakId en dagonderdeelId worden meegegeven aan de methode index van de controller TaakShift -> Redirect naar TaakShift
-        redirect("TaakShift/index/$taakId/$doId");
+    function wijzig($taakId, $doId, $isD) {
+        //Het taakId en dagonderdeelId worden meegegeven aan de methode index van de controller TaakShift -> Redirect naar TaakShift;
+        redirect("Organisator/TaakShift/index/$taakId/$doId/$isD");
     }
     
-    function voegToe($doId) {
+    function voegToe($doId, $isD) {
         //Toevoegen van een niewe taak aan een bepaald dagonderdeel
         //Nieuw (standaard leeg) object taak aanmaken
         $taak = new stdClass();
@@ -116,10 +93,11 @@ class Taak extends CI_Controller {
         $this->CRUD_Model->add($taak, 'taak');
         
         //De methode index uitvoeren van deze controller, er wordt het dagonderdeelid meegegeven waarvoor zojuist een nieuwe record was aangemaakt.
-        $this->index($doId);
+        $this->index($doId, $isD);
     }
     
-    function verwijderen($id) {
-        echo $id;
+    function verwijderen($id, $doId, $isD) {
+        echo "$id - $doId - $isD";
+        $this->index($doId, $isD);
     }
 }
