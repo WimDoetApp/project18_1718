@@ -65,7 +65,6 @@ class Optie_model extends CI_Model {
         foreach($opties as $optie){
             $optie->taak = $this->Taak_model->getAllByOptieIdWithShiften($optie->id);
         }
-
         return $opties;
     }
     
