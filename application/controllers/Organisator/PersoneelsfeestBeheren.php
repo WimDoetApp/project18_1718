@@ -59,7 +59,7 @@ class PersoneelsfeestBeheren extends CI_Controller
         $dagonderdeel->vrijwilligerMeeDoen = '0';
         $dagonderdeel->locatieId = 1;
 
-        $this->load->model('DagoOderdeel_model');
+        $this->load->model('DagOnderdeel_model');
         $this->dagonderdeel_model->insert($dagonderdeel);
     }
 
@@ -102,7 +102,7 @@ class PersoneelsfeestBeheren extends CI_Controller
 
     public function importeer()
     {
-        $target_dir = "../../assets/uploads/";
+        $target_dir = "../assets/uploads/";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
         $uploadOk = 1;
         $csvFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -137,28 +137,39 @@ class PersoneelsfeestBeheren extends CI_Controller
         if ($uploadOk == 0) {
             echo "Sorry, je bestand werd niet geupload.";
 
-        }
-
-        /**
+        } /**
          * if everything is ok, try to upload file
          */
         else {
             $bestand = basename($_FILES["fileToUpload"]["name"]);
-            var_dump($_FILES["fileToUpload"]["tmp_name"]);
-            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            var_dump($_FILES["fileToUpload"]["tmp_name"], $bestand);
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $bestand)) {
                 echo "Het bestand " . $bestand . " is succesvol geupload.";
 
                 /**
                  *  Open and read file
                  */
                 $myfile = fopen($bestand, "r") or die("Unable to open file!");
-                echo fread($myfile,filesize("$bestand"));
 
-                $data[] = array();
-                foreach ($bestand as $line) {
-                    $data[] = str_getcsv($line);
+                $data = fread($myfile, filesize("$bestand"));
+
+                $aantalrecords = substr_count($data, ';');
+                $startpositiesubstring = 0;
+                for ($i = 1; $i < $aantalrecords; $i++) {
+
+                    $startpositiemail = strpos($data, ';', $startpositiesubstring);
+                    $naam = substr($data, $startpositiesubstring, $startpositiemail);
+                    $startpositienaam = strpos($data, ' ',$startpositiesubstring);
+                    $voornaam = substr($naam, 0, $startpositienaam);
+                    $naam = substr($naam, $startpositienaam + 1, $startpositiemail - $startpositienaam);
+
+                    var_dump($naam, $voornaam, $startpositiesubstring);
+                    $startpositiesubstring = strpos($data, ' ', $startpositiemail);
                 }
-                var_dump($data);
+
+
+
+                var_dump($naam, $voornaam);
 
                 fclose($myfile);
             } else {

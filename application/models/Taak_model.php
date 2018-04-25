@@ -45,7 +45,7 @@ class Taak_model extends CI_Model {
         foreach($taken as $taak){
             $taak->shiften = $this->TaakShift_model->getAllByTaak($taak->id);
         }
-        
+
         return $taken;
     }
 }

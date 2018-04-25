@@ -19,8 +19,7 @@ class HelperTaak_model extends CI_Model {
     
     function countAllShift($id) {
         $this->db->where('taakShiftId',$id);
-        $query = $this->db->count_all_results('helperTaak');
-        return $query->row();
+        return $this->db->count_all_results('helperTaak');
     }
 }
 
