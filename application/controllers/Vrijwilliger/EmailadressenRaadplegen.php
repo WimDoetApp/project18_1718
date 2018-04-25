@@ -8,7 +8,7 @@ class EmailadressenRaadplegen extends CI_Controller
     // +----------------------------------------------------------
     // | Personeelsfeest - Jari
     // +----------------------------------------------------------
-    // | Gebruiker toevoegen controller
+    // | emailadressen raadplegen controller
     // |
     // +----------------------------------------------------------
     // | Thomas More Kempen
@@ -24,16 +24,6 @@ class EmailadressenRaadplegen extends CI_Controller
         $this->load->helper('form');
     }
 
-    /**
-<<<<<<< HEAD
-     *
-     */
-    public function index()
-    {
-        $data['titel'] = 'E-mail adressen';
-=======
-    * 
-    */
     public function index() {
         $data['titel']  = 'E-mail adressen';
         
@@ -43,7 +33,6 @@ class EmailadressenRaadplegen extends CI_Controller
         
         $this->load->model('Deelnemer_model');
         $data['organisatoren'] = $this->Deelnemer_model->getAllOrganisatoren();
->>>>>>> 2cfade93efb35b98172bda35c9dae264115228f2
 
         $partials = array('inhoud' => 'Emailadressen raadplegen/emailadressenRaadplegen', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
