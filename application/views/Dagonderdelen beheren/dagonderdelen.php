@@ -29,8 +29,8 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
             <th>Naam</th>
             <th>Beginuur</th>
             <th>Einduur</th>
-            <th>Dagonderdeel heeft taken</th>
-            <th>Vrijwilligers mogen deelnemen</th>
+            <th><span data-toggle="tooltip" title="Wanneer u deze optie aanzet, zullen de taken voor de helpers bij dit dagonderdeel horen, inplaats van nog onderverdeeld te zijn tussen de opties bij het dagonderdeel.">Dagonderdeel heeft taken</span></th>
+            <th><span data-toggle="tooltip" title="Als u deze optie aanzet, mogen vrijwilligers aan de activiteiten bij dit dagonderdeel deelnemen.">Vrijwilligers mogen deelnemen</span></th>
             <th>Locatie</th>
             <th></th>
         </tr>
@@ -49,7 +49,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
             /**
              * Opbouwen dropdownlijst met locaties
              */
-            $dropdownLocaties = "<select name=locatie[$teller]>";
+            $dropdownLocaties = "<select class='form-control' name=locatie[$teller]>";
             
             foreach($locaties as $locatie){
                 if ($locatie->id == $dagonderdeel->locatieId) {
@@ -100,18 +100,20 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
             /**
              * Weergeven tabel
              */
-            echo "<tr><td>" . form_input(array('type' => 'hidden', 'name' => "id[$teller]", 'value' => $dagonderdeel->id)) . form_input(array('type' => 'text', 'name' => "naam[$teller]", 'value' => $dagonderdeel->naam)) . "</td><td><input name=starttijd[$teller] type=time value=$dagonderdeel->starttijd></td><td><input name=eindtijd[$teller] type=time value=$dagonderdeel->eindtijd></td><td>$checkboxen</td><td>$dropdownLocaties</td><td>" . form_button($dataWijzig) . form_button($dataVerwijder) . "</td></tr>";  
+            echo "<tr><td>" . form_input(array('type' => 'hidden', 'name' => "id[$teller]", 'value' => $dagonderdeel->id, 'class' => 'form-control')) . form_input(array('type' => 'text', 'name' => "naam[$teller]", 'value' => $dagonderdeel->naam, 'class' => 'form-control')) . "</td><td><input name=starttijd[$teller] type=time class='form-control' value=$dagonderdeel->starttijd></td><td><input name=eindtijd[$teller] type=time class='form-control' value=$dagonderdeel->eindtijd></td><td>$checkboxen</td><td>$dropdownLocaties</td><td>" . form_button($dataWijzig) . form_button($dataVerwijder) . "</td></tr>";  
             
             $teller++;
         }
         ?>
         <tr>
             <td colspan="6"><?php echo form_button($dataNieuw);?></td>
-            <td><?php echo smallDivAnchor("", "Teruggaan", 'class="btn btn-info"');?></td>
+            <td><?php echo smallDivAnchor("Organisator/PersoneelsfeestBeheren/index", "Teruggaan", 'class="btn btn-info"');?></td>
         </tr>
     </tbody>
 </table>
 </div>
+
+<p>Voor tooltips: hover over de titels van de tabel.</p>
 
 <?php 
 echo form_close();
@@ -120,5 +122,9 @@ echo form_close();
 <script>
     $('.checkboxClick').on('change', function(){
         $(this).attr('value', '1');
+    });
+    
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
     });
 </script>

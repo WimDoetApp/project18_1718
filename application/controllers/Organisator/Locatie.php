@@ -26,6 +26,8 @@ class Locatie extends CI_Controller {
         /*Inladen van pagina*/
         $data['titel'] = 'Locaties Beheren';
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
+        $this->load->model('Personeelsfeest_model');
+        $data['personeelsfeest'] = $this->Personeelsfeest_model->getLaatsteId()->id;
         
         $this->load->model('CRUD_Model');
         $data['locaties'] = $this->CRUD_Model->getAll('locatie');

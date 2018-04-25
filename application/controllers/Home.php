@@ -106,4 +106,16 @@ class Home extends CI_Controller {
         $this->authex->meldAf();
         $this->index();
     }
+    
+    /**
+     * Voor mensen die niet ingelogd geraken
+     */
+    function hulp(){
+        $data['titel'] = '';
+        $data['message'] = '<p>Dit is een applicatie bestemt voor personeelsleden van de Thomas More Hogeschool in Geel en andere uitgenodigden. Accounts worden enkel per uitnodiging verzonden.</p><p>Bent u personeelslid maar hebt u geen aanmeldgegevens ontvangen in u mail? Neem dan contact op met de organisator</p>';
+        $data['refer'] = 'Home/index';
+
+        $partials = array('inhoud' => 'message', 'header' => 'Inloggen/inloggen_header', 'footer' => 'main_footer');
+        $this->template->load('main_master', $partials, $data);
+    }
 }

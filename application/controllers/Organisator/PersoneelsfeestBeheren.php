@@ -20,6 +20,18 @@ class PersoneelsfeestBeheren extends CI_Controller
         parent::__construct();
         $this->load->helper('form');
         $this->load->helper('notation');
+        
+        /**
+         * Kijken of de gebruiker de juiste rechten heeft
+         */
+        if (!$this->authex->isAangemeld()) {
+            redirect('Home/index');
+        } else {
+            $gebruiker = $this->authex->getDeelnemerInfo();
+            if ($gebruiker->soortId < 3) {
+                redirect('Home/toonStartScherm');
+            }
+        }
     }
 
     public function index()
@@ -29,17 +41,10 @@ class PersoneelsfeestBeheren extends CI_Controller
         $data['titel'] = 'Instellingen';
         $data['data'] = $this->Personeelsfeest_model->getLaatstePersoneelsfeest();
         $data['exporteren'] = $this->Personeelsfeest_model->getJarenPersoneelsfeest();
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
+        $data['personeelsfeest'] = $this->Personeelsfeest_model->getLaatsteId()->id;
 
         $partials = array('inhoud' => 'Personeelsfeest beheren/personeelsfeestBeheren', 'header' => 'main_header', 'footer' => 'main_footer');
-        $this->template->load('main_master', $partials, $data);
-    }
-
-    public function toonStartScherm($gebruiker)
-    {
-        $data['titel'] = 'Personeelsfeest';
-        $data['gebruiker'] = $gebruiker;
-
-        $partials = array('inhoud' => 'startScherm', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
 

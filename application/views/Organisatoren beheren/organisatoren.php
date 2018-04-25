@@ -7,7 +7,7 @@
  * Zoeken op naam
  */
 echo "<p><span class='glyphicon glyphicon-search'></span>";
-echo form_input(array('type' => 'text', 'id' => 'zoekInput', 'placeholder' => "Zoek op naam..")) . "</p>";
+echo form_input(array('type' => 'text', 'id' => 'zoekInput', 'placeholder' => "Zoek op naam..", 'class' => 'form-control')) . "</p>";
 /**
  * Knop om op te slagen
  */
@@ -58,7 +58,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
         ?>
         <tr>
             <td><?php echo form_button($dataOpslagen);?></td>
-            <td><?php echo smallDivAnchor("", "Teruggaan", 'class="btn btn-info"');?></td>
+            <td><?php echo smallDivAnchor("Organisator/PersoneelsfeestBeheren/index", "Teruggaan", 'class="btn btn-info"');?></td>
         </tr>
     </tbody>
 </table>
