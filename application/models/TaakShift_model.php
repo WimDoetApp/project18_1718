@@ -35,28 +35,7 @@ class TaakShift_model extends CI_Model
         $query = $this->db->get('taakShift');
         return $query->row();
     }
-
-    function getAantalPlaatsen($taakId)
-    {
-        $this->db->where('taakId', $taakId);
-        $query = $this->db->get('taakShift');
-        return $query->result();
-    }
-
-    function getAllByTaak($taakId)
-    {
-        $this->db->where('taakId', $taakId);
-        $query = $this->db->get('taakShift');
-        $taakShiften = $query->result();
-
-        $this->load->model('HelperTaak_model');
-        foreach ($taakShiften as $taakShift) {
-            $taakShift->aantalIngeschreven = $this->HelperTaak_model->countAllShift($taakShift->id);
-        }
         
-        return $taakShiften;
-    }
-
     function getAllByTaakId($id) {
         $this->db->where('taakId', $id);
         $query = $this->db->get('taakShift');
