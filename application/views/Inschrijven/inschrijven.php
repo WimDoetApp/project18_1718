@@ -13,7 +13,12 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
 /**
  * Voor elk dagonderdeel een tabel
  */
-foreach($dagonderdelen as $dagonderdeel){ ?>
+foreach($dagonderdelen as $dagonderdeel){ 
+    /**
+     * Vrijwilligers krijgen alleen maar de dagonderdelen te zien waar ze aan mogen deelnemen
+     */
+    if(!($dagonderdeel->vrijwilligerMeeDoen == "0" && $gebruiker->soortId == 1)){
+    ?>
 
 <div class="table-responsive">
 <table class="table table-striped">
@@ -33,16 +38,32 @@ foreach($dagonderdelen as $dagonderdeel){ ?>
         /**
          * Alle opties weergeven
          */
-        foreach($dagonderdeel->opties as $dagonderdeel){
+        foreach($dagonderdeel->opties as $optie){
             
-        $checkbox = "<td><input type=radio class=radioButton name=optie$dagonderdeel->id value=$optie->id />";
+        $radiobutton = "<td><input type=radio class=radioButton name=optie[$dagonderdeel->id] value=$optie->id";
+        
+        if($optie->isAllIngeschreven == true){
+            $radiobutton .= " checked/> <span style='color:green;'>Ingeschreven</span></td>";
+        }
+        else{
+            if($optie->aantalIngeschreven > $optie->maximumAantalPlaatsen){
+                $radiobutton .= " disabled='disabled'/> <span style='color:red;'>Volzet</span></td>";
+            }else{
+                $radiobutton .= " /> Inschrijven</td>";
+            }
+        }
         ?>
         
         <tr>
             <td><?php echo $optie->naam ?></td>
             <?php
-            echo "<td>" . form_input(array('type' => 'text', 'name' => "commentaar$optie->id", 'value' => '')) . "</td>";
-            echo $checkbox . " Inschrijven</td>";
+            if($optie->isAllIngeschreven == true){
+                $commentaar = $optie->commentaar;
+            }else{
+                $commentaar = '';
+            }
+            echo "<td>" . form_input(array('type' => 'text', 'name' => "commentaar[$optie->id]", 'value' => $commentaar, 'class' => 'form-control')) . "</td>";
+            echo $radiobutton;
             ?>
         </tr>  
         
@@ -50,14 +71,23 @@ foreach($dagonderdelen as $dagonderdeel){ ?>
         <tr>
             <td></td>
             <td></td>
-            <?php echo "<td><input type=radio class=radioButton name=optie$dagonderdeel->id value=0 /> Geen</td>"?>
+            <?php 
+            $radioGeen = "<td><input type=radio class=radioButton name=optie[$dagonderdeel->id] value=0";
+            
+            if($optie->isAllIngeschreven == true){
+               $radioGeen .= " /> Geen</td>";
+            }
+            else{
+               $radioGeen .= "checked /> Geen</td>"; 
+            }
+            echo $radioGeen;
+            ?>
         </tr>
     </tbody>
 </table>
 </div>
 
-<?php } ?>
-<script>
-    $( document ).ready(function() {
-    });
-</script> 
+    <?php }
+        } 
+echo "<p>" . form_submit(array('name' => 'knopSubmit', 'value' => 'Bevestigen', 'class' => 'btn btn-success')) . "</p>"; 
+echo form_close(); 

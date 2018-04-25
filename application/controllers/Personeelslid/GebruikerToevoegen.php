@@ -51,7 +51,8 @@ class GebruikerToevoegen extends CI_Controller {
     */
     public function index($personeelsfeestId) {
         $data['titel']  = 'Gebruiker toevoegen';
-        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
+        $gebruiker = $this->authex->getDeelnemerInfo();
+        $data['gebruiker'] = $gebruiker;
         $data['personeelsfeest'] = $personeelsfeestId;
         $data['errorMessage'] = "Er bestaat al een gebruiker met deze mail!";
         $data['error'] = $this->error;
@@ -59,7 +60,6 @@ class GebruikerToevoegen extends CI_Controller {
         /**
          * checken of de gebruiker een organisator of personeelslid is
          */
-        $gebruiker = $this->authex->getDeelnemerInfo();
         $data['soortId'] = $gebruiker->soortId;
 
         $partials = array('inhoud' => 'Gebruiker toevoegen/gebruikerToevoegen', 'header' => 'main_header', 'footer' => 'main_footer');
@@ -120,9 +120,26 @@ class GebruikerToevoegen extends CI_Controller {
             $this->error = true;
         }
         
-        $this->index($personeelsfeestId);
+        /**
+         * Melding weergeven
+         */
+        $data["titel"] = "Succes!";
+        $data["gebruiker"] = $this->authex->getDeelnemerInfo();
+        $data["message"] = "Gebruiker is toegevoegd!";
+        $data['personeelsfeest'] = $personeelsfeestId;
+        $data['refer'] = "Personeelslid/GebruikerToevoegen/index/$personeelsfeestId";
+            
+        $partials = array('inhoud' => 'message', 'header' => 'main_header', 'footer' => 'main_footer');
+        $this->template->load('main_master', $partials, $data);
     }
     
+    /**
+     * Mail versturen
+     * @param $geadresseerde
+     * @param $boodschap
+     * @param $titel
+     * @return als de mail verstuurd is: true, als er problemen waren: false
+     */
     private function stuurMail($geadresseerde, $boodschap, $titel) {
         $this->load->library('email');
         $this->email->from('teamachtien@gmail.com', 'Team 18');

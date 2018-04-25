@@ -36,9 +36,22 @@ class Optie_model extends CI_Model {
         /**
          * Per optie ophalen hoeveel mensen er zijn ingeschreven
          */
+        $gebruiker = $this->authex->getDeelnemerInfo();
         $this->load->model('InschrijvingsOptie_model');
         foreach($opties as $optie){
             $optie->aantalIngeschreven = $this->InschrijvingsOptie_model->countInschrijvingenByOptie($optie->id);
+            
+            /**
+             * Checken of de gebruiker al is ingeschreven voor een optie
+             */
+            $isAlIngeschreven = $this->InschrijvingsOptie_model->isAlIngeschreven($gebruiker->id, $optie->id);
+            
+            if(!empty($isAlIngeschreven)){
+                $optie->isAllIngeschreven = true;
+                $optie->commentaar = $isAlIngeschreven[0]->commentaar;
+            }else{
+                $optie->isAllIngeschreven = false;
+            }
         }
         
         return $opties;

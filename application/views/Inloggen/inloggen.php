@@ -22,7 +22,7 @@ $attributes = array('name' => 'mijnFormulier', 'class' => 'form-signin');
                 echo form_input(array('type' => 'password', 'name' => 'wachtwoord', 'placeholder' => 'wachtwoord', 'class' => 'form-control', 'required' => 'required'));
                 echo form_button($dataInloggen);
                 ?>
-                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                <a href="<?php echo base_url("index.php/Home/hulp"); ?>" class="pull-right need-help">Hulp nodig? </a><span class="clearfix"></span>
                 <?php echo form_close(); ?>
             </div>
         </div>
