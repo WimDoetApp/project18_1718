@@ -1,5 +1,9 @@
 
 <?php
+/** 
+ * @author Jari Mathé
+ */
+
 /**
 * Data geven voor het dropdown menu van locatie
 */

@@ -94,7 +94,7 @@ class ActiviteitenBeheren extends CI_Controller {
      /**
      * herlaad de pagina
      */
-            redirect('ActiviteitenBeheren/index');
+            redirect('Organisator/ActiviteitenBeheren/index');
 	}
 }
 
