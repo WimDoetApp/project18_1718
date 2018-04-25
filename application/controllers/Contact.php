@@ -6,7 +6,7 @@ class Contact extends CI_Controller {
 
     /**
      * Controller contactpagina
-     * @author: Wim Naudts
+     * @author Wim Naudts
      */
     public function __construct() {
         parent::__construct();

@@ -1,6 +1,6 @@
 <?php 
 /**
- * Verantwoordelijke: Wim Naudts
+ * @author Wim Naudts
  */
 /**
  * Knop om nieuw dagonderdeel aan te maken

@@ -67,6 +67,7 @@ echo form_hidden("personeelsfeestid", $data->id);
         echo smallDivAnchor("Personeelslid/GebruikerToevoegen/index/$data->id", "Gebruikers toevoegen", 'class="btn btn-default"');
         echo smallDivAnchor("Organisator/DagonderdeelBeheren/toonDagonderdelen/$data->id", "Dagonderdelen beheren", 'class="btn btn-default"');
         echo smallDivAnchor("Organisator/Locatie/index", "Locaties beheren", 'class="btn btn-default"');
+        echo smallDivAnchor("Organisator/Overzicht/index/$data->id", "Activiteiten en Taken beheren", 'class="btn btn-default"');
         if($gebruiker->soortId == 4){
             echo smallDivAnchor("Hoofdorganisator/OrganisatorenBeheren/toonPersoneelsleden/$data->id", "Organisatoren beheren", 'class="btn btn-default"');
         }
@@ -141,6 +142,7 @@ echo form_close();
               <li>Op de pagina 'Gebruikers toevoegen' kan je personeelsleden en vrijwilligers toevoegen. Deze krijgen dan een mail aan met hun inloggegevens en een link om direct in te loggen.</li>
               <li>Op de pagina 'Dagonderdelen beheren' kan je de dagonderdelen beheren. Je kan dagonderdelen verwijderen, aanmaken en aanpassen. Je kan de naam instellen, het begin -en einduur, en of vrijwilligers mogen deelnemen</li>
               <li>Op de pagina 'Locaties beheren' kan je locaties aanpassen, aanmaken en verwijderen. Je kan telkens de naam en beschrijving ingeven.</li>
+              <li>Op de pagina 'Activiteiten en Taken beheren' kan je per dagonderdeel de activiteiten en de taken aanpassen, aanmaken en verwijderen.</li>
               <?php if($gebruiker->soortId == 4){ ?>
               <li>Op de pagina 'Organisatoren beheren' krijg je een lijst van alle personeelsleden waarin je op naam kan zoeken. Je kan telkens zien of deze organisator zijn of niet en dit aanpassen. Let zeker op dat je je aanpassingen telkens opslaagt!</li>
               <?php } ?>

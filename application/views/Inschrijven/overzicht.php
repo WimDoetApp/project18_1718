@@ -1,3 +1,8 @@
+<?php
+/**
+ * @author Wim Naudts
+ */
+?>
 <h2>Overzicht inschrijving</h2>
 
 <div class="table-responsive">

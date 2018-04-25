@@ -16,7 +16,7 @@ class ActiviteitenBeheren extends CI_Controller {
 
     /**
      * Controller Dagonderdelen beheren
-     * @author Jari Mathé
+     * @author Jari Mathé, Wim Naudts
      */
 
 
@@ -27,6 +27,8 @@ class ActiviteitenBeheren extends CI_Controller {
          * Laad de helper voor formulieren
         */
         $this->load->helper('form');
+        $this->load->model('Optie_model');
+        $this->load->model('Personeelsfeest_model');
         
         /**
          * Kijken of de gebruiker de juiste rechten heeft
@@ -44,64 +46,90 @@ class ActiviteitenBeheren extends CI_Controller {
     /**
     * Open de pagina met connectie tot de data van personeelsfeest_locatie en personeelsfeest_dagonderdeel
     */
-    public function index() {
-        $data['titel']  = 'Leveranciers';
+    public function index($optieId, $dagonderdeelId) {
+        $personeelsfeestId = $this->Personeelsfeest_model->getLaatsteId()->id;
+        $data['personeelsfeest'] = $personeelsfeestId;
+        
+        $id = 0;
+        $naam = "";
+        $beschrijving = "";
+        $minimum = 0;
+        $maximum = 0;
+        $locatie = "";
+        $button = 'Toevoegen';
+        
+        if($optieId != 0){
+            $optie = $this->Optie_model->get($optieId);
+            
+            $id = $optie->id;
+            $naam = $optie->naam;
+            $beschrijving = $optie->beschrijving;
+            $minimum = $optie->minimumAantalPlaatsen;
+            $maximum = $optie->maximumAantalPlaatsen;
+            $locatie = $optie->locatieId;
+            $button = 'Aanpassen';
+        }
+        
+        $data['naam'] = $naam;
+        $data['beschrijving'] = $beschrijving;
+        $data['minimum'] = $minimum;
+        $data['maximum'] = $maximum;
+        $data['locatieId'] = $locatie;
+        $data['dagonderdeelId'] = $dagonderdeelId;
+        $data['button'] = $button;
+        $data['id'] = $id;
+        
+        $data['titel']  = 'Nieuwe activiteit';
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
         $this->load->model('Locatie_model');
         $data['locaties'] = $this->Locatie_model->getAllesBijLocatie();
         
-        $this->load->model('Personeelsfeest_model');
-        $data['personeelsfeest'] = $this->Personeelsfeest_model->getLaatsteId()->id;
-        
         $this->load->model('DagOnderdeel_model');
-        $data['dagonderdelen'] = $this->DagOnderdeel_model->getAllesBijDagonderdeel();
+        $data['dagonderdelen'] = $this->DagOnderdeel_model->getAllByStartTijd($personeelsfeestId);
         
         $partials = array('inhoud' => 'Activiteiten beheren/nieuweActiviteit', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
     
     /**
-     * Alle ingevulde data doorsturen naar de database personeelsfeest_optie
-     */
-    public function registreer()
-	{
-            $info = new stdClass();
-            
-            $info->naam = $this->input->post('naam');
-            $info->beschrijving = $this->input->post('beschrijving');
-            $info->minimumAantalPlaatsen = $this->input->post('minimumAantalPlaatsen');
-            $info->maximumAantalPlaatsen = $this->input->post('maximumAantalPlaatsen');
-            
-
-            /**
-     * add id van locatie
-     */
-            $locatieId = $this->input->post('locatie');
-            $info->locatieId = $locatieId;
-
-            /**
-     * add id van dagonderdeel
-     */
-            $dagOnderdeelId = $this->input->post('dagonderdeel');
-            $info->dagOnderdeelId = $dagOnderdeelId;
-            
-             /**
-     * zorgen dat het naar de optie database wordt gestuurrd
-     */   
-            $this->load->model('Optie_model');
-            $id = $this->Optie_model->insert($info);
-     /**
-     * herlaad de pagina
-     */
-            redirect('Organisator/ActiviteitenBeheren/index');
-	}
+    * Alle ingevulde data doorsturen naar de database personeelsfeest_optie
+    */
+    public function input(){
+        $personeelsfeestId = $this->Personeelsfeest_model->getLaatsteId()->id;
+        
+        $optie = new stdClass();
+        
+        $optie->naam = $this->input->post('naam');
+        $optie->beschrijving = $this->input->post('beschrijving');
+        $optie->minimumAantalPlaatsen = $this->input->post('minimumAantalPlaatsen');
+        $optie->maximumAantalPlaatsen = $this->input->post('maximumAantalPlaatsen');
+        $optie->locatieId = $this->input->post('locatie');
+        $optie->dagOnderdeelId = $this->input->post('dagonderdeel');
+        
+        if (isset($_POST['Toevoegen'])) {
+            $id = $this->Optie_model->insert($optie);
+        }else{
+            if(isset($_POST['Aanpassen'])){
+                $optie->id = $this->input->post('optieId');
+                $id = $this->Optie_model->update($optie);
+            }
+        }
+        
+        /**
+        * Teruggaan
+        */
+        redirect("Organisator/Overzicht/index/$personeelsfeestId");
+    }
+    
+    public function verwijderActiviteit($optieId){
+        $this->Optie_model->delete($optieId);
+        
+        /**
+        * Teruggaan
+        */
+        $personeelsfeestId = $this->Personeelsfeest_model->getLaatsteId()->id;
+        redirect("Organisator/Overzicht/index/$personeelsfeestId");
+    }
 }
-
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 

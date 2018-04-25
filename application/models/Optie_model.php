@@ -94,6 +94,26 @@ class Optie_model extends CI_Model {
         
         return $titels;
     }
+    
+    /**
+     * tabel updaten
+     * @param $optie de optie de we updaten
+     */
+    function update($optie)
+    {
+        $this->db->where('id', $optie->id);
+        $this->db->update('optie', $optie);
+    }
+    
+    /**
+     * optie verwijderen
+     * @param $id id van de optie die we willen verwijderen
+     */
+    function delete($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('optie');
+    }
 }
 
 
