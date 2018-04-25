@@ -22,7 +22,7 @@ $dataOpslagen = array(
  * formulier openen
  */
 $attributes = array('name' => 'mijnFormulier');
-echo form_open('Organisator/OrganisatorenBeheren/wijzig', $attributes);
+echo form_open('HoofdOrganisator/OrganisatorenBeheren/wijzig', $attributes);
 /**
  * We geven altijd naar elke pagina door over welk personeelsfeest het gaat
  */

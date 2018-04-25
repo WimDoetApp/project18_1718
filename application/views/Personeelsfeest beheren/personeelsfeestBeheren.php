@@ -95,6 +95,7 @@ echo form_hidden("personeelsfeestid", $data->id);
                         <input type="checkbox" name="nieuwDagonderdeel"/> Dagonderdelen met de opties van
                         vorig jaar behouden</br>
                         <input type="checkbox" name="nieuwOrganisatoren"/> Organisatoren behouden</br>
+                        <p class="text-danger">Wanneer je op bevestigen klikt, wordt het huidige personeelsfeest afgesloten! Klik vanboven op de hulp knop voor meer informatie.</p>
                     </div>
                     <div class="modal-footer">
                         <?php echo form_submit('knop', 'Bevestig', 'class="btn btn-default"') ?>
@@ -140,14 +141,16 @@ echo form_close();
               <li>Op de pagina 'Gebruikers toevoegen' kan je personeelsleden en vrijwilligers toevoegen. Deze krijgen dan een mail aan met hun inloggegevens en een link om direct in te loggen.</li>
               <li>Op de pagina 'Dagonderdelen beheren' kan je de dagonderdelen beheren. Je kan dagonderdelen verwijderen, aanmaken en aanpassen. Je kan de naam instellen, het begin -en einduur, en of vrijwilligers mogen deelnemen</li>
               <li>Op de pagina 'Locaties beheren' kan je locaties aanpassen, aanmaken en verwijderen. Je kan telkens de naam en beschrijving ingeven.</li>
+              <?php if($gebruiker->soortId == 4){ ?>
               <li>Op de pagina 'Organisatoren beheren' krijg je een lijst van alle personeelsleden waarin je op naam kan zoeken. Je kan telkens zien of deze organisator zijn of niet en dit aanpassen. Let zeker op dat je je aanpassingen telkens opslaagt!</li>
+              <?php } ?>
           </ul>
           <p>
-            In de derde tab staat een knop om een nieuw personeelsfeest aan te maken. Pas op! Als je dit doet
-            kan je geen aanpassingen meer maken aan het huidige personeelsfeest, dit wordt dan als afgesloten
+            In de derde tab staat een knop om een nieuw personeelsfeest aan te maken. <span class="text-danger">Pas op! Als je dit doet
+            kan je geen aanpassingen meer maken aan het huidige personeelsfeest,</span> dit wordt dan als afgesloten
             beschouwd. Gebruikers zullen niet meer kunnen inloggen! Voor het nieuwe personeelsfeest kan je kiezen 
             of je de dagonderdelen wilt behouden en of je de organisators mee wil overnemen, zodat zij hun 
-            account kunnen blijven gebruiken.</p>
+            account kunnen blijven gebruiken. Locaties blijven ook bestaan.</p>
           <p>
             In de vierde tab kan je emailadressen importeren. Hiervoor moet je een csv bestand uploaden. Dit kan
             je via excel aanmaken. Je maakt 3 kolommen. Je zet telkens in de eerste kolom de voornaam, in de tweede
