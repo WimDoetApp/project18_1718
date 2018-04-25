@@ -70,10 +70,34 @@ class FotosBeheren extends CI_Controller {
                 }   
                 else
                 {
-                    $data = array('upload_data' => $this->upload->data());
+                   $data = array('upload_data' => $this->upload->data());
+                  
+                   /**
+                    * upload in database
+                   */
+                   $info = new stdClass();
 
-                    redirect('Organisator/FotosBeheren/index', $data);
+                   $info->foto = $this->input->post('userfile');
+
+                   $this->load->model('Personeelsfeest_model');
+                   $personeelsfeestId = $this->Personeelsfeest_model->getLaatstePersoneelsfeest();
+                   $info->personeelsfeestId = $personeelsfeestId->id;
+
+                   $this->load->model('CRUD_Model');
+                   $id = $this->CRUD_Model->add($info, 'foto');
+                   
+                   redirect('Organisator/FotosBeheren/index', $data);
                 }
+        }
+        
+         public function delete_image()
+        {
+             $id = $this->input->get('idFoto');
+             
+             echo var_dump($id);
+             
+             $this->load->model('CRUD_Model');
+             $this->CRUD_Model->delete($id, 'foto');
         }
 } 
 /* 
