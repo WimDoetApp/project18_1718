@@ -22,20 +22,21 @@ foreach($dagonderdelen as $index => $dagonderdeel){
      */
     if(!($dagonderdeel->vrijwilligerMeeDoen == "0" && $gebruiker->soortId == 1)){
         
+        $alIngeschreven = false; //voor geen knop
+        
         $radioKlasse = "";
         
         /**
          * Voor conflicterende tijden
          */
         if(array_key_exists($index-1, $dagonderdelen) && array_key_exists($index+1, $dagonderdelen) && $dagonderdeel->starttijd < $dagonderdelen[$index-1]->eindtijd && $dagonderdeel->eindtijd > $dagonderdelen[$index+1]->starttijd){
-            $radioKlasse = "conflictLang";
+            $radioKlasse = " conflictLang";
         }else{
             if((array_key_exists($index-1, $dagonderdelen) && $dagonderdeel->starttijd < $dagonderdelen[$index-1]->eindtijd) || (array_key_exists($index+1, $dagonderdelen) && $dagonderdeel->eindtijd > $dagonderdelen[$index+1]->starttijd)){
-                $radioKlasse = "conflictKort";
+                $radioKlasse = " conflictKort";
             }
         }
     ?>
-
 <div class="table-responsive">
 <table class="table table-striped">
     <thead>
@@ -56,10 +57,11 @@ foreach($dagonderdelen as $index => $dagonderdeel){
          */
         foreach($dagonderdeel->opties as $optie){
             
-        $radiobutton = "<td><input type=radio name=optie[$dagonderdeel->id] value=$optie->id class='radio $radioKlasse'";
+        $radiobutton = "<td><input type=radio name=optie[$dagonderdeel->id] value=$optie->id class='radio$radioKlasse'";
         
         if($optie->isAllIngeschreven == true){
             $radiobutton .= " checked/> <span style='color:green;'>Ingeschreven</span></td>";
+            $alIngeschreven = true; //voor geen knop
         }
         else{
             if($optie->aantalIngeschreven > $optie->maximumAantalPlaatsen){
@@ -96,7 +98,7 @@ foreach($dagonderdelen as $index => $dagonderdeel){
             <?php 
             $radioGeen = "<td><input type=radio class=radioButton name=optie[$dagonderdeel->id] value=0";
             
-            if($optie->isAllIngeschreven == true){
+            if($alIngeschreven == true){
                $radioGeen .= " /> Geen</td>";
             }
             else{

@@ -40,5 +40,17 @@ class Overzicht extends CI_Controller {
         $partials = array('inhoud' => 'Overzicht/overzichtDagonderdelen', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
+    
+    /**
+     * Met JSON telkens de deelnemers bij een optie ophalen
+     */
+    public function haalDeelnemersOpJson(){
+        $optieId = $this->input->get('optieId');
+        
+        $this->load->model('InschrijvingsOptie_model');
+        $inschrijfOpties = $this->InschrijvingsOptie_model->getIngeschrevenBijOptie($optieId);
+        
+        echo json_encode($inschrijfOpties);
+    }
 }
 

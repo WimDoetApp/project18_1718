@@ -48,6 +48,12 @@ class Taak_model extends CI_Model {
 
         return $taken;
     }
+    
+    function get($id){
+        $this->db->where('id', $id);
+        $query = $this->db->get('taak');
+        return $query->row();
+    }
 }
 
 

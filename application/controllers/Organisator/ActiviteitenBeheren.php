@@ -57,6 +57,7 @@ class ActiviteitenBeheren extends CI_Controller {
         $maximum = 0;
         $locatie = "";
         $button = 'Toevoegen';
+        $titel  = 'Nieuwe activiteit';
         
         if($optieId != 0){
             $optie = $this->Optie_model->get($optieId);
@@ -68,6 +69,7 @@ class ActiviteitenBeheren extends CI_Controller {
             $maximum = $optie->maximumAantalPlaatsen;
             $locatie = $optie->locatieId;
             $button = 'Aanpassen';
+            $titel = 'Activiteit aanpassen';
         }
         
         $data['naam'] = $naam;
@@ -79,7 +81,7 @@ class ActiviteitenBeheren extends CI_Controller {
         $data['button'] = $button;
         $data['id'] = $id;
         
-        $data['titel']  = 'Nieuwe activiteit';
+        $data['titel'] = $titel;
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
         $this->load->model('Locatie_model');
