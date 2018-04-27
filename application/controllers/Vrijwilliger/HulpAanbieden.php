@@ -42,10 +42,14 @@ class HulpAanbieden extends CI_Controller
          * Data opvullen en doorsturen naar de pagina
          */
         $data['titel'] = 'Hulp aanbieden';
+        $data['personeelsfeest'] = $personeelsfeestId;
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         $data['dagonderdelen'] = $this->DagOnderdeel_model->getAllByStartTijdWithOptiesWithTakenWithShiften($personeelsfeestId);
         $partials = array('inhoud' => 'Hulp aanbieden/hulpAanbieden', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
+    }
+    public function inschrijven() {
+
     }
 }
 /*

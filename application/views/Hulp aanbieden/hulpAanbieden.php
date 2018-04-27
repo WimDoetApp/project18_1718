@@ -17,7 +17,6 @@ foreach ($dagonderdelen as $dagonderdeel) {
                 $ingeschreven += $shift->aantalIngeschreven;
                 $maxAantal += $shift->aantalPlaatsen;
             }
-            var_dump($taak);
         }
         echo "<td>dagonderdeelTaak: " . $dagonderdeel->naam . "</td>";
     } else {
@@ -44,7 +43,8 @@ foreach ($dagonderdelen as $dagonderdeel) {
         echo "<td><a href='#'class='btn btn-default'>Inschrijven</a></td>";
     }
     echo "<td>" . $ingeschreven . "/" . $maxAantal . "</td>";
-
+var_dump($dagonderdeel);
+echo "<br />";
 }
 
 echo '</tr></table>';

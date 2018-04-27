@@ -15,7 +15,7 @@ $soort = $gebruiker->soortId;
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h2>Bied hier je hulp aan voor het personeelsfeest</h2></div>
-    <div class="panel-body"><?php echo smallDivAnchor("", "Hulp aanbieden", 'class="btn btn-default"') ?></div>
+    <div class="panel-body"><?php echo smallDivAnchor("Vrijwilliger/HulpAanbieden/index/$personeelsfeest", "Hulp aanbieden", 'class="btn btn-default"') ?></div>
 </div>
 <?php
 /**

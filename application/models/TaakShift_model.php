@@ -11,15 +11,16 @@ class TaakShift_model extends CI_Model
     {
         parent::__construct();
     }
-    
-    function getWithTaak($id){
+
+    function getWithTaak($id)
+    {
         $this->db->where('id', $id);
         $query = $this->db->get('taakShift');
         $taakShift = $query->row();
-        
+
         $this->load->model('Taak_model');
         $taakShift->taak = $this->Taak_model->get($taakShift->taakId);
-        
+
         return $taakShift;
     }
 
@@ -46,19 +47,21 @@ class TaakShift_model extends CI_Model
         $query = $this->db->get('taakShift');
         return $query->row();
     }
-        
-    function getAllByTaakId($id) {
+
+    function getAllByTaakId($id)
+    {
         $this->db->where('taakId', $id);
         $query = $this->db->get('taakShift');
         return $query->result();
     }
-        
-    function getWithTaken($id){
+
+    function getWithTaken($id)
+    {
 
         $this->db->where('id', $id);
         $query = $this->db->get('taakShift');
         $taakShift = $query->row();
-        
+
 
         $this->load->model('CRUD_Model');
         $taakShift->taak = $this->CRUD_Model->get($taakShift->taakId, 'taak');
@@ -66,9 +69,23 @@ class TaakShift_model extends CI_Model
         $this->load->model('Taak_model');
         $taakShift->taak = $this->Taak_model->get($taakShift->taakId);
 
-        
+
         return $taakShift;
-    }    
+    }
+
+    function getAllByTaak($taakId)
+    {
+        $this->db->where('taakId', $taakId);
+        $query = $this->db->get('taakShift');
+        $taakShiften = $query->result();
+
+        $this->load->model('HelperTaak_model');
+        foreach ($taakShiften as $taakShift) {
+            $taakShift->aantalIngeschreven = $this->HelperTaak_model->countAllShift($taakShift->id);
+        }
+
+        return $taakShiften;
+    }
 }
 
 
