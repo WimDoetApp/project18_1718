@@ -25,13 +25,8 @@ class Taak extends CI_Controller {
         $taken = array();
         
         //Variabelen klaarzetten
-        $table= 'optie';
-        $taakColumn = 'optieId';
-        //Als $id een dagonderdeelId is
-        if ($isD) {
-            $table = 'dagOnderdeel';
-            $taakColumn = 'dagOnderdeelId';
-        }
+        $table= ($isD) ? 'dagOnderdeel' : 'optie';
+        $taakColumn = ($isD) ? 'dagOnderdeelId' : 'optieId';
         
         //Titel van pagina ophalen
         $this->load->model('CRUD_Model');
@@ -42,10 +37,7 @@ class Taak extends CI_Controller {
         $takenIC = $this->Taak_model->getAllByDagOnderdeel($id);
         
         //Voor elke taak-object extra attributen meegegeven (Tijd en Aantal plaatsen) -> TakenIC uitpakken
-        $this->load->model('Taakshift_model');  
-        
-        //Voor elke taak-object extra attributen meegegeven (Tijd en Aantal plaatsen) -> TakenIC uitpakken
-        $this->load->model('TaakShift_model');  
+        $this->load->model('Taakshift_model');   
 
         foreach ($takenIC as $taak) {
             //Ophalen tijd en aantal plaatsen attributen
@@ -66,6 +58,10 @@ class Taak extends CI_Controller {
         
         $data['titel'] = $titel->naam;
         $data['taken'] = $taken;
+        
+        $this->load->model('CRUD_Model');
+        $row = $this->CRUD_Model->getLast('id', 'personeelsfeest');
+        $data['personeelsfeest'] = $row->id;
         
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         $partials = array('inhoud' => 'Taak beheren/overzichtTaken', 'header' => 'main_header', 'footer' => 'main_footer');
