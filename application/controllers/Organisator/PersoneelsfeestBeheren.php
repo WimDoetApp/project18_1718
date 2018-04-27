@@ -7,7 +7,7 @@ class PersoneelsfeestBeheren extends CI_Controller
 
     /**
      * Controller Personeelsfeest Beheren
-     * @author Bram Van Bergen
+     * @author Bram Van Bergen, Wim Naudts
      */
 
 
@@ -78,7 +78,7 @@ class PersoneelsfeestBeheren extends CI_Controller
         $personeelsfeest = new stdClass();
         $personeelsfeest->id = $personeelsfeestId;
         $personeelsfeest->datum = $datum;
-        $personeelsfeest->deadline = $deadline;
+        $personeelsfeest->inschrijfDeadline = $deadline;
 
 
 
@@ -98,9 +98,7 @@ class PersoneelsfeestBeheren extends CI_Controller
                     $dagonderdeel->personeelsfeestId += 1;
                     $this->Personeelsfeest_model->insertDagonderdeel($dagonderdeel);
                 }
-            } else {
-                var_dump("leeg");
-            }
+            } 
             if (isset($_POST['nieuwOrganisatoren'])) {
                 $organisatoren = $this->Personeelsfeest_model->getOrganisatorenVanPersoneelsfeest($id);
 
@@ -108,12 +106,8 @@ class PersoneelsfeestBeheren extends CI_Controller
                     $organisator->personeelsfeestId += 1;
                     $this->Personeelsfeest_model->insertOrganisatoren($organisator);
                 }
-            } else {
-                var_dump("leeg");
-            }
-        } else {
-            var_dump("STOP ME DEES TE DOEN KUTDING");
-        }
+            } 
+        } 
 
         $this->index();
     }

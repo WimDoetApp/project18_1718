@@ -1,12 +1,15 @@
 <a href="" data-toggle="modal" data-target="#modalHulp">Hulp nodig?</a>
 <?php
 /**
+ * @author Bram Van Bergen, Wim Naudts
+ */
+/**
  *  We geven naar elke pagina door over welk personeelsfeest het gaat
  */
 
 $attributen = array('name' => 'mijnFormulier');
 echo form_open('Organisator/PersoneelsfeestBeheren/nieuwPersoneelsfeest/' . $data->id, $attributen);
-echo form_hidden("personeelsfeestid", $data->id);
+echo form_hidden("personeelsfeestId", $data->id);
 ?>
 
 <div class='panel panel-default Datums'>
