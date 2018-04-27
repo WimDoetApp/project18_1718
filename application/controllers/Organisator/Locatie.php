@@ -78,7 +78,7 @@ class Locatie extends CI_Controller {
         //ALS (name="action") -> NIET "wijzig" IS wordt Locatie->verwijder() uitgevoerd
         $knop = $this->input->post('action');
         
-        if ($knop == "wijzig") {
+        if ($knop == "Wijzig") {
             $this->wijzig();
         } else {
             $this->verwijder();

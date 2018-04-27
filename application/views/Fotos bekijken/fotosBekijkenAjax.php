@@ -1,4 +1,8 @@
 <?php
+/**
+* @author Jari Mathé
+*/
+
 $teller = 0;
 ?>
 

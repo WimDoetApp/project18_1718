@@ -23,6 +23,15 @@ class FotosBeheren extends CI_Controller {
         $this->load->helper('html');
         $this->load->helper(array('form', 'url'));
         $this->load->library('upload');
+        
+        if (!$this->authex->isAangemeld()) {
+            redirect('Home/index');
+        } else {
+            $gebruiker = $this->authex->getDeelnemerInfo();
+            if ($gebruiker->soortId < 3) {
+                redirect('Home/toonStartScherm');
+            }
+        }
     }
     
     /**
@@ -30,13 +39,14 @@ class FotosBeheren extends CI_Controller {
     */
     public function index() {
         $data['titel']  = "Foto's beheren";
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
+        
+        $this->load->model('Personeelsfeest_model');
+        $data['personeelsfeest'] = $this->Personeelsfeest_model->getLaatsteId()->id;
 
         $this->load->model('CRUD_Model');
         $data['jaartallen'] = $this->CRUD_Model->getAll('personeelsfeest');
-        
-        $this->load->model('CRUD_Model');
-        $data['fotos'] = $this->CRUD_Model->getAll('foto');
-        
+
         $partials = array('inhoud' => 'Fotos beheren/fotosBeheren' , 'header' => 'main_header', 'footer' => 'main_footer');
         $error = array('error' => ' ' );
         $this->template->load('main_master', $partials, $data, $error);
@@ -92,12 +102,24 @@ class FotosBeheren extends CI_Controller {
         
          public function delete_image()
         {
-             $id = $this->input->get('idFoto');
-             
-             echo var_dump($id);
-             
-             $this->load->model('CRUD_Model');
-             $this->CRUD_Model->delete($id, 'foto');
+            
+            $id = $this->input->get('id');
+
+            $this->load->model('CRUD_Model');
+            
+            /**
+            * Verwijder afbeelding uit de folder
+            */
+            $afbeelding = $this->CRUD_Model->get($id, 'foto');
+            $naam = $afbeelding->foto;
+            unlink("assets/images/".$naam);
+            /**
+            * Verwijder afbeelding uit de database
+            */
+            $this->CRUD_Model->delete($id, 'foto');
+           
+            
+            redirect('Organisator/FotosBeheren/index');
         }
 } 
 /* 

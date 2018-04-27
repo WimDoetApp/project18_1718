@@ -22,14 +22,34 @@ class EmailadressenRaadplegen extends CI_Controller
          * Laad de helper voor formulieren
          */
         $this->load->helper('form');
+        
+        if (!$this->authex->isAangemeld()) {
+            redirect('Home/index');
+        } else {
+            $gebruiker = $this->authex->getDeelnemerInfo();
+            if ($gebruiker->soortId > 1) {
+                redirect('Home/toonStartScherm');
+            }
+        }
     }
 
     public function index() {
         $data['titel']  = 'E-mail adressen';
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
+        $this->load->model('Personeelsfeest_model');
+        $personeelsfeest = $this->Personeelsfeest_model->getLaatsteId()->id;
+        $data['personeelsfeest'] = $personeelsfeest;
         
-        $this->load->model('Deelnemer_model');
-        $data['vrijwilligers'] = $this->Deelnemer_model->getAllVrijwilligers();
+        $this->load->model('HelperTaak_model');
+        $helperTaken = $this->HelperTaak_model->getAllWithTaakAndDeelnemer();
+        
+        foreach($helperTaken as $helperTaak) {
+            if($helperTaak->deelnemer->soortId == 1 && $helperTaak->deelnemer->personeelsfeestId == $personeelsfeest) {
+                $takenMetDeelnemers[$helperTaak->taakShift->taak->naam][] = $helperTaak->deelnemer;
+            }
+        }
+        $data['takenMetDeelnemers'] = $takenMetDeelnemers;
         
         $this->load->model('Deelnemer_model');
         $data['organisatoren'] = $this->Deelnemer_model->getAllOrganisatoren();

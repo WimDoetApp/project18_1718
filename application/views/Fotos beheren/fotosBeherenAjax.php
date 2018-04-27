@@ -1,4 +1,8 @@
 <?php
+/**
+* @author Jari Mathé
+*/
+
 $teller = 0;
 ?>
 
@@ -9,7 +13,7 @@ $teller = 0;
        
         $teller++ ?>
         
-    <td><?php echo form_hidden('idFoto', $foto->id); echo toonAfbeelding($foto->foto, "width='350px'"); echo smallDivAnchor('Organisator/FotosBeheren/delete_image', "Verwijder", 'class="btn btn-danger"'); ?> </td>
+    <td><?php echo toonAfbeelding($foto->foto, "width='350px'"); echo smallDivAnchor("Organisator/FotosBeheren/delete_image?id=$foto->id", "Verwijder", 'class="btn btn-danger"'); ?> </td>
         
         <?php
         if ($teller >= 3){
