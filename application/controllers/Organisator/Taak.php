@@ -37,7 +37,7 @@ class Taak extends CI_Controller {
         $takenIC = $this->Taak_model->getAllByDagOnderdeel($id);
         
         //Voor elke taak-object extra attributen meegegeven (Tijd en Aantal plaatsen) -> TakenIC uitpakken
-        $this->load->model('Taakshift_model');   
+        $this->load->model('TaakShift_model');   
 
         foreach ($takenIC as $taak) {
             //Ophalen tijd en aantal plaatsen attributen
