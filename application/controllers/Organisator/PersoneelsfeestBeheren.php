@@ -5,14 +5,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class PersoneelsfeestBeheren extends CI_Controller
 {
 
-    // +----------------------------------------------------------
-    // | Personeelsfeest
-    // +----------------------------------------------------------
-    // | PersoneelsfeestBeheren controller
-    // |
-    // +----------------------------------------------------------
-    // | Thomas More Kempen
-    // +----------------------------------------------------------
+    /**
+     * Controller Personeelsfeest beheren
+     * @author Bram Van Bergen
+     */
 
 
     public function __construct()
@@ -44,6 +40,7 @@ class PersoneelsfeestBeheren extends CI_Controller
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         $data['personeelsfeest'] = $this->Personeelsfeest_model->getLaatsteId()->id;
 
+
         $partials = array('inhoud' => 'Personeelsfeest beheren/personeelsfeestBeheren', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
@@ -70,20 +67,22 @@ class PersoneelsfeestBeheren extends CI_Controller
         /**
          * Nieuw personeelsfeest aanmaken
          */
-        $strdatum = strtotime($_POST['datum']);
-        $datum = date('Y-m-d',$strdatum);
-        $strdeadline = strtotime($_POST['deadline']);
-        $deadline = date('Y-m-d',$strdeadline);
+        $strdatum = $_POST['datum'];
+        $datum = date('Y-m-d', $strdatum);
+
+        //$strdeadline = strtotime($_POST['deadline']);
+        //$deadline = date_create_from_format('Y-m-d', $strdeadline);
+
 
         if (isset($_POST['knopDatum'])) {
             $this->Personeelsfeest_model->setDatumPersoneelsfeest($id, $datum);
             $this->Personeelsfeest_model->setDeadlinePersoneelsfeest($id, $deadline);
-            var_dump($datum, $deadline);
+            var_dump($datum/*, $deadline*/);
         } else if (isset($_POST['knop'])) {
             $personeelsfeest = new stdClass();
             $personeelsfeest->id = $id + 1;
             $personeelsfeest->datum = $datum;
-            $personeelsfeest->inschrijfDeadline = $deadline;
+            //$personeelsfeest->inschrijfDeadline = $deadline;
 
             $this->Personeelsfeest_model->insertPersoneelsfeest($personeelsfeest);
 
