@@ -68,10 +68,12 @@ class PersoneelsfeestBeheren extends CI_Controller
          * Nieuw personeelsfeest aanmaken
          */
         $strdatum = $_POST['datum'];
-        $datum = date('Y-m-d', $strdatum);
+        $datum = date('Y-m-d', strtotime($strdatum));
+        var_dump($datum);
 
-        //$strdeadline = strtotime($_POST['deadline']);
-        //$deadline = date_create_from_format('Y-m-d', $strdeadline);
+        $strdeadline = $_POST['deadline'];
+        $deadline = date('Y-m-d', strtotime($strdeadline));
+        $personeelsfeest = new stdClass();
 
 
         if (isset($_POST['knopDatum'])) {
