@@ -1,6 +1,9 @@
 <h2>Activiteiten</h2>
 <?php
 /**
+ * @author Wim Naudts
+ */
+/**
  * formulier openen
  */
 $attributes = array('name' => 'mijnFormulier');
@@ -13,13 +16,27 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
 /**
  * Voor elk dagonderdeel een tabel
  */
-foreach($dagonderdelen as $dagonderdeel){ 
+foreach($dagonderdelen as $index => $dagonderdeel){ 
     /**
      * Vrijwilligers krijgen alleen maar de dagonderdelen te zien waar ze aan mogen deelnemen
      */
     if(!($dagonderdeel->vrijwilligerMeeDoen == "0" && $gebruiker->soortId == 1)){
+        
+        $alIngeschreven = false; //voor geen knop
+        
+        $radioKlasse = "";
+        
+        /**
+         * Voor conflicterende tijden
+         */
+        if(array_key_exists($index-1, $dagonderdelen) && array_key_exists($index+1, $dagonderdelen) && $dagonderdeel->starttijd < $dagonderdelen[$index-1]->eindtijd && $dagonderdeel->eindtijd > $dagonderdelen[$index+1]->starttijd){
+            $radioKlasse = " conflictLang";
+        }else{
+            if((array_key_exists($index-1, $dagonderdelen) && $dagonderdeel->starttijd < $dagonderdelen[$index-1]->eindtijd) || (array_key_exists($index+1, $dagonderdelen) && $dagonderdeel->eindtijd > $dagonderdelen[$index+1]->starttijd)){
+                $radioKlasse = " conflictKort";
+            }
+        }
     ?>
-
 <div class="table-responsive">
 <table class="table table-striped">
     <thead>
@@ -40,10 +57,11 @@ foreach($dagonderdelen as $dagonderdeel){
          */
         foreach($dagonderdeel->opties as $optie){
             
-        $radiobutton = "<td><input type=radio class=radioButton name=optie[$dagonderdeel->id] value=$optie->id";
+        $radiobutton = "<td><input type=radio name=optie[$dagonderdeel->id] value=$optie->id class='radio$radioKlasse'";
         
         if($optie->isAllIngeschreven == true){
             $radiobutton .= " checked/> <span style='color:green;'>Ingeschreven</span></td>";
+            $alIngeschreven = true; //voor geen knop
         }
         else{
             if($optie->aantalIngeschreven > $optie->maximumAantalPlaatsen){
@@ -52,10 +70,16 @@ foreach($dagonderdelen as $dagonderdeel){
                 $radiobutton .= " /> Inschrijven</td>";
             }
         }
+        
         ?>
         
         <tr>
-            <td><?php echo $optie->naam ?></td>
+            <td>
+                <?php 
+                echo "<h5>$optie->naam<h5>";
+                echo "<p>$optie->beschrijving</p>";
+                ?>
+            </td>
             <?php
             if($optie->isAllIngeschreven == true){
                 $commentaar = $optie->commentaar;
@@ -74,11 +98,11 @@ foreach($dagonderdelen as $dagonderdeel){
             <?php 
             $radioGeen = "<td><input type=radio class=radioButton name=optie[$dagonderdeel->id] value=0";
             
-            if($optie->isAllIngeschreven == true){
+            if($alIngeschreven == true){
                $radioGeen .= " /> Geen</td>";
             }
             else{
-               $radioGeen .= "checked /> Geen</td>"; 
+               $radioGeen .= " checked /> Geen</td>"; 
             }
             echo $radioGeen;
             ?>
@@ -91,3 +115,18 @@ foreach($dagonderdelen as $dagonderdeel){
         } 
 echo "<p>" . form_submit(array('name' => 'knopSubmit', 'value' => 'Bevestigen', 'class' => 'btn btn-success')) . "</p>"; 
 echo form_close(); 
+?>
+
+<script>
+    $( document ).ready(function() {
+        $('.radio').change(function(){
+            if($(this).hasClass('conflictLang')){
+                $('.conflictKort').prop('checked', false);
+            }
+            
+            if($(this).hasClass('conflictKort')){
+                $(".conflictLang").prop('checked', false);
+            }
+        });
+    });
+</script>

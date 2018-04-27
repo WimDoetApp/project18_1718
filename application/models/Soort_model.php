@@ -10,6 +10,12 @@ class Soort_model extends CI_Model {
     {
         parent::__construct();
     }
+    
+    function get($id){
+        $this->db->where('id', $id);
+        $query = $this->db->get('soort');
+        return $query->row();
+    }
 }
 
 

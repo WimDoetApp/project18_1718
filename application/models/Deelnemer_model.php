@@ -24,12 +24,55 @@ class Deelnemer_model extends CI_Model {
     }
     
     /**
+     * Deelnemer met alle opties en hulpshiften waarvoor hij is ingeschreven
+     * @param $id id van de deelnemer
+     * @return een deelnemer met al zijn inschrijvingen
+     */
+    function getWithAll($id){
+        $this->db->where('id', $id);
+        $query = $this->db->get('deelnemer');
+        $deelnemer = $query->row();
+        
+        $this->load->model('InschrijvingsOptie_model');
+        $this->load->model('HelperTaak_model');
+        $this->load->model('Soort_model');
+        $inschrijfOpties = $this->InschrijvingsOptie_model->getBijGebruikerWithOpties($deelnemer->id);
+        $helperTaken = $this->HelperTaak_model->getByDeelnemerWithTaakShift($deelnemer->id);
+        $deelnemer->soort = $this->Soort_model->get($deelnemer->soortId);
+        
+        if($helperTaken != null){
+            $deelnemer->helperTaken = $helperTaken;
+        }else{
+            $deelnemer->helperTaken = "";
+        }
+        
+        if($inschrijfOpties != null){
+            $deelnemer->inschrijfOpties = $inschrijfOpties;
+        }else{
+            $deelnemer->inschrijfOpties = "";
+        }
+        
+        return $deelnemer;
+    }
+    
+    /**
      * Haalt alle deelnemers met dezelfde email op
      * @param $email de email waarop we zoeken
      * @return deelnemers
      */
     function getGebruikerByEmail($email){
         $this->db->where('email', $email);
+        $query = $this->db->get('deelnemer');
+        return $query->result();
+    }
+    
+    /**
+     * Alle deelnemers bij een personeelsfeest ophalen
+     * @param $personeelsfeestId
+     * @return de deelnemers
+     */
+    function getAll($personeelsfeestId){
+        $this->db->where('personeelsfeestId', $personeelsfeestId);
         $query = $this->db->get('deelnemer');
         return $query->result();
     }

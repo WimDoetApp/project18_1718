@@ -1,6 +1,6 @@
 <?php 
 /**
- * Verantwoordelijke: Wim Naudts
+ * @author Wim Naudts
  */
 /**
  * Knop om nieuw dagonderdeel aan te maken
@@ -114,6 +114,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
 </div>
 
 <p>Voor tooltips: hover over de titels van de tabel.</p>
+<p>Vergeet niet om telkens per dagonderdeel je aanpassingen op te slagen!</p>
 
 <?php 
 echo form_close();
