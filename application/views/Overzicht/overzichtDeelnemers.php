@@ -35,14 +35,7 @@ echo form_input(array('type' => 'text', 'id' => 'zoekInput', 'placeholder' => "Z
 </table>
 </div>
 
-<script>
-    /**
-     * Als een checkbox aangeklikt wordt, krijgt deze een value van 1
-     */
-    $('.checkboxClick').on('click', function(){
-        $(this).attr('value', '1');
-    });
-    
+<script>    
     /**
      * Functie om op naam te zoeken
      */

@@ -24,7 +24,7 @@ $soort = $gebruiker->soortId;
 if ($soort == 1 || $soort == 2) { ?>
     <div class="panel panel-default">
         <div class="panel-heading"><h2>Bekijk hier foto's</h2></div>
-        <div class="panel-body"><?php echo smallDivAnchor("", "Foto's bekijken", 'class="btn btn-default"') ?></div>
+        <div class="panel-body"><?php echo smallDivAnchor("Vrijwilliger/FotosBekijken/index", "Foto's bekijken", 'class="btn btn-default"') ?></div>
     </div>
 
 <?php }
@@ -44,7 +44,7 @@ if ($soort == 2) { ?>
 if ($soort == 3 || $soort == 4) { ?>
     <div class="panel panel-default">
         <div class="panel-heading"><h2>Bekijk hier de overzichten van taken en activiteiten</h2></div>
-        <div class="panel-body"><?php echo smallDivAnchor("Oganisator/Overzicht/index/$personeelsfeest", "Overzichten", 'class="btn btn-default"') ?></div>
+        <div class="panel-body"><?php echo smallDivAnchor("Organisator/Overzicht/index/$personeelsfeest", "Overzichten", 'class="btn btn-default"') ?></div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading"><h2>Stuur hier mails naar deelnemers en vrijwilligers</h2></div>
