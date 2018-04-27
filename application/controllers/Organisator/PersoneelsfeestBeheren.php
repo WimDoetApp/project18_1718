@@ -6,7 +6,7 @@ class PersoneelsfeestBeheren extends CI_Controller
 {
 
     /**
-     * Controller Personeelsfeest beheren
+     * Controller Personeelsfeest Beheren
      * @author Bram Van Bergen
      */
 
@@ -67,22 +67,24 @@ class PersoneelsfeestBeheren extends CI_Controller
         /**
          * Nieuw personeelsfeest aanmaken
          */
-        $strdatum = $_POST['datum'];
+        $strdatum = strtotime($_POST['datum']);
         $datum = date('Y-m-d', $strdatum);
+        var_dump($datum);
+        $strdeadline = strtotime($_POST['deadline']);
+        var_dump("deadline1 : " . $strdeadline);
 
-        //$strdeadline = strtotime($_POST['deadline']);
-        //$deadline = date_create_from_format('Y-m-d', $strdeadline);
-
+        $deadline = date('Y-m-d', $strdeadline);
+        var_dump("deadline1 : " . $deadline);
 
         if (isset($_POST['knopDatum'])) {
             $this->Personeelsfeest_model->setDatumPersoneelsfeest($id, $datum);
             $this->Personeelsfeest_model->setDeadlinePersoneelsfeest($id, $deadline);
-            var_dump($datum/*, $deadline*/);
+            var_dump($datum, $deadline);
         } else if (isset($_POST['knop'])) {
             $personeelsfeest = new stdClass();
             $personeelsfeest->id = $id + 1;
             $personeelsfeest->datum = $datum;
-            //$personeelsfeest->inschrijfDeadline = $deadline;
+            $personeelsfeest->inschrijfDeadline = $deadline;
 
             $this->Personeelsfeest_model->insertPersoneelsfeest($personeelsfeest);
 
