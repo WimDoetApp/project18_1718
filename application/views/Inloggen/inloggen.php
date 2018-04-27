@@ -1,6 +1,6 @@
 <?php 
 /**
- * Verantwoordelijke: Wim Naudts
+ * @author Wim Naudts
  */
 $dataInloggen = array(
     'name'          => 'buttonInloggen',

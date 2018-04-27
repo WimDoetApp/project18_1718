@@ -22,6 +22,42 @@ class InschrijvingsOptie_model extends CI_Model {
     }
     
     /**
+     * Bij een opgegeven optie alle deelnemers vinden
+     * @param $optieId optie van welke we de inschrijving willen vinden
+     * @return de inschrijfoptie met de deelnemer
+     */
+    function getIngeschrevenBijOptie($optieId){
+        $this->db->where('optieId', $optieId);
+        $query = $this->db->get('inschrijfOptie');
+        $inschrijfOpties = $query->result();
+        
+        $this->load->model('Deelnemer_model');
+        foreach($inschrijfOpties as $inschrijfOptie){
+            $inschrijfOptie->deelnemer = $this->Deelnemer_model->get($inschrijfOptie->deelnemerId);
+        }
+        
+        return $inschrijfOpties;
+    }
+    
+    /**
+     * Inschrijvingen van bepaalde gebruiker met de optie waarvoor is ingeschreven
+     * @param $deelnemerId id van de deelnemer
+     * @return de inschrijvingen
+     */
+    function getBijGebruikerWithOpties($deelnemerId){
+        $this->db->where('deelnemerId', $deelnemerId);
+        $query = $this->db->get('inschrijfOptie');
+        $inschrijfOpties = $query->result();
+        
+        $this->load->model('Optie_model');
+        foreach($inschrijfOpties as $inschrijfOptie){
+            $inschrijfOptie->optie = $this->Optie_model->get($inschrijfOptie->optieId);
+        }
+        
+        return $inschrijfOpties;
+    }
+    
+    /**
      * Kijkt of een bepaalde gebruiker als is ingeschreven in een bepaalde optie
      * @param $gebruikerId de gebruiker
      * @param $optieId de optie

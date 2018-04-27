@@ -26,7 +26,7 @@
                 <?php } ?>
                 
                 <?php if ($soort == 3 || $soort == 4) { ?>
-                <li><a href="<?php echo base_url("index.php/"); ?>">Overzichten</a></li>
+                <li><a href="<?php echo base_url("index.php/Organisator/Overzicht/index/$personeelsfeest"); ?>">Overzichten</a></li>
                 <li><a href="<?php echo base_url("index.php/"); ?>">Mails sturen</a></li>
                 <li><a href="<?php echo base_url("index.php/Organisator/PersoneelsfeestBeheren/index/$personeelsfeest"); ?>">Personeelsfeest beheren</a></li>
                 <li><a href="<?php echo base_url("index.php/"); ?>">Foto's beheren</a></li>

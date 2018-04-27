@@ -40,7 +40,6 @@ class Personeelsfeest_model extends CI_Model
     function insertPersoneelsfeest($personeelsfeest)
     {
         $this->db->insert('personeelsfeest', $personeelsfeest);
-        var_dump($this->db->insert_id());
         return $this->db->insert_id();
     }
 
@@ -73,11 +72,25 @@ class Personeelsfeest_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    
+
     function getLaatsteId()
     {
-        return $this->db->select('id')->order_by('id',"desc")->limit(1)->get('personeelsfeest')->row();
-    }   
+        return $this->db->select('id')->order_by('id', "desc")->limit(1)->get('personeelsfeest')->row();
+    }
+
+    function setDatumPersoneelsfeest($id, $datum)
+    {
+        $this->db->where('id', $id);
+        $this->db->set('datum', $datum);
+        $this->db->update('personeelsfeest', 'datum');
+    }
+
+    function setDeadlinePersoneelsfeest($id, $deadline)
+    {
+        $this->db->where('id', $id);
+        $this->db->set('inschrijfDeadline', $deadline);
+        $this->db->update('personeelsfeest', 'inschrijfDeadline');
+    }
 }
 
 

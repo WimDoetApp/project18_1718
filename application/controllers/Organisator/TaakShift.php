@@ -17,37 +17,58 @@ class TaakShift extends CI_Controller{
         $this->load->helper('form');
     }
     
-    function index($taakId, $doId) {
+    function index($taakId, $doId, $isD) {
         //Laden van shift overzicht per taak
         //Aanmaken variabele(n) en/of array(s)
         $shiften = array();
+        $doTable = "optie";
         
-        //Laden van alle shiften van deze taak
-        $this->load->model('TaakShift_model');
-        $shiftenIC = $this->TaakShiftModel->getAllByTaakId($taakId);
+        //Klaarzetten differentie variabelen
+        if ($isD) {
+            $doTable = "dagonderdeel";
+        }
+        
+         //Laden van alle shiften van deze taak
+        $this->load->model('CRUD_Model');
+        $shiftenIC = $this->CRUD_Model->getAllByColumn($taakId, 'taakId', 'TaakShift');
         
         //Aantal inschrijvingen voor elke shift in elk shift object zetten
         $this->load->model('HelperTaak_model');
         foreach ($shiftenIC as $shift) {
-            $shift->AantalInschrijvingen = $this->HelperTaak_model->countAllShift($shift->id);
+            $aantal = $this->HelperTaak_model->countAllShift($shift->id);
+            $shift->aantalInschrijvingen = $aantal;
             array_push($shiften, $shift);
         }
         
         //Laden van taak
         $this->load->model('CRUD_Model');
-        $data['taak'] = $this->CRUD_Model->get($taakId, 'taak');
+        $taak = $this->CRUD_Model->get($taakId, 'taak');
+        $data['taak'] = $taak;
+        $do = $this->CRUD_Model->get($doId, $doTable);
+        $data['titel'] = $do->naam;
+        
+        $data['shiften'] = $shiften;
         
         $data['doId'] = $doId;
+        $data['isD'] = $isD;
         
-        $partials = array('inhoud' => 'TaakBeheren/overzichtShift', 'header' => 'main_header', 'footer' => 'main_footer');
+        $row = $this->CRUD_Model->getLast('id', 'personeelsfeest');
+        $data['personeelsfeest'] = $row->id;
+        
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
+        $partials = array('inhoud' => 'Taak beheren/overzichtShift', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
     
-    function opslaan($doId) {
-        redirect("/taak/index/$doId");
-    }
-    
-    function annuleren($doId) {
-        redirect("/taak/index/$doId");
+    function wijzigen($taakId, $doId, $isD) {
+        $id = $this->input->post('id');
+        $shift['begintijd'] = $this->input->post('begintijd');
+        $shift['eindtijd'] = $this->input->post('eindtijd');
+        $shift['aantalPlaatsen'] = $this->input->post('aantalPlaatsen');
+        
+        $this->model->load('CRUD-Model');
+        $this->CRUD_Model->update($id, $shift, 'taakShift');
+        
+        $this->index($taakId, $doId, $isD);
     }
 }

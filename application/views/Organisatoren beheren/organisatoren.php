@@ -1,7 +1,7 @@
 <h2>Overzicht personeelsleden</h2>
 <?php 
 /**
- * Verantwoordelijke: Wim Naudts
+ * @author Wim Naudts
  */
 /**
  * Zoeken op naam

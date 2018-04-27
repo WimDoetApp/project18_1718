@@ -20,7 +20,7 @@ class PersoneelsfeestBeheren extends CI_Controller
         parent::__construct();
         $this->load->helper('form');
         $this->load->helper('notation');
-        
+
         /**
          * Kijken of de gebruiker de juiste rechten heeft
          */
@@ -66,35 +66,48 @@ class PersoneelsfeestBeheren extends CI_Controller
     public function nieuwPersoneelsfeest($id)
     {
         $this->load->model('Personeelsfeest_model');
-
+        date_default_timezone_set("Europe/Brussels");
         /**
          * Nieuw personeelsfeest aanmaken
          */
-        $personeelsfeest = new stdClass();
-        $personeelsfeest->id = $id + 1;
-        $personeelsfeest->datum = '00:00:00';
-        $personeelsfeest->inschrijfDeadline = '00:00:00';
+        $strdatum = strtotime($_POST['datum']);
+        $datum = date('Y-m-d',$strdatum);
+        $strdeadline = strtotime($_POST['deadline']);
+        $deadline = date('Y-m-d',$strdeadline);
 
-        $this->Personeelsfeest_model->insertPersoneelsfeest($personeelsfeest);
+        if (isset($_POST['knopDatum'])) {
+            $this->Personeelsfeest_model->setDatumPersoneelsfeest($id, $datum);
+            $this->Personeelsfeest_model->setDeadlinePersoneelsfeest($id, $deadline);
+            var_dump($datum, $deadline);
+        } else if (isset($_POST['knop'])) {
+            $personeelsfeest = new stdClass();
+            $personeelsfeest->id = $id + 1;
+            $personeelsfeest->datum = $datum;
+            $personeelsfeest->inschrijfDeadline = $deadline;
 
-        if (isset($_POST['nieuwDagonderdeel'])) {
-            $dagonderdelen = $this->Personeelsfeest_model->getDagonderdelenVanPersoneelsfeest($id);
-            foreach ($dagonderdelen as $dagonderdeel) {
-                $dagonderdeel->personeelsfeestId += 1;
-                $this->Personeelsfeest_model->insertDagonderdeel($dagonderdeel);
+            $this->Personeelsfeest_model->insertPersoneelsfeest($personeelsfeest);
+
+            if (isset($_POST['nieuwDagonderdeel'])) {
+                $dagonderdelen = $this->Personeelsfeest_model->getDagonderdelenVanPersoneelsfeest($id);
+                foreach ($dagonderdelen as $dagonderdeel) {
+                    $dagonderdeel->personeelsfeestId += 1;
+                    $this->Personeelsfeest_model->insertDagonderdeel($dagonderdeel);
+                }
+            } else {
+                var_dump("leeg");
+            }
+            if (isset($_POST['nieuwOrganisatoren'])) {
+                $organisatoren = $this->Personeelsfeest_model->getOrganisatorenVanPersoneelsfeest($id);
+
+                foreach ($organisatoren as $organisator) {
+                    $organisator->personeelsfeestId += 1;
+                    $this->Personeelsfeest_model->insertOrganisatoren($organisator);
+                }
+            } else {
+                var_dump("leeg");
             }
         } else {
-            var_dump("leeg");
-        }
-        if (isset($_POST['nieuwOrganisatoren'])) {
-            $organisatoren = $this->Personeelsfeest_model->getOrganisatorenVanPersoneelsfeest($id);
-
-            foreach ($organisatoren as $organisator) {
-                $organisator->personeelsfeestId += 1;
-                $this->Personeelsfeest_model->insertOrganisatoren($organisator);
-            }
-        } else {
-            var_dump("leeg");
+            var_dump("STOP ME DEES TE DOEN KUTDING");
         }
 
         $this->index();
@@ -159,14 +172,13 @@ class PersoneelsfeestBeheren extends CI_Controller
 
                     $startpositiemail = strpos($data, ';', $startpositiesubstring);
                     $naam = substr($data, $startpositiesubstring, $startpositiemail);
-                    $startpositienaam = strpos($data, ' ',$startpositiesubstring);
+                    $startpositienaam = strpos($data, ' ', $startpositiesubstring);
                     $voornaam = substr($naam, 0, $startpositienaam);
                     $naam = substr($naam, $startpositienaam + 1, $startpositiemail - $startpositienaam);
 
                     var_dump($naam, $voornaam, $startpositiesubstring);
                     $startpositiesubstring = strpos($data, ' ', $startpositiemail);
                 }
-
 
 
                 var_dump($naam, $voornaam);
@@ -176,7 +188,5 @@ class PersoneelsfeestBeheren extends CI_Controller
                 echo "Sorry, er was een fout tijdens het uploaden van je bestand.";
             }
         }
-
-
     }
 }

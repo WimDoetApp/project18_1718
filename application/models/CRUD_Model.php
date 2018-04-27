@@ -56,4 +56,30 @@ class CRUD_Model extends CI_Model{
     function add($data, $tabel) {
         $this->db->insert($tabel, $data);
     }
+    
+    //Functies voor taken: BEGIN
+    
+    /*GETALLBYCOLUMN($DATA) : Geeft alle rijen uit een specifieke tabel ($TABLE) waardat een gegeven ($DATA) overeenkomt met een waarde in een kolom ($COLUMN). 
+     * $DATA verwijst naar get gegeven om mee te vergelijken. 
+     * $COLUMN verwijst naar de kolomnaam.
+     * $TABLE verwijst naar de tabelnaam.
+     * Datatype(s) van variabele(n): $DATA - STRING/INTEGER, $COLUMN - STRING, $TABLE - STRING*/
+    function getAllByColumn($data, $column, $table) {
+        $this->db->where($column, $data);
+        $query = $this->db->get($table);
+        return $query->result();
+    }
+    
+    /*GETLAST($COLUMN, $TABLE) : Geeft laatste rij uit een spciefieke tabel ($TABLE) van een specifieke kolom ($COLUMN). 
+     * $COLUMN verwijst naar kolomnaam
+     * $TABLE verwijst naar tabelnaam
+     * Datatype(s) van variabele(n): $COLUMN - STRING, $TABLE - STRING*/
+    function getLast($column, $table) {
+        $this->db->select_max($column);
+        $query = $this->db->get($table);
+        return $query->row();
+    }
+    
+    
+    //Funties voor taken: END
 }
