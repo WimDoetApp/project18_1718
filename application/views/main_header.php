@@ -32,7 +32,7 @@
                 <li><a href="<?php echo base_url("index.php/Vrijwilliger/FotosBekijken/index"); ?>">Foto's beheren</a></li>
                 <?php } ?>
                 
-                <li><a href="<?php echo base_url("index.php/"); ?>">Adressen raadplegen</a></li>
+                <li><a href="<?php echo base_url("index.php/Vrijwilliger/EmailadressenRaadplegen/index"); ?>">Adressen raadplegen</a></li>
                 <li><a href="<?php echo base_url("index.php/Contact/contact"); ?>">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

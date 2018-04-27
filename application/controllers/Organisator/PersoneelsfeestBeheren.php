@@ -64,6 +64,7 @@ class PersoneelsfeestBeheren extends CI_Controller
     {
         $this->load->model('Personeelsfeest_model');
         date_default_timezone_set("Europe/Brussels");
+        $personeelsfeestId = $this->input->post('personeelsfeestId');
         /**
          * Nieuw personeelsfeest aanmaken
          */
@@ -73,13 +74,15 @@ class PersoneelsfeestBeheren extends CI_Controller
 
         $strdeadline = $_POST['deadline'];
         $deadline = date('Y-m-d', strtotime($strdeadline));
+        
         $personeelsfeest = new stdClass();
+        $personeelsfeest->id = $personeelsfeestId;
+        $personeelsfeest->datum = $datum;
+        $personeelsfeest->deadline = $deadline;
 
 
         if (isset($_POST['knopDatum'])) {
-            $this->Personeelsfeest_model->setDatumPersoneelsfeest($id, $datum);
-            $this->Personeelsfeest_model->setDeadlinePersoneelsfeest($id, $deadline);
-            var_dump($datum/*, $deadline*/);
+            $this->Personeelsfeest_model->update($personeelsfeest);
         } else if (isset($_POST['knop'])) {
             $personeelsfeest = new stdClass();
             $personeelsfeest->id = $id + 1;
