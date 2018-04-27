@@ -21,6 +21,21 @@ class HelperTaak_model extends CI_Model {
         $this->db->where('taakShiftId',$id);
         return $this->db->count_all_results('helperTaak');
     }
+    
+    function getAllWithTaakAndDeelnemer() {
+        $query = $this->db->get('helperTaak');
+        $helperTaken = $query->result();
+        
+        $this->load->model('TaakShift_model');
+        $this->load->model('Deelnemer_model');
+        
+        foreach($helperTaken as $helperTaak) {
+            $helperTaak->deelnemer = $this->Deelnemer_model->get($helperTaak->deelnemerId);
+            $helperTaak->taakShift = $this->TaakShift_model->getWithTaak($helperTaak->taakShiftId);
+        }
+        
+        return $helperTaken;
+    }
 }
 
 

@@ -22,6 +22,15 @@ class FotosBekijken extends CI_Controller {
         $this->load->helper('form');
         $this->load->helper('html');
         $this->load->helper(array('form', 'url'));
+        
+        if (!$this->authex->isAangemeld()) {
+            redirect('Home/index');
+        } else {
+            $gebruiker = $this->authex->getDeelnemerInfo();
+            if ($gebruiker->soortId > 1) {
+                redirect('Home/toonStartScherm');
+            }
+        }
     }
     
     /**
@@ -29,6 +38,10 @@ class FotosBekijken extends CI_Controller {
     */
     public function index() {
         $data['titel']  = "Foto's Bekijken";
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
+        
+        $this->load->model('Personeelsfeest_model');
+        $data['personeelsfeest'] = $this->Personeelsfeest_model->getLaatsteId()->id;
 
         $this->load->model('CRUD_Model');
         $data['jaartallen'] = $this->CRUD_Model->getAll('personeelsfeest');

@@ -1,39 +1,33 @@
 <?php
 ?>
-<p>Vrijwilligers</p>
 <table class="table">
+    <?php foreach ($takenMetDeelnemers as $taak => $deelnemers){?>
+    <tr><th colspan="2"><?php echo $taak ?></th></tr>
     <tr>
         <th>Naam</th>
         <th>E-mail</th>
-        <th></th>
     </tr>
-        <?php foreach ($vrijwilligers as $vrijwilliger){ ?>
-        <tr>
-            <td><?php echo $vrijwilliger->voornaam?> <?php echo $vrijwilliger->naam ?></td>
-            <td><?php echo $vrijwilliger->email ?></td>
-            <td><?php echo $vrijwilliger->personeelsfeestId ?></td>
-        </tr>  
-        <?php }?>
-   
-</table>
-</br>
-</br>
-</br>
-<p>Organisatoren</p>
-<table class="table">
+    <tr>
+        <?php foreach($deelnemers as $deelnemer) { ?>
+        <td><?php echo $deelnemer->voornaam?> <?php echo $deelnemer->naam ?></td>
+        <td><?php echo $deelnemer->email ?></td>
+        <?php } ?>
+    </tr>
+    <?php } ?>
+    <tr><th colspan="2">Organisatoren</th></tr>
     <tr>
         <th>Naam</th>
         <th>E-mail</th>
-        <th></th>
     </tr>
-        <?php foreach ($organisatoren as $organisator){ ?>
+        <?php foreach ($organisatoren as $organisator){ 
+           if ($organisator->personeelsfeestId == $personeelsfeest){
+            ?>
         <tr>
             <td><?php echo $organisator->voornaam?> <?php echo $organisator->naam ?></td>
             <td><?php echo $organisator->email ?></td>
-            <td><?php echo $organisator->personeelsfeestId ?></td>
         </tr>  
-        <?php }?>
-   
+        <?php } }?>
 </table>
+
 
 <p><?php echo smallDivAnchor('home/index', "Teruggaan", 'class="btn btn-info"');?></p>

@@ -11,6 +11,18 @@ class TaakShift_model extends CI_Model
     {
         parent::__construct();
     }
+    
+    function getWithTaak($id)
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get('taakShift');
+        $taakShift = $query->row();
+        
+        $this->load->model('CRUD_Model');
+        $taakShift->taak = $this->CRUD_Model->get($taakShift->taakId, 'taak');
+        
+        return $taakShift;
+    }
 
     function getEersteTijd($id)
     {

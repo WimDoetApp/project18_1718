@@ -10,7 +10,10 @@ class Foto_model extends CI_Model {
     {
         parent::__construct();
     }
-    
+    /**
+    * Zoek de waarde  die overeenkomt met personeelsfeestId
+    * uit de tabel 'foto'
+    */
     function getAlleFotosZoalsPersoneelsfeestId($personeelsfeestId)
     {
         $this->db->where('personeelsfeestId', $personeelsfeestId);
