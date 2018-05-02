@@ -1,8 +1,8 @@
 <?php
 ?>
-<table class="table">
+<table class="table table-striped">
     <?php foreach ($takenMetDeelnemers as $taak => $deelnemers){?>
-    <tr><th colspan="2"><?php echo $taak ?></th></tr>
+    <tr><th colspan="2" style="font-size:20px;"><?php echo $taak ?></th></tr>
     <tr>
         <th>Naam</th>
         <th>E-mail</th>

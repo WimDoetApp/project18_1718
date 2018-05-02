@@ -1,3 +1,8 @@
+<?php
+/**
+ * @author Wim Naudts
+ */
+?>
 <p>Bij vragen kan u onderstaand contactformulier invullen.</p>
 <?php
 /**

@@ -91,6 +91,16 @@ class Personeelsfeest_model extends CI_Model
         $this->db->set('inschrijfDeadline', $deadline);
         $this->db->update('personeelsfeest', 'inschrijfDeadline');
     }
+    
+    function setPersoneelsfeest($personeelsfeest){
+        $this->db->where('id', $personeelsfeest->id);
+        $this->db->update('personeelsfeest', $personeelsfeest);
+    }
+    
+    function update($personeelsfeest){
+        $this->db->where('id', $personeelsfeest->id);
+        $this->db->update('personeelsfeest', $personeelsfeest);
+    }
 }
 
 

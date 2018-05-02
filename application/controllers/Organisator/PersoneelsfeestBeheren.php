@@ -5,14 +5,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class PersoneelsfeestBeheren extends CI_Controller
 {
 
-    // +----------------------------------------------------------
-    // | Personeelsfeest
-    // +----------------------------------------------------------
-    // | PersoneelsfeestBeheren controller
-    // |
-    // +----------------------------------------------------------
-    // | Thomas More Kempen
-    // +----------------------------------------------------------
+    /**
+     * Controller Personeelsfeest Beheren
+     * @author Bram Van Bergen, Wim Naudts
+     */
 
 
     public function __construct()
@@ -44,6 +40,7 @@ class PersoneelsfeestBeheren extends CI_Controller
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         $data['personeelsfeest'] = $this->Personeelsfeest_model->getLaatsteId()->id;
 
+
         $partials = array('inhoud' => 'Personeelsfeest beheren/personeelsfeestBeheren', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
@@ -67,18 +64,26 @@ class PersoneelsfeestBeheren extends CI_Controller
     {
         $this->load->model('Personeelsfeest_model');
         date_default_timezone_set("Europe/Brussels");
+        $personeelsfeestId = $this->input->post('personeelsfeestId');
         /**
          * Nieuw personeelsfeest aanmaken
          */
-        $strdatum = strtotime($_POST['datum']);
-        $datum = date('Y-m-d',$strdatum);
-        $strdeadline = strtotime($_POST['deadline']);
-        $deadline = date('Y-m-d',$strdeadline);
+
+        $strdatum = $_POST['datum'];
+        $datum = date('Y-m-d', strtotime($strdatum));
+
+        $strdeadline = $_POST['deadline'];
+        $deadline = date('Y-m-d', strtotime($strdeadline));
+        
+        $personeelsfeest = new stdClass();
+        $personeelsfeest->id = $personeelsfeestId;
+        $personeelsfeest->datum = $datum;
+        $personeelsfeest->inschrijfDeadline = $deadline;
+
+
 
         if (isset($_POST['knopDatum'])) {
-            $this->Personeelsfeest_model->setDatumPersoneelsfeest($id, $datum);
-            $this->Personeelsfeest_model->setDeadlinePersoneelsfeest($id, $deadline);
-            var_dump($datum, $deadline);
+            $this->Personeelsfeest_model->update($personeelsfeest);
         } else if (isset($_POST['knop'])) {
             $personeelsfeest = new stdClass();
             $personeelsfeest->id = $id + 1;
@@ -93,9 +98,7 @@ class PersoneelsfeestBeheren extends CI_Controller
                     $dagonderdeel->personeelsfeestId += 1;
                     $this->Personeelsfeest_model->insertDagonderdeel($dagonderdeel);
                 }
-            } else {
-                var_dump("leeg");
-            }
+            } 
             if (isset($_POST['nieuwOrganisatoren'])) {
                 $organisatoren = $this->Personeelsfeest_model->getOrganisatorenVanPersoneelsfeest($id);
 
@@ -103,12 +106,8 @@ class PersoneelsfeestBeheren extends CI_Controller
                     $organisator->personeelsfeestId += 1;
                     $this->Personeelsfeest_model->insertOrganisatoren($organisator);
                 }
-            } else {
-                var_dump("leeg");
-            }
-        } else {
-            var_dump("STOP ME DEES TE DOEN KUTDING");
-        }
+            } 
+        } 
 
         $this->index();
     }
