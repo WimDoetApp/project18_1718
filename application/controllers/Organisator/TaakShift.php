@@ -78,33 +78,26 @@ class TaakShift extends CI_Controller{
     
     function wijzigenT() {
         $taakId = $this->input->post('taakId');
-        $this->model->load('CRUD_Model');
+        
+        $this->load->model('CRUD_Model');
         $taakI = $this->CRUD_Model->get($taakId, 'taak');
         
-        $taak['dagOnderdeelId'] = $taakI->dagOnderdeel;
-        $taak['optieId'] = $taakI->optieId;
+        if ($taakI->dagOnderdeelId != null) {
+            $taak['dagOnderdeelId'] = $taakI->dagOnderdeelId;
+        } else { $taak['dagOnderdeelId'] = null; }
+        
+        if ($taakI->optieId != null) {
+            $taak['optieId'] = $taakI->optieId;
+        } else { $taak['optieId'] = null; }
+        
         $taak['naam'] = $this->input->post('naam');
         $taak['beschrijving'] = $this->input->post('beschrijving');
         
-        print_r($taak);
         $this->CRUD_Model->update($taakId, $taak, 'taak');
         
-        //$this->index($this->input->post('taakId'), $this->input->post('doId'), $this->input->post('isD'));
-    }
-    
-    function inputRouting() {
-        $knop = $this->input->post('action');
-        echo $knop;
-        $TYPE = $this->input->post('TYPE');
-        echo $TYPE;
-        if ($knop == "Wijzig") {
-            if ($TYPE == "T") {
-                $this->wijzigenT();
-            } elseif ($TYPE == "S") {
-                $this->wijzigen();
-            }
-        } else {
-            $this->verwijderen();
-        }
+        $doId = $this->input->post('doId');
+        $isD = $this->input->post('isD');
+        
+        $this->index($taakId, $doId, $isD);
     }
 }

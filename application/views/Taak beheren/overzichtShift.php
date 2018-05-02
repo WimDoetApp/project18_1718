@@ -10,16 +10,16 @@ $inputBeschrijving = array ('name' => 'beschrijving', 'value' => $taak->beschrij
 $inputWijzig = array('name' => 'action', 'value' => 'Wijzig', 'content' => "<span class='glyphicon glyphicon-edit'></span>", 'class' => 'btn btn-warning');
 $inputVerwijder = array('name' => 'action', 'value' => 'Verwijder', 'content' => "<span class='glyphicon glyphicon-edit'></span>", 'class' => 'btn btn-danger');
 ?>
-<form method="post" action="index.php/Organisator/TaakShift/inputRouting">
+<?php echo form_open('Organisator/TaakShift/wijzigenT');?>
     <div class="table-responsive">
         <table class="table">
             <tr>
                 <td><label for="naam">Naam van de taak:</label></td>
-                <td colspan="2"><?php echo form_input($inputNaam) . form_hidden('TYPE', 'T') . form_hidden('taakId', $taak->id). form_hidden('doID', "$doId") . form_hidden('isD', "$isD")?></td>
+                <td colspan="2"><?php echo form_input($inputNaam)?></td>
             </tr>
             <tr>
                 <td><label for="naam">Beschrijving:</label></td>
-                <td colspan="2"><?php echo form_input($inputBeschrijving)?></td>
+                <td colspan="2"><?php echo form_input($inputBeschrijving) . form_hidden('taakId', $taak->id). form_hidden('doId', "$doId") . form_hidden('isD', "$isD")?></td>
             </tr>
             <tr>
                 <td><?php echo form_submit($inputWijzig)?></td>
@@ -27,7 +27,7 @@ $inputVerwijder = array('name' => 'action', 'value' => 'Verwijder', 'content' =>
             </tr>
         </table>
     </div>
-</form>
+<?php echo form_close()?>
 
 <div class="table-responsive">
     <table class="table table-striped">
@@ -49,7 +49,7 @@ $inputVerwijder = array('name' => 'action', 'value' => 'Verwijder', 'content' =>
                 echo "</form></tr>";
             }?>
             <tr>
-                <td colspan="4"><?php echo smallDivAnchor('Organisator/TaakShift/voegToe/' . $doId . "/$isD", 'Nieuwe taak aanmaken', 'class="btn btn-success"')?></td>
+                <td colspan="4"><?php echo smallDivAnchor('Organisator/TaakShift/voegToe/' . $doId . "/$isD", 'Nieuwe shift aanmaken', 'class="btn btn-success"')?></td>
                 <td><?php echo smallDivAnchor('Organisator/Taak/index/' . "$doId/$isD", 'Terug gaan', 'class="btn btn-info"')?></td>
             </tr>
         </tbody>
