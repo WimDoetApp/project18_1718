@@ -6,22 +6,23 @@
  */
 
 $inputNaam = array ('name' => 'naam', 'value' => $taak->naam, 'size' => '100');
-$inputBeschrijving = array ('name' => 'naam', 'value' => $taak->beschrijving, 'size' => '100');
-$inputSubmit = array('name' => 'action', 'value' => 'Wijzig', 'content' => "<span class='glyphicon glyphicon-edit'></span>", 'class' => 'btn btn-warning');
+$inputBeschrijving = array ('name' => 'beschrijving', 'value' => $taak->beschrijving, 'size' => '100');
+$inputWijzig = array('name' => 'action', 'value' => 'Wijzig', 'content' => "<span class='glyphicon glyphicon-edit'></span>", 'class' => 'btn btn-warning');
+$inputVerwijder = array('name' => 'action', 'value' => 'Verwijder', 'content' => "<span class='glyphicon glyphicon-edit'></span>", 'class' => 'btn btn-danger');
 ?>
-<form method="post" action="">
+<form method="post" action="index.php/Organisator/TaakShift/inputRouting">
     <div class="table-responsive">
         <table class="table">
             <tr>
                 <td><label for="naam">Naam van de taak:</label></td>
-                <td colspan="2"><?php echo form_input($inputNaam)?></td>
+                <td colspan="2"><?php echo form_input($inputNaam) . form_hidden('TYPE', 'T') . form_hidden('taakId', $taak->id). form_hidden('doID', "$doId") . form_hidden('isD', "$isD")?></td>
             </tr>
             <tr>
                 <td><label for="naam">Beschrijving:</label></td>
                 <td colspan="2"><?php echo form_input($inputBeschrijving)?></td>
             </tr>
             <tr>
-                <td><?php echo form_submit($inputSubmit)?></td>
+                <td><?php echo form_submit($inputWijzig)?></td>
                 <td></td>
             </tr>
         </table>
@@ -42,9 +43,10 @@ $inputSubmit = array('name' => 'action', 'value' => 'Wijzig', 'content' => "<spa
         </thead>
         <tbody>
             <?php foreach ($shiften as $shift)  {
-                echo "<tr><td>" . form_hidden('id', "$shift->id") . form_input('begintijd', $shift->begintijd) . "</td><td>" . form_input('eindtijd', $shift->eindtijd) . "</td><td>" . form_input('aantalPlaatsen', $shift->aantalPlaatsen) . "</td><td>" . form_input('aantalInschrijvingen', $shift->aantalInschrijvingen) . "</td>";
-                echo "<td>" . smallDivAnchor('Organisator/TaakShift/wijzigen/' . "$taak->id/$doId/$isD", 'Wijzigen', 'class="btn btn-warning"') . "</td>";
-                echo "</tr>";
+                echo "<tr><form method=\"POST\" action=\"inputRouting\"><td>" . form_hidden('id', "$shift->id") . form_hidden('doID', "$doId") . form_hidden('isD', "$isD") . form_hidden('taakId', "$taak->id") . form_hidden('TYPE', 'T') . form_input('begintijd', $shift->begintijd) . "</td><td>" . form_input('eindtijd', $shift->eindtijd) . "</td><td>" . form_input('aantalPlaatsen', $shift->aantalPlaatsen) . "</td><td>" . $shift->aantalInschrijvingen . "</td>";
+                echo "<td>" . form_submit($inputWijzig) . "</td>";
+                echo "<td>" . form_submit($inputVerwijder) . "</td>";
+                echo "</form></tr>";
             }?>
             <tr>
                 <td colspan="4"><?php echo smallDivAnchor('Organisator/TaakShift/voegToe/' . $doId . "/$isD", 'Nieuwe taak aanmaken', 'class="btn btn-success"')?></td>

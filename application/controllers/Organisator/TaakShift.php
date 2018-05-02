@@ -60,7 +60,7 @@ class TaakShift extends CI_Controller{
         $this->template->load('main_master', $partials, $data);
     }
     
-    function wijzigen($taakId, $doId, $isD) {
+    function wijzigen() {
         $id = $this->input->post('id');
         $shift['begintijd'] = $this->input->post('begintijd');
         $shift['eindtijd'] = $this->input->post('eindtijd');
@@ -69,6 +69,42 @@ class TaakShift extends CI_Controller{
         $this->model->load('CRUD-Model');
         $this->CRUD_Model->update($id, $shift, 'taakShift');
         
-        $this->index($taakId, $doId, $isD);
+        $this->index($this->input->post('taakId'), $this->input->post('doId'), $this->input->post('isD'));
+    }
+    
+    function verwijderen() {
+        echo "FUC";
+    }
+    
+    function wijzigenT() {
+        $taakId = $this->input->post('taakId');
+        $this->model->load('CRUD_Model');
+        $taakI = $this->CRUD_Model->get($taakId, 'taak');
+        
+        $taak['dagOnderdeelId'] = $taakI->dagOnderdeel;
+        $taak['optieId'] = $taakI->optieId;
+        $taak['naam'] = $this->input->post('naam');
+        $taak['beschrijving'] = $this->input->post('beschrijving');
+        
+        print_r($taak);
+        $this->CRUD_Model->update($taakId, $taak, 'taak');
+        
+        //$this->index($this->input->post('taakId'), $this->input->post('doId'), $this->input->post('isD'));
+    }
+    
+    function inputRouting() {
+        $knop = $this->input->post('action');
+        echo $knop;
+        $TYPE = $this->input->post('TYPE');
+        echo $TYPE;
+        if ($knop == "Wijzig") {
+            if ($TYPE == "T") {
+                $this->wijzigenT();
+            } elseif ($TYPE == "S") {
+                $this->wijzigen();
+            }
+        } else {
+            $this->verwijderen();
+        }
     }
 }
