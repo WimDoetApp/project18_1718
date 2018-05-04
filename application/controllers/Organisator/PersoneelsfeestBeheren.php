@@ -106,7 +106,14 @@ class PersoneelsfeestBeheren extends CI_Controller
                     $organisator->personeelsfeestId += 1;
                     $this->Personeelsfeest_model->insertOrganisatoren($organisator);
                 }
-            } 
+            }
+            
+            $hoofdorganisatoren = $this->Personeelsfeest_model->getHoofdOrganisatorenVanPersoneelfeest($id);
+            
+            foreach($hoofdorganisatoren as $hoofdorganisator){
+                $hoofdorganisator->personeelsfeestId += 1;
+                $this->Personeelsfeest_model->insertOrganisatoren($hoofdorganisator);
+            }
         } 
 
         $this->index();

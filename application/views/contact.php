@@ -14,7 +14,7 @@ echo form_open('Contact/stuurVraag', $attributes);
 <div class="form-group">
 
 <div class="panel panel-default">
-    <div class="panel-heading"><h4>Email</h4></div>
+    <div class="panel-heading"><h4>E-mail</h4></div>
     <div class="panel-body">
         <?php echo form_input(array('type' => 'text', 'name' => "email", 'id' => 'email', 'required' => 'required', 'class' => 'form-control')); ?>
     </div>

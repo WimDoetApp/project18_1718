@@ -46,9 +46,10 @@ class Home extends CI_Controller {
         /**
          * Bepalen wat het huidige personeelsfeest is
          */
-        $personeelsfeest = $this->Personeelsfeest_model->getLaatsteId();
+        $personeelsfeest = $this->Personeelsfeest_model->getLaatstePersoneelsfeest();
         $personeelsfeestId = $personeelsfeest->id;
         $data['personeelsfeest'] = $personeelsfeestId;
+        $data['personeelsfeestHuidig'] = $personeelsfeest;
         
         if($this->authex->isAangemeld()){
             $aangemeld = true;
@@ -70,7 +71,7 @@ class Home extends CI_Controller {
             $gebruiker = $this->authex->getDeelnemerInfo();
             $data["gebruiker"] = $gebruiker;
             
-            $partials = array('inhoud' => 'startScherm', 'header' => 'main_header', 'footer' => 'main_footer');
+            $partials = array('inhoud' => 'startScherm', 'header' => 'main_header', 'footer' => 'start_footer');
             $this->template->load('main_master', $partials, $data);
         }else{
             $this->index();

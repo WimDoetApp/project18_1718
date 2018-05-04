@@ -37,7 +37,9 @@ foreach($dagonderdelen as $dagonderdeel){?>
                         echo "<td>" . smallDivAnchor("Organisator/Taak/index/$optie->id/0", "Taken aanpassen", 'class="btn btn-warning"') . "</td>";
                     }
                     
-                    echo "<td>" . smallDivAnchor("Organisator/ActiviteitenBeheren/verwijderActiviteit/$optie->id", "Activiteit verwijderen", 'class="btn btn-danger"') . "</td>";
+                    $confirm = "return confirm('Activiteit verwijderen, bent u hier zeker van?');";
+                    
+                    echo "<td>" . smallDivAnchor("Organisator/ActiviteitenBeheren/verwijderActiviteit/$optie->id", "Activiteit verwijderen", 'class="btn btn-danger" onclick="' . $confirm . '"') . "</td>";
                     
                     echo "</tr>";
                 }

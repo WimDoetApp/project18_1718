@@ -74,7 +74,21 @@ class Deelnemer_model extends CI_Model {
     function getAll($personeelsfeestId){
         $this->db->where('personeelsfeestId', $personeelsfeestId);
         $query = $this->db->get('deelnemer');
-        return $query->result();
+        $deelnemers = $query->result();
+        
+        $this->load->model('InschrijvingsOptie_model');
+        $this->load->model('Soort_model');
+        foreach($deelnemers as $deelnemer){
+            if($this->InschrijvingsOptie_model->IsReedsIngeschreven($deelnemer->id) != null){
+                $deelnemer->isIngeschreven = 1;
+            }else{
+                $deelnemer->isIngeschreven = 0;
+            }
+            
+            $deelnemer->soort = $this->Soort_model->get($deelnemer->soortId);
+        }
+        
+        return $deelnemers;
     }
     
     /**

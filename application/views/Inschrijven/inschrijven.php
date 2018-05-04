@@ -64,7 +64,7 @@ foreach($dagonderdelen as $index => $dagonderdeel){
             $alIngeschreven = true; //voor geen knop
         }
         else{
-            if($optie->aantalIngeschreven > $optie->maximumAantalPlaatsen){
+            if($optie->aantalIngeschreven > $optie->maximumAantalPlaatsen && $optie->maximumAantalPlaatsen != 0){
                 $radiobutton .= " disabled='disabled'/> <span style='color:red;'>Volzet</span></td>";
             }else{
                 $radiobutton .= " /> Inschrijven</td>";
