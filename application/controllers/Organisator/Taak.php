@@ -96,4 +96,42 @@ class Taak extends CI_Controller {
         echo "$id - $doId - $isD";
         $this->index($doId, $isD);
     }
+    
+    //TAAK-PIPELINE Taak<-TaakShift<-HelperTaak
+    //Vraagt alle deelnemers op van een bepaalde taak en stuurt alleen de deelnemerIds en shiftIds door
+    
+    //pl_Taak heeft als: parent:: none, child:: pl_TaakShift
+    //pl_TaakShift($taakId):: $taakId (INTEGER) - verwijst naar de id van de taak
+    
+    //Om deze functie te gebruiken in een andere controller gebruik:: <<START>>
+    //$taak = new Taak();
+    //...
+    //$[VARIABELE] = $taak->pl_Taak(taakId); <<END>>
+    public function pl_Taak($taakId) {
+        //return Array
+        $deelnemers = array();
+        //variabelen
+        $shiften = array();
+        $taakShift = new TaakShift();
+        
+        $this->load->model('CRUD_Model');
+        
+        //Vraag alle shiften op die bij taakId horen
+        $shiftenB = $this->CRUD_Model->getAllByColumn($taakId, 'taakShift', 'taakId');
+        
+        //Steek alle shiftIds in de shiften array
+        foreach ($shiftenB as $shiftB) {
+            array_push($shiften, $shiftB);
+        }
+        
+        //Vraag alle deelnemers op bij elke shiftId
+        foreach ($shiften as $shift) {
+            $deelnemers[$shift->id] = $taakShift->pl_TaakShift($shift->id);
+        }
+        
+        //Steek alle shiftIds in de return array
+        $deelnemers['id'] = $shiften;
+        
+        return $deelnemers;
+    }
 }
