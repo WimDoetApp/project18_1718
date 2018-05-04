@@ -43,7 +43,7 @@ $inputVerwijder = array('name' => 'action', 'value' => 'Verwijder', 'content' =>
         </thead>
         <tbody>
             <?php foreach ($shiften as $shift)  {
-                echo "<tr><form method=\"POST\" action=\"inputRouting\"><td>" . form_hidden('id', "$shift->id") . form_hidden('doID', "$doId") . form_hidden('isD', "$isD") . form_hidden('taakId', "$taak->id") . form_hidden('TYPE', 'T') . form_input('begintijd', $shift->begintijd) . "</td><td>" . form_input('eindtijd', $shift->eindtijd) . "</td><td>" . form_input('aantalPlaatsen', $shift->aantalPlaatsen) . "</td><td>" . $shift->aantalInschrijvingen . "</td>";
+                echo form_open('Organisator/TaakShift/knopInput') . "<tr><td>" . form_hidden('id', "$shift->id") . form_hidden('doId', "$doId") . form_hidden('isD', "$isD") . form_hidden('taakId', "$taak->id") . form_hidden('TYPE', 'T') . form_input('begintijd', $shift->begintijd) . "</td><td>" . form_input('eindtijd', $shift->eindtijd) . "</td><td>" . form_input('aantalPlaatsen', $shift->aantalPlaatsen) . "</td><td>" . $shift->aantalInschrijvingen . "</td>";
                 echo "<td>" . form_submit($inputWijzig) . "</td>";
                 echo "<td>" . form_submit($inputVerwijder) . "</td>";
                 echo "</form></tr>";
