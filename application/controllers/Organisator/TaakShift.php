@@ -66,14 +66,27 @@ class TaakShift extends CI_Controller{
         $shift['eindtijd'] = $this->input->post('eindtijd');
         $shift['aantalPlaatsen'] = $this->input->post('aantalPlaatsen');
         
-        $this->model->load('CRUD-Model');
+        $this->load->model('HelperTaak_model');
+        $shiftAP = $this->HelperTaak_model->countAllShift($id);
+        
+        $this->load->model('CRUD_Model');
+        
+        if ($shiftAP < $shift['aantalPlaatsen']) {
+            $deelnemers = $this->CountPlaatsenTeVeel($shift['aantalPlaatsen'] - $shiftAP, $id);
+            //@WIM@ stuur een mail naar de deelnemers in de variabele $deelnemers
+            
+            foreach ($deelnemers as $deelnemer) {
+                $this->CRUD_Model->delete($deelnemer->id, 'HelperTaak');
+            }
+        }
+        
         $this->CRUD_Model->update($id, $shift, 'taakShift');
         
         $this->index($this->input->post('taakId'), $this->input->post('doId'), $this->input->post('isD'));
     }
     
     function verwijderen() {
-        echo "FUC";
+        echo "FUCC you double BB";
     }
     
     function wijzigenT() {
@@ -109,10 +122,26 @@ class TaakShift extends CI_Controller{
         $knop = $this->input->post('action');
         
         if ($knop == "Wijzig") {
-            $this->wijzig();
+            $this->wijzigen();
         } else {
-            $this->verwijder();
+            $this->verwijderen();
         }
+    }
+    
+    function CountPlaatsenTeVeel($aantal, $id) {
+        //Vraag alle deelnemers op die zich hebben ingeschreven voor deze shift
+        $deelnemers = $this->pl_TaakShift($id);
+        
+        //Return array
+        $deelnemersOut = array();
+        
+        //Haal elke deelnemer die te veel is uit de array van deelnemers en stop die in de return array
+        //$i < $aantal -> laatste index van $deelnemers -> $deelnemersOut
+        for ($i = 0; $i < $aantal; $i++) {
+            array_push($deelnemersOut, array_pop($deelnemers));
+        }
+        
+        return $deelnemersOut;
     }
     
     //TAAK-PIPELINE Taak<-TaakShift<-HelperTaak
@@ -125,6 +154,8 @@ class TaakShift extends CI_Controller{
     //$taakShift = new TaakShift();
     //...
     //$[VARIABELE] = $taakShift->pl_TaakShift($shiftId) <<END>>
+    
+    //RETURN WAARDES: helper['INTEGER', (...)] - [INTERGER]:: deelnemer Id
     public function pl_TaakShift($shiftId) {
         //Return array
         $helpers = Array();
@@ -139,5 +170,9 @@ class TaakShift extends CI_Controller{
         }
         
         return $helpers;
+    }
+    
+    public function pl_TaakShiftDelete($shiftId) {
+        
     }
 }

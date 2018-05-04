@@ -107,6 +107,11 @@ class Taak extends CI_Controller {
     //$taak = new Taak();
     //...
     //$[VARIABELE] = $taak->pl_Taak(taakId); <<END>>
+    
+    //RETURN WAARDES: deelnamers['INTEGER' => 'ARRAY', (...), 'id' => 'ARRAY2']
+                //INTEGER:: ID van de SHIFT
+                //ARRAY:: ARRAY van DEELNEMER IDs die bij de SHIFT horen
+                //ARRAY2:: ARRAY van SHIFT IDs in de volgorde van DEELNEMER IDs arrays
     public function pl_Taak($taakId) {
         //return Array
         $deelnemers = array();
