@@ -29,6 +29,12 @@ class PersoneelsfeestBeheren extends CI_Controller
             }
         }
     }
+    
+    /**
+     * Als deze variable true is, laten we een errormessage zien op de pagina personeelsfeest beheren
+     */
+    public $error = false;
+    public $errorMessage = "";
 
     public function index()
     {
@@ -39,6 +45,8 @@ class PersoneelsfeestBeheren extends CI_Controller
         $data['exporteren'] = $this->Personeelsfeest_model->getJarenPersoneelsfeest();
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         $data['personeelsfeest'] = $this->Personeelsfeest_model->getLaatsteId()->id;
+        $data['error'] = $this->error;
+        $data['errorMessage'] = $this->errorMessage;
 
 
         $partials = array('inhoud' => 'Personeelsfeest beheren/personeelsfeestBeheren', 'header' => 'main_header', 'footer' => 'main_footer');
@@ -75,47 +83,77 @@ class PersoneelsfeestBeheren extends CI_Controller
         $strdeadline = $_POST['deadline'];
         $deadline = date('Y-m-d', strtotime($strdeadline));
         
-        $personeelsfeest = new stdClass();
-        $personeelsfeest->id = $personeelsfeestId;
-        $personeelsfeest->datum = $datum;
-        $personeelsfeest->inschrijfDeadline = $deadline;
-
-
-
-        if (isset($_POST['knopDatum'])) {
-            $this->Personeelsfeest_model->update($personeelsfeest);
-        } else if (isset($_POST['knop'])) {
+        if(strtotime($strdatum) < time()){
+            $this->error = true;
+            $this->errorMessage = 'Datum van het personeelsfeest kan niet in het verleden liggen!';
+        }
+        
+        if(strtotime($strdeadline) > strtotime($strdatum)){
+            $this->error = true;
+            $this->errorMessage = 'Datum van de deadline voor inschrijven kan niet na het personeelfeest liggen!';
+        }
+        
+        if(!$this->error){
             $personeelsfeest = new stdClass();
-            $personeelsfeest->id = $id + 1;
+            $personeelsfeest->id = $personeelsfeestId;
             $personeelsfeest->datum = $datum;
             $personeelsfeest->inschrijfDeadline = $deadline;
 
-            $this->Personeelsfeest_model->insertPersoneelsfeest($personeelsfeest);
+            if (isset($_POST['knopDatum'])) {
+                $this->Personeelsfeest_model->update($personeelsfeest);
+            } else if (isset($_POST['knop'])) {
+                $personeelsfeest = new stdClass();
+                $personeelsfeest->id = $id + 1;
+                $personeelsfeest->datum = $datum;
+                $personeelsfeest->inschrijfDeadline = $deadline;
 
-            if (isset($_POST['nieuwDagonderdeel'])) {
-                $dagonderdelen = $this->Personeelsfeest_model->getDagonderdelenVanPersoneelsfeest($id);
-                foreach ($dagonderdelen as $dagonderdeel) {
-                    $dagonderdeel->personeelsfeestId += 1;
-                    $this->Personeelsfeest_model->insertDagonderdeel($dagonderdeel);
+                $this->Personeelsfeest_model->insertPersoneelsfeest($personeelsfeest);
+
+                $nieuwDagonderdeel = new stdClass();
+                if (isset($_POST['nieuwDagonderdeel'])) {
+                    $dagonderdelen = $this->Personeelsfeest_model->getDagonderdelenVanPersoneelsfeest($id);
+                    foreach ($dagonderdelen as $dagonderdeel) {
+                        $nieuwDagonderdeel->starttijd = $dagonderdeel->starttijd;
+                        $nieuwDagonderdeel->eindtijd = $dagonderdeel->eindtijd;
+                        $nieuwDagonderdeel->naam = $dagonderdeel->naam;
+                        $nieuwDagonderdeel->heeftTaak = $dagonderdeel->heeftTaak;
+                        $nieuwDagonderdeel->vrijwilligerMeeDoen = $dagonderdeel->vrijwilligerMeeDoen;
+                        $nieuwDagonderdeel->locatieId = $dagonderdeel->locatieId;
+                        $nieuwDagonderdeel->personeelsfeestId = $id+1;
+                        $this->Personeelsfeest_model->insertDagonderdeel($nieuwDagonderdeel);
+                    }
+                } 
+
+                $nieuweOrganisator = new stdClass();
+                if (isset($_POST['nieuwOrganisatoren'])) {
+                    $organisatoren = $this->Personeelsfeest_model->getOrganisatorenVanPersoneelsfeest($id);
+
+                    foreach ($organisatoren as $organisator) {
+                        $nieuweOrganisator->naam = $organisator->naam;
+                        $nieuweOrganisator->voornaam = $organisator->voornaam;
+                        $nieuweOrganisator->email = $organisator->email;
+                        $nieuweOrganisator->wachtwoord = $organisator->wachtwoord;
+                        $nieuweOrganisator->soortId = $organisator->soortId;
+                        $nieuweOrganisator->personeelsfeestId = $id+1;
+                        $this->Personeelsfeest_model->insertOrganisatoren($nieuweOrganisator);
+                    }
+                }
+
+                $hoofdorganisatoren = $this->Personeelsfeest_model->getHoofdOrganisatorenVanPersoneelfeest($id);
+                $nieuweHoofdOrganisator = new stdClass();
+
+                foreach($hoofdorganisatoren as $hoofdorganisator){
+                    $nieuweHoofdOrganisator->naam = $hoofdorganisator->naam;
+                    $nieuweHoofdOrganisator->voornaam = $hoofdorganisator->voornaam;
+                    $nieuweHoofdOrganisator->email = $hoofdorganisator->email;
+                    $nieuweHoofdOrganisator->wachtwoord = $hoofdorganisator->wachtwoord;
+                    $nieuweHoofdOrganisator->soortId = $hoofdorganisator->soortId;
+                    $nieuweHoofdOrganisator->personeelsfeestId = $id+1;
+                    $this->Personeelsfeest_model->insertOrganisatoren($nieuweHoofdOrganisator);
                 }
             } 
-            if (isset($_POST['nieuwOrganisatoren'])) {
-                $organisatoren = $this->Personeelsfeest_model->getOrganisatorenVanPersoneelsfeest($id);
-
-                foreach ($organisatoren as $organisator) {
-                    $organisator->personeelsfeestId += 1;
-                    $this->Personeelsfeest_model->insertOrganisatoren($organisator);
-                }
-            }
-            
-            $hoofdorganisatoren = $this->Personeelsfeest_model->getHoofdOrganisatorenVanPersoneelfeest($id);
-            
-            foreach($hoofdorganisatoren as $hoofdorganisator){
-                $hoofdorganisator->personeelsfeestId += 1;
-                $this->Personeelsfeest_model->insertOrganisatoren($hoofdorganisator);
-            }
-        } 
-
+        }
+        
         $this->index();
     }
 

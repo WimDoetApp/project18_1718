@@ -102,6 +102,10 @@ foreach($dagonderdelen as $dagonderdeel){?>
                         $('.modal-body').html('');
                         $('.modal-title').text('Deelnemers');
                         
+                        if(inschrijfOpties.length === 0){
+                            $('.modal-body').append('<h4>Geen deelnemers</h4>');
+                        }
+                        
                         $.each(inschrijfOpties, function(index){
                             $('.modal-body').append('<h4>' + inschrijfOpties[index].deelnemer.voornaam +  ' ' + inschrijfOpties[index].deelnemer.naam + '</h4>');
                             
