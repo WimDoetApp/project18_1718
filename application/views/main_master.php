@@ -7,6 +7,7 @@
         <meta name="description" content="Personeelsfeest">
         <meta name="author" content="Wim Naudts, Jari Mathé, Yen Aarts, Bram Van Bergen">
         <title>Personeelsfeest</title>
+        <link rel="icon" href="<?php echo base_url()?>assets/images/favicon.ico" type="image/x-icon"/>
         
         <!-- Bootstrap Core CSS -->
         <?php echo pasStylesheetAan("bootstrap.css"); ?>

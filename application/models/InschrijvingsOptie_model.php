@@ -71,6 +71,17 @@ class InschrijvingsOptie_model extends CI_Model {
     }
     
     /**
+     * Kijkt of een bepaalde gebruiker al is ingeschreven voor eender welke optie
+     * @param $gebruikerId Id van de gebruiker die we zoeken
+     * @return alle inschrijfopties voor deze gebruiker, als dit niet null is, weten we dat hij is ingeschreven
+     */
+    function IsReedsIngeschreven($gebruikerId){
+        $this->db->where('deelnemerId', $gebruikerId);
+        $query = $this->db->get('inschrijfOptie');
+        return $query->result();
+    }
+    
+    /**
      * Een gebruiker inschrijven
      * @param $inschrijfOptie object met de nodige parameters
      * @return het id van de nieuwe inschrijving

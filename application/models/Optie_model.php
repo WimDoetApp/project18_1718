@@ -110,7 +110,10 @@ class Optie_model extends CI_Model {
      * @param $id id van de optie die we willen verwijderen
      */
     function delete($id)
-    {
+    { 
+        $this->db->where('optieId', $id);
+        $this->db->delete('inschrijfOptie');
+        
         $this->db->where('id', $id);
         $this->db->delete('optie');
     }

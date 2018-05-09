@@ -2,7 +2,25 @@
 /**
  * @author Wim Naudts
  */
+/**
+ * Dropdownlijst voor personeelsfeesten
+ */
+$filterOpties= "";
+foreach($personeelsfeesten as $personeelsfeestOptie){
+    $filterOpties[$personeelsfeestOptie->id] = $personeelsfeestOptie->datum;
+}
+echo "Kies personeelsfeest: ";
+echo form_dropdown('personeelsfeestId', $filterOpties, $personeelsfeest, "id='personeelsfeestId'");
+?>
+<a href="" class="btn btn-info" id="buttonFeest">Personeelsfeest bevestigen</a>
+<?php
+/**
+ * Overzicht gebruikers opvragen
+ */
 echo "<p>" . smallDivAnchor("Organisator/DeelnemersBekijken/index/$personeelsfeest", "Overzicht gebruikers", 'class="btn btn-info"') . "</p>";
+/**
+ * Alle dagonderdelen doorlopen, en activiteiten per dagonderdeel laten zien
+ */
 foreach($dagonderdelen as $dagonderdeel){?>
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -37,7 +55,9 @@ foreach($dagonderdelen as $dagonderdeel){?>
                         echo "<td>" . smallDivAnchor("Organisator/Taak/index/$optie->id/0", "Taken aanpassen", 'class="btn btn-warning"') . "</td>";
                     }
                     
-                    echo "<td>" . smallDivAnchor("Organisator/ActiviteitenBeheren/verwijderActiviteit/$optie->id", "Activiteit verwijderen", 'class="btn btn-danger"') . "</td>";
+                    $confirm = "return confirm('Activiteit verwijderen, bent u hier zeker van?');";
+                    
+                    echo "<td>" . smallDivAnchor("Organisator/ActiviteitenBeheren/verwijderActiviteit/$optie->id", "Activiteit verwijderen", 'class="btn btn-danger" onclick="' . $confirm . '"') . "</td>";
                     
                     echo "</tr>";
                 }
@@ -81,6 +101,14 @@ foreach($dagonderdelen as $dagonderdeel){?>
 <script>
     $(document).ready(function(){
         /**
+         * Van personeelsfeest veranderen
+         */
+        $('#buttonFeest').click(function(){
+            var personeelsfeest = $("#personeelsfeestId").val();
+            $(this).attr('href', "<?php echo base_url("index.php/Organisator/Overzicht/index/");?>" + personeelsfeest);
+        });
+        
+        /**
          * Deelnemers weergeven
          */
         $('.knopDeelnemers').click(function(){
@@ -88,6 +116,12 @@ foreach($dagonderdelen as $dagonderdeel){?>
             haalDeelnemerOp(id);
         });
         
+        
+        /**
+         * Deelnemers ophaleen
+         * @param id id van het personeelsfeest
+         * @returns Zet de juiste deelnemers in het popupvenster
+         */
         function haalDeelnemerOp(id){
             $.ajax({
                 type: "GET",
@@ -99,6 +133,10 @@ foreach($dagonderdelen as $dagonderdeel){?>
                         
                         $('.modal-body').html('');
                         $('.modal-title').text('Deelnemers');
+                        
+                        if(inschrijfOpties.length === 0){
+                            $('.modal-body').append('<h4>Geen deelnemers</h4>');
+                        }
                         
                         $.each(inschrijfOpties, function(index){
                             $('.modal-body').append('<h4>' + inschrijfOpties[index].deelnemer.voornaam +  ' ' + inschrijfOpties[index].deelnemer.naam + '</h4>');

@@ -94,7 +94,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
                 'type'          => 'submit',
                 'content'       => "<span class='glyphicon glyphicon-trash'></span>",
                 'class'         => 'btn btn-danger',
-                'onclick'       => "return confirm('Dagonderdeel verwijderen, bent u hier zeker van?');"
+                'onclick'       => "return confirm('Dagonderdeel verwijderen, alle bijhorende activiteiten en inschrijvingen zullen ook verwijdert worden! Bent u hier zeker van?');"
             );
             
             /**

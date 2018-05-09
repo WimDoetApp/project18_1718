@@ -11,6 +11,15 @@ class Personeelsfeest_model extends CI_Model
     {
         parent::__construct();
     }
+    
+    /**
+     * Alle personeelsfeesten ophalen
+     */
+    function getAll(){
+        $this->db->select('*'); 
+        $query = $this->db->get('personeelsfeest');
+        return $query->result();    
+    }
 
     function getLaatstePersoneelsfeest()
     {
@@ -68,8 +77,21 @@ class Personeelsfeest_model extends CI_Model
     {
         $this->db->select('naam, voornaam, email, wachtwoord, soortId, personeelsfeestId');
         $this->db->where('personeelsfeestId', $id);
+        $this->db->where('soortId', 3);
         $this->db->from('deelnemer');
         $query = $this->db->get();
+        return $query->result();
+    }
+    
+    /**
+     * Hoofdorganistors bij een bepaald personeelsfeest vinden
+     * @param $id id van het personeelfeest
+     * @return de hoofdorganisators
+     */
+    function getHoofdOrganisatorenVanPersoneelfeest($id){
+        $this->db->where('personeelsfeestId', $id);
+        $this->db->where('soortId', 4);
+        $query = $this->db->get('deelnemer');
         return $query->result();
     }
 
