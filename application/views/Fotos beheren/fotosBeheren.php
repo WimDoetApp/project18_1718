@@ -29,7 +29,13 @@
      */
 $teller = 0;
 $id = 0;
-$error = '';
+
+
+
+$error = ' ';
+
+
+
 
 $filterOpties= "";
 foreach($jaartallen as $jaartal){
@@ -43,8 +49,8 @@ $attributes = array('name' => 'mijnFormulier');
 <div class="table-responsive">
 <table class="table">
      <tr>
-            <td ><?php echo form_label('Filteren:', 'filteren'); echo form_dropdown('filteren', $filterOpties, '0', $id++);?></td>
-            <td><input type="file" name="userfile" size="20" /> <input type="submit" value="upload" /></td>
+            <td ><?php echo form_label('Filteren:', 'filteren'); echo form_dropdown('filteren', $filterOpties, $id++, 'class="form-control"');?></td>
+            <td><input type="file" name="userfile" size="20" class="btn btn-info"/> <input type="submit" value="upload" class="btn btn-success"/></td>
             <td><?php echo $error;?></td>   
     </tr>
 </table>
@@ -55,7 +61,7 @@ $attributes = array('name' => 'mijnFormulier');
 </table>
 <table class="table">
     <tr>
-            <td><?php echo smallDivAnchor('home/index', 'Terug gaan', 'class="btn btn-info"')?></td>
+            <td><?php echo smallDivAnchor('home/index', 'Terug', 'class="btn btn-info"')?></td>
     </tr>    
 <table>
 </div>

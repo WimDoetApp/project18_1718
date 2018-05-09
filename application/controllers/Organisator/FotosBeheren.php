@@ -22,7 +22,6 @@ class FotosBeheren extends CI_Controller {
         $this->load->helper('form');
         $this->load->helper('html');
         $this->load->helper(array('form', 'url'));
-        $this->load->library('upload');
         
         if (!$this->authex->isAangemeld()) {
             redirect('Home/index');
@@ -75,11 +74,11 @@ class FotosBeheren extends CI_Controller {
                 if ( ! $this->upload->do_upload('userfile'))
                 {
                     $error = array('error' => $this->upload->display_errors());
-                    
                     redirect('Organisator/FotosBeheren/index', $error);
-                }   
-                else
-                {
+                }else {
+                   /**
+                   * upload in de folder
+                   */
                    $data = array('upload_data' => $this->upload->data());
                   
                    /**
@@ -94,9 +93,11 @@ class FotosBeheren extends CI_Controller {
                    $info->personeelsfeestId = $personeelsfeestId->id;
 
                    $this->load->model('CRUD_Model');
-                   $id = $this->CRUD_Model->add($info, 'foto');
+                   $this->CRUD_Model->add($info, 'foto');
                    
                    redirect('Organisator/FotosBeheren/index', $data);
+                   
+                   
                 }
         }
         

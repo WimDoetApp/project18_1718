@@ -1,5 +1,6 @@
 <?php
 ?>
+<div class="table-responsive">
 <table class="table table-striped">
     <?php foreach ($takenMetDeelnemers as $taak => $deelnemers){?>
     <tr><th colspan="2" style="font-size:20px;"><?php echo $taak ?></th></tr>
@@ -28,6 +29,6 @@
         </tr>  
         <?php } }?>
 </table>
-
+</div>
 
 <p><?php echo smallDivAnchor('home/index', "Teruggaan", 'class="btn btn-info"');?></p>

@@ -48,7 +48,7 @@ if ($soort == 3 || $soort == 4) { ?>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading"><h2>Stuur hier mails naar deelnemers en vrijwilligers</h2></div>
-        <div class="panel-body"><?php echo smallDivAnchor("", "Mails sturen", 'class="btn btn-default"') ?></div>
+        <div class="panel-body"><?php echo smallDivAnchor("Organisator/InformatieVersturen/index", "Mails sturen", 'class="btn btn-default"') ?></div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading"><h2>Pas hier het personeelsfeest aan</h2></div>
@@ -62,7 +62,7 @@ if ($soort == 3 || $soort == 4) { ?>
 
 <div class="panel panel-default">
     <div class="panel-heading"><h2>Raadpleeg hier de e-mailadressen</h2></div>
-    <div class="panel-body"><?php echo smallDivAnchor("", "Emails raadplegen", 'class="btn btn-default"') ?></div>
+    <div class="panel-body"><?php echo smallDivAnchor("Vrijwilliger/EmailadressenRaadplegen/index", "Emails raadplegen", 'class="btn btn-default"') ?></div>
 </div>
 </body>
 </html>
