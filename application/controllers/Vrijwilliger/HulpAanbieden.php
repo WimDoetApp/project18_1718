@@ -48,10 +48,45 @@ class HulpAanbieden extends CI_Controller
         $partials = array('inhoud' => 'Hulp aanbieden/hulpAanbieden', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
-    public function inschrijven() {
 
+    public function shiftenTonen()
+    {
+        /**
+         * Modellen laden
+         */
+        $this->load->model('DagOnderdeel_model');
+
+        $id = $this->input->get('id');
+        $personeelsfeestId = $this->input->get('personeelsfeestId');
+
+        $geselecteerddagonderdeel = $this->DagOnderdeel_model->getDagonderdeelByStartTijdWithOptiesWithTakenWithShiften($personeelsfeestId, $id);
+        echo json_encode($geselecteerddagonderdeel);
     }
+
+    public function inschrijven()
+    {
+        /**
+         * Modellen laden
+         */
+        $this->load->model('HelperTaak_model');
+        $gebruiker = $this->authex->getDeelnemerInfo();
+
+        $deelnemerId = $gebruiker->id;
+
+        $shiftId = $this->input->get('id');
+        $personeelsfeestId = $this->input->get('personeelsfeestId');
+
+        $vrijwilliger = "";
+
+        $vrijwilliger->personeelsfeestId = $personeelsfeestId;
+        $vrijwilliger->deelnemerId = $deelnemerId;
+        $vrijwilliger->taakShiftId = $shiftId;
+
+        $this->HelperTaak_model->updateVrijwilliger($vrijwilliger);
+    }
+
 }
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates

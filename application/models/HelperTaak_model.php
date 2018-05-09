@@ -55,6 +55,11 @@ class HelperTaak_model extends CI_Model {
         
         return $helperTaken;
     }
+
+    function insertVrijwilliger($vrijwilliger) {
+        $this->db->insert('helpertaak', $vrijwilliger);
+        return $this->db->insert_id();
+    }
 }
 
 
