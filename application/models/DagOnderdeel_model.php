@@ -117,11 +117,20 @@ class DagOnderdeel_model extends CI_Model {
     }
     
     /**
-     * Dagonderdeel verwijderen
+     * Dagonderdeel en bijhorende opties verwijderen
      * @param $id id van het dagonderdeel dat we willen verwijderen
      */
     function delete($id)
-    {
+    { 
+        $this->db->where('dagonderdeelId', $id);
+        $query = $this->db->get('optie');
+        $opties = $query->result();
+        
+        $this->load->model('Optie_model');
+        foreach($opties as $optie){
+            $this->Optie_model->delete($optie->id);
+        }
+        
         $this->db->where('id', $id);
         $this->db->delete('dagOnderdeel');
     }

@@ -176,4 +176,36 @@ class GebruikerToevoegen extends CI_Controller {
         }
         return implode($wachtwoord);
     }
+    
+    public function wachtwoordVeranderen(){
+        $oud = $this->input->post('oud');
+        $nieuw = $this->input->post('nieuw');
+        $bevestig = $this->input->post('bevestig');
+        $personeelsfeest = $this->input->post('personeelsfeestId');
+        $gebruiker = $this->authex->getDeelnemerInfo();
+        $error = 0;
+        $errorMessage = "d";
+        
+        if($nieuw == $bevestig){
+            if (password_verify($oud, $gebruiker->wachtwoord)){ 
+                $gebruiker->wachtwoord = password_hash($nieuw, PASSWORD_DEFAULT); 
+                $this->Deelnemer_model->update($gebruiker);
+                
+                $encryptedId = sha1($gebruiker->id);
+                $this->stuurMail($gebruiker->email, "<p>Hey $gebruiker->voornaam</p><br/><p>U wachtwoord op de applicatie Personeelsfeest is verandert.</p><p>Inloggen kan vanaf nu met deze gegevens:</p><br/><p>- email: $gebruiker->email</p><br/><p>- wachtwoord: $nieuw</p>"
+                . "<br/><p>Klik op onderstaande link om in te loggen</p><br/><p>" . base_url() . "index.php/Home/aanmelden?id=$encryptedId&email=$gebruiker->email</p>", "Registratie personeelfeest");
+                
+                $error = true;
+                $errorMessage = "Wacthwoord verandert er is een mail met confirmatie verstuurd";
+            }else{
+                $error = true;
+                $errorMessage = 'Wachtwoord klopt niet';
+            }
+        }else{
+            $error = true;
+            $errorMessage = 'Nieuwe wachtwoorden komen niet overeen';
+        }
+        
+        redirect("Home/account/$personeelsfeest/$error/$errorMessage");
+    }
 } 

@@ -2,7 +2,25 @@
 /**
  * @author Wim Naudts
  */
+/**
+ * Dropdownlijst voor personeelsfeesten
+ */
+$filterOpties= "";
+foreach($personeelsfeesten as $personeelsfeestOptie){
+    $filterOpties[$personeelsfeestOptie->id] = $personeelsfeestOptie->datum;
+}
+echo "Kies personeelsfeest: ";
+echo form_dropdown('personeelsfeestId', $filterOpties, $personeelsfeest, "id='personeelsfeestId'");
+?>
+<a href="" class="btn btn-info" id="buttonFeest">Personeelsfeest bevestigen</a>
+<?php
+/**
+ * Overzicht gebruikers opvragen
+ */
 echo "<p>" . smallDivAnchor("Organisator/DeelnemersBekijken/index/$personeelsfeest", "Overzicht gebruikers", 'class="btn btn-info"') . "</p>";
+/**
+ * Alle dagonderdelen doorlopen, en activiteiten per dagonderdeel laten zien
+ */
 foreach($dagonderdelen as $dagonderdeel){?>
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -83,6 +101,14 @@ foreach($dagonderdelen as $dagonderdeel){?>
 <script>
     $(document).ready(function(){
         /**
+         * Van personeelsfeest veranderen
+         */
+        $('#buttonFeest').click(function(){
+            var personeelsfeest = $("#personeelsfeestId").val();
+            $(this).attr('href', "<?php echo base_url("index.php/Organisator/Overzicht/index/");?>" + personeelsfeest);
+        });
+        
+        /**
          * Deelnemers weergeven
          */
         $('.knopDeelnemers').click(function(){
@@ -90,6 +116,12 @@ foreach($dagonderdelen as $dagonderdeel){?>
             haalDeelnemerOp(id);
         });
         
+        
+        /**
+         * Deelnemers ophaleen
+         * @param id id van het personeelsfeest
+         * @returns Zet de juiste deelnemers in het popupvenster
+         */
         function haalDeelnemerOp(id){
             $.ajax({
                 type: "GET",

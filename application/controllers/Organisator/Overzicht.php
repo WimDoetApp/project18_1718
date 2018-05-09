@@ -36,6 +36,8 @@ class Overzicht extends CI_Controller {
         $data['dagonderdelen'] = $this->DagOnderdeel_model->getAllByStartTijdWithOpties($personeelsfeestId);
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         $data['personeelsfeest'] = $personeelsfeestId;
+        $this->load->model('Personeelsfeest_model');
+        $data['personeelsfeesten'] = $this->Personeelsfeest_model->getAll();
         
         $partials = array('inhoud' => 'Overzicht/overzichtDagonderdelen', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);

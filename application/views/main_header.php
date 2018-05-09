@@ -36,7 +36,7 @@
                 <li><a href="<?php echo base_url("index.php/Contact/contact"); ?>">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><?php echo anchor("Home/toonStartScherm", "<span class='glyphicon glyphicon-user'></span> Welkom $gebruiker->voornaam") ?></li>
+                <li><?php echo anchor("Home/account/$personeelsfeest/0/d", "<span class='glyphicon glyphicon-user'></span> Welkom $gebruiker->voornaam") ?></li>
                 <li><?php echo smallDivAnchor("home/afmelden", "<span class='glyphicon glyphicon-log-out'></span> Afmelden", 'class="btn btn-danger navButton"') ?></li>
             </ul>
             </div>

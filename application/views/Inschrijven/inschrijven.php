@@ -111,7 +111,9 @@ foreach($dagonderdelen as $index => $dagonderdeel){
 </table>
 </div>
 
-    <?php }
+    <?php }else{
+        echo "<h3>$dagonderdeel->naam</h3><p>Vrijwilligers kunnen niet deelnemen aan activiteiten tijdens $dagonderdeel->naam";
+    }
         } 
 echo "<p>" . form_submit(array('name' => 'knopSubmit', 'value' => 'Bevestigen', 'class' => 'btn btn-success')) . "</p>"; 
 echo form_close(); 
