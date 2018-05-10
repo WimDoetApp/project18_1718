@@ -119,4 +119,25 @@ class Home extends CI_Controller {
         $partials = array('inhoud' => 'message', 'header' => 'Inloggen/inloggen_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
     }
+    
+    /**
+     * Informatie over het account van de ingelogde gebruiker laten zien
+     * @param $personeelsfeestId id van het huidige personeelsfeest
+     * @param $error bool om te weten of we een foutmelding moeten weergeven
+     * @param $errorMessage inhoud van de foutmelding
+     */
+    public function account($personeelsfeestId, $error, $errorMessage){
+        $this->load->model('DagOnderdeel_model');
+        $gebruiker = $this->Deelnemer_model->getWithAll($this->authex->getDeelnemerInfo()->id);
+        
+        $data['titel'] = "Welkom $gebruiker->voornaam";
+        $data['personeelsfeest'] = $personeelsfeestId;
+        $data['dagonderdelen'] = $this->DagOnderdeel_model->getAllByStartTijd($personeelsfeestId);
+        $data['gebruiker'] = $gebruiker;
+        $data['error'] = $error;
+        $data['errorMessage'] = str_replace('%20', ' ', $errorMessage);
+        
+        $partials = array('inhoud' => 'account', 'header' => 'main_header', 'footer' => 'main_footer');
+        $this->template->load('main_master', $partials, $data);
+    }
 }

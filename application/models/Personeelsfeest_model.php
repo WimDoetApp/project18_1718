@@ -11,6 +11,15 @@ class Personeelsfeest_model extends CI_Model
     {
         parent::__construct();
     }
+    
+    /**
+     * Alle personeelsfeesten ophalen
+     */
+    function getAll(){
+        $this->db->select('*'); 
+        $query = $this->db->get('personeelsfeest');
+        return $query->result();    
+    }
 
     function getLaatstePersoneelsfeest()
     {
