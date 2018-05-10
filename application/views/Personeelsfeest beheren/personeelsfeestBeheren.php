@@ -168,4 +168,12 @@ echo form_close();
         </div>
     </div>
 </div>
+
+<?php if($error){?>
+    <script>
+        $(document).ready(function(){
+            alert("<?php echo $errorMessage; ?>");
+        });
+    </script>
+<?php }
  

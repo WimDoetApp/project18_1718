@@ -15,7 +15,7 @@
                 <tr>
                     <th>Naam</th>
                     <th>Voornaam</th>
-                    <th>Email</th>
+                    <th>E-mail</th>
                     <th>Soort</th>
                 </tr>
             </thead>

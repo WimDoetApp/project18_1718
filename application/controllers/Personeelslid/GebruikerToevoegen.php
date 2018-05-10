@@ -121,16 +121,23 @@ class GebruikerToevoegen extends CI_Controller {
         }
         
         /**
-         * Melding weergeven
+         * Bij error geven we foutmelding, anders success melding
          */
-        $data["titel"] = "Succes!";
-        $data["gebruiker"] = $this->authex->getDeelnemerInfo();
-        $data["message"] = "Gebruiker is toegevoegd!";
-        $data['personeelsfeest'] = $personeelsfeestId;
-        $data['refer'] = "Personeelslid/GebruikerToevoegen/index/$personeelsfeestId";
+        if($this->error){
+            $this->index($personeelsfeestId);
+        }else{
+            /**
+            * Melding weergeven
+            */
+            $data["titel"] = "Succes!";
+            $data["gebruiker"] = $this->authex->getDeelnemerInfo();
+            $data["message"] = "Gebruiker is toegevoegd!";
+            $data['personeelsfeest'] = $personeelsfeestId;
+            $data['refer'] = "Personeelslid/GebruikerToevoegen/index/$personeelsfeestId";
             
-        $partials = array('inhoud' => 'message', 'header' => 'main_header', 'footer' => 'main_footer');
-        $this->template->load('main_master', $partials, $data);
+            $partials = array('inhoud' => 'message', 'header' => 'main_header', 'footer' => 'main_footer');
+            $this->template->load('main_master', $partials, $data);
+        }
     }
     
     /**

@@ -30,7 +30,7 @@ class DeelnemersBekijken extends CI_Controller {
     }
     
     /**
-     * Overzicht van alle gebruikers bij een personeelsfeest
+     * Naar de pagina navigeren
      * @param $personeelsfeestId
      */
     public function index($personeelsfeestId){
@@ -38,12 +38,26 @@ class DeelnemersBekijken extends CI_Controller {
         $data['personeelsfeest'] = $personeelsfeestId;
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
-        $data['deelnemers'] = $this->Deelnemer_model->getAll($personeelsfeestId);
-        
-        $partials = array('inhoud' => 'Overzicht/overzichtDeelnemers', 'header' => 'main_header', 'footer' => 'main_footer');
+        $partials = array('inhoud' => 'Overzicht/overzichtDeelnemers', 'header' => 'main_header', 'footer' => 'Overzicht/deelnemers_footer');
         $this->template->load('main_master', $partials, $data);
     }
     
+    /**
+     * Overzicht van alle gebruikers bij een personeelsfeest
+     */
+    public function haalDeelnemersOp(){
+        $personeelsfeestId = $this->input->get('personeelsfeestId');
+        
+        $deelnemers = $this->Deelnemer_model->getAll($personeelsfeestId);
+        
+        echo json_encode($deelnemers);
+    }
+    
+    /**
+     * Details over een gebruiker ophalen
+     * @param $deelnemerId id van de gebruiker
+     * @param $personeelsfeestId id van het huidige personeelsfeest
+     */
     public function detail($deelnemerId, $personeelsfeestId){
         $data['personeelsfeest'] = $personeelsfeestId;
         $gebruiker = $this->Deelnemer_model->getWithAll($deelnemerId);

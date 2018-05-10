@@ -37,7 +37,9 @@ foreach($dagonderdelen as $dagonderdeel){?>
                         echo "<td>" . smallDivAnchor("Organisator/Taak/index/$optie->id/0", "Taken aanpassen", 'class="btn btn-warning"') . "</td>";
                     }
                     
-                    echo "<td>" . smallDivAnchor("Organisator/ActiviteitenBeheren/verwijderActiviteit/$optie->id", "Activiteit verwijderen", 'class="btn btn-danger"') . "</td>";
+                    $confirm = "return confirm('Activiteit verwijderen, bent u hier zeker van?');";
+                    
+                    echo "<td>" . smallDivAnchor("Organisator/ActiviteitenBeheren/verwijderActiviteit/$optie->id", "Activiteit verwijderen", 'class="btn btn-danger" onclick="' . $confirm . '"') . "</td>";
                     
                     echo "</tr>";
                 }
@@ -99,6 +101,10 @@ foreach($dagonderdelen as $dagonderdeel){?>
                         
                         $('.modal-body').html('');
                         $('.modal-title').text('Deelnemers');
+                        
+                        if(inschrijfOpties.length === 0){
+                            $('.modal-body').append('<h4>Geen deelnemers</h4>');
+                        }
                         
                         $.each(inschrijfOpties, function(index){
                             $('.modal-body').append('<h4>' + inschrijfOpties[index].deelnemer.voornaam +  ' ' + inschrijfOpties[index].deelnemer.naam + '</h4>');
