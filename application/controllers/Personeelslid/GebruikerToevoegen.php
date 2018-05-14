@@ -17,6 +17,7 @@ class GebruikerToevoegen extends CI_Controller {
     /**
      * Controller: Gebruiker toevoegen
      * @author Jari Mathé, Wim Naudts
+     * @class GebruikerToevoegen
      */
 
     /**

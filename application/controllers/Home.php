@@ -6,6 +6,7 @@ class Home extends CI_Controller {
 
     /**
      * Controller Home
+     * @class Home
      * @author Wim Naudts
      */
     public function __construct() {

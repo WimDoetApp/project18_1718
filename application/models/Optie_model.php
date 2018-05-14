@@ -2,6 +2,7 @@
 
 /**
  * Team 18 - Project APP 2APP-BIT - Thomas More
+ * @class Optie_model
  */
 
 class Optie_model extends CI_Model {

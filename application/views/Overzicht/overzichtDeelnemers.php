@@ -5,7 +5,10 @@
 <label><input type="checkbox" id="checkBoxVrijwilligers" value="">Vrijwilligers</label>
 <?php 
 /**
+ * @file overzichtDeelnemers.php
  * @author Wim Naudts
+ * 
+ * View met overzicht van alle gebruikers en mogelijkheid om te filteren op soort en zoeken op naam.
  */
 /**
  * Zoeken op naam

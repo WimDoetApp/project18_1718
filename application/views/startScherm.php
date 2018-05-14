@@ -1,3 +1,10 @@
+<?php
+/**
+ * @file startScherm.php
+ * @author Wim Naudts
+ * Homescherm van de ingelogde gebruiker.
+ */
+?>
 <h3>Welkom <?php echo $gebruiker->voornaam ?>,</h3>
 <p>Op de website voor het personeelsfeest van <?php echo $personeelsfeestHuidig->datum ?>.</p>
 <p>Op deze website kan je jezelf inschrijven of hulp aanbieden voor het personeelsfeest. Je hebt hiervoor tot deze deadline: <?php echo $personeelsfeestHuidig->inschrijfDeadline ?>.</p>

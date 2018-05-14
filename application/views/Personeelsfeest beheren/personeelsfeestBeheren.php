@@ -1,7 +1,10 @@
 <a href="" data-toggle="modal" data-target="#modalHulp">Hulp nodig?</a>
 <?php
 /**
+ * @file personeelsfeestBeheren.php
  * @author Bram Van Bergen, Wim Naudts
+ * 
+ * View met admin panel, organisatoren kunnen van hieruit paginas bereiken om zaken in te stellen.
  */
 /**
  *  We geven naar elke pagina door over welk personeelsfeest het gaat

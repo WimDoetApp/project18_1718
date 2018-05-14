@@ -1,6 +1,9 @@
 <?php
 /**
+ * @file overzichtDagonderdelen.php
  * @author Wim Naudts
+ * 
+ * View met alle dagonderdelen en per dagonderdeel alle activiteiten.
  */
 /**
  * Dropdownlijst voor personeelsfeesten

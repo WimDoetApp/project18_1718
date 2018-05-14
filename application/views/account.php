@@ -1,6 +1,9 @@
 <?php
 /**
+ * @file account.php
  * @author Wim Naudts
+ * 
+ * View met overzicht van het account van de ingelogde gebruiker en de mogelijkheid om zijn wachtwoord te veranderen
  */
 ?>
 <div class="panel panel-default">

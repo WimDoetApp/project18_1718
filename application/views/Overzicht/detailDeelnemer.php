@@ -1,6 +1,9 @@
 <?php
 /**
+ * @file detailDeelnemer.php
  * @author Wim Naudts
+ * 
+ * View met details over een bepaalde gebruiker
  */
 ?>
 <div class="panel panel-default">

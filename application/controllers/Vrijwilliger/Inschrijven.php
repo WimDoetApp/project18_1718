@@ -6,6 +6,7 @@ class Inschrijven extends CI_Controller {
 
     /**
      * Controller Inschrijven
+     * @class Inschrijven
      * @author Wim Naudts
      */
 

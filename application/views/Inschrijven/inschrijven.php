@@ -2,7 +2,10 @@
 <h2>Activiteiten</h2>
 <?php
 /**
+ * @file inschrijven.php
  * @author Wim Naudts
+ * 
+ * View waar je je voor het peresoneelsfeest kan inschrijven
  */
 /**
  * formulier openen

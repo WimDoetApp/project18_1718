@@ -1,6 +1,9 @@
 <?php 
 /**
+ * @file dagonderdelen.php
  * @author Wim Naudts
+ * 
+ * View met CRUD-functionaliteit voor dagonderdelen
  */
 /**
  * Knop om nieuw dagonderdeel aan te maken

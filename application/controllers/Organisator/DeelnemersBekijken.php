@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class DeelnemersBekijken extends CI_Controller {
     /**
      * Controller Deelnemers bekijken
+     * @class DeelnemersBekijken
      * @author Wim Naudts
      */
 

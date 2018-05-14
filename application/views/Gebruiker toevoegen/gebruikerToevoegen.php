@@ -1,6 +1,9 @@
 <?php
 /**
+ * @file gebruikerToevoegen.php
  * @author Jari Mathé, Wim Naudts
+ * 
+ * View waar je gebruikers kan op toevoegen
  */
 /**
 * Formulier openen

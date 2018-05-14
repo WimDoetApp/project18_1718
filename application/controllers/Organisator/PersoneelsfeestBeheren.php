@@ -7,6 +7,7 @@ class PersoneelsfeestBeheren extends CI_Controller
 
     /**
      * Controller Personeelsfeest Beheren
+     * @class PersoneelsfeestBeheren
      * @author Bram Van Bergen, Wim Naudts
      */
 

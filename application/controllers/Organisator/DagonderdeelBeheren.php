@@ -6,6 +6,7 @@ class DagOnderdeelBeheren extends CI_Controller {
 
     /**
      * Controller Dagonderdelen beheren
+     * @class DagOnderdeelBeheren
      * @author Wim Naudts
      */
 

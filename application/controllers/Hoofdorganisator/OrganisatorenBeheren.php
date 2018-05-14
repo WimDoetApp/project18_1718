@@ -6,6 +6,7 @@ class OrganisatorenBeheren extends CI_Controller {
 
     /**
      * Controller Organisatoren beheren
+     * @class OrganisatorenBeheren
      * @author Wim Naudts
      */
 
