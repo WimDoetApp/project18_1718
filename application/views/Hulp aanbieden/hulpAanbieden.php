@@ -45,12 +45,12 @@
         /**
          * Controleren hoeveel personen er zijn ingeschreven
          */
-        if ($ingeschreven == $maxAantal) {
-            echo "<td><a href='' class='btn btn-danger' disabled='true'>Volzet</a></td>";
+        if ($ingeschreven >= $maxAantal) {
+            echo "<td><button type='submit' href='' class='btn btn-danger' disabled='true'>Volzet</button></td>";
         } else if ((($ingeschreven / $maxAantal) * 100) > 75) {
             echo "<td><button type='submit' value='$dagonderdeel->id' data-toggle='modal' data-target='#modalInschrijven' class='buttonInschrijven btn btn-warning $soort $dagonderdeel->id'>Hulp aanbieden</input></td>";
         } else {
-            echo "<td><button type='submit' value='$dagonderdeel->id' data-toggle='modal' data-target='#modalInschrijven' class='buttonInschrijven btn btn-default $soort $dagonderdeel->id'>Hulp aanbieden</input></td>";
+            echo "<td><button type='submit' value='$dagonderdeel->id' data-toggle='modal' data-target='#modalInschrijven' class='buttonInschrijven btn btn-success $soort $dagonderdeel->id'>Hulp aanbieden</input></td>";
         }
         echo "<td>" . $ingeschreven . "/" . $maxAantal . "</td></tr>";
     }
@@ -87,25 +87,19 @@ echo smallDivAnchor('home/index', "Teruggaan", 'class="btn btn-info"');
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                <button type="button" id="close" class="btn btn-default" data-dismiss="modal">Annuleren</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    $(document).ready(function () {
-        $("#personeelsfeestId").hide();
-        $(".buttonInschrijven").click(function () {
-            var id = $(this).val();
-            var personeelsfeestId = $('#personeelsfeestId').attr('data-id');
-            haalKnopOp(id, personeelsfeestId);
-        });
-        $(".inschrijven").click(function () {
-            var id = $(this).val();
-            var personeelsfeestId = $('#personeelsfeestId').attr('data-id');
-            schrijfIn(id, personeelsfeestId);
-        });
+
+    $(".buttonInschrijven").click(function () {
+        var id = $(this).val();
+        var personeelsfeestId = $('#personeelsfeestId').attr('data-id');
+        haalKnopOp(id, personeelsfeestId);
+
     });
 
     /**
@@ -131,9 +125,6 @@ echo smallDivAnchor('home/index', "Teruggaan", 'class="btn btn-info"');
                         $.each(dagonderdeel, function (index, obj) {
                             $.each(obj.taken, function (index, taken) {
                                 $.each(taken.shiften, function (index, shiften) {
-
-                                    console.log(shiften);
-
                                     var tr = document.createElement('tr');
                                     var tdTaken = document.createElement('td');
                                     var tdOmschrijving = document.createElement('td');
@@ -142,7 +133,7 @@ echo smallDivAnchor('home/index', "Teruggaan", 'class="btn btn-info"');
                                     var knopInschrijven = document.createElement("button");
                                     var shift = shiften.begintijd.substr(0, 5) + " - " + shiften.eindtijd.substr(0, 5);
 
-                                    knopInschrijven.type = 'submit';
+                                    knopInschrijven.type = 'button';
                                     knopInschrijven.value = shiften.id;
                                     knopInschrijven.name = "inschrijven";
                                     knopInschrijven.className = "btn btn-default inschrijven";
@@ -172,14 +163,17 @@ echo smallDivAnchor('home/index', "Teruggaan", 'class="btn btn-info"');
                                         var tdShiften = document.createElement('td');
                                         var tdInschrijven = document.createElement('td');
                                         var knopInschrijven = document.createElement("button");
-
                                         var shift = shiften.begintijd.substr(0, 5) + " - " + shiften.eindtijd.substr(0, 5);
 
-                                        knopInschrijven.addClass("btn btn-default");
+                                        knopInschrijven.type = 'button';
+                                        knopInschrijven.value = shiften.id;
+                                        knopInschrijven.name = "inschrijven";
+                                        knopInschrijven.className = "btn btn-default inschrijven";
+                                        knopInschrijven.append("Inschrijven");
                                         tdShiften.append(shift);
                                         tdTaken.append(taken.naam);
                                         tdOmschrijving.append(taken.beschrijving);
-                                        tdInschrijven.appendChild(knopInschrijven);
+                                        tdInschrijven.append(knopInschrijven);
 
                                         tr.appendChild(tdTaken);
                                         tr.appendChild(tdOmschrijving);
@@ -200,14 +194,10 @@ echo smallDivAnchor('home/index', "Teruggaan", 'class="btn btn-info"');
         });
     }
 
-    function schrijfIn(id, personeelsfeestId) {
-        $.ajax({
-            type: "GET",
-            url: site_url + "/Vrijwilliger/HulpAanbieden/inschrijven",
-            data: {
-                id: id,
-                personeelsfeestId: personeelsfeestId
-            }
-        });
-    }
+    $("#body").on("click", ".inschrijven", function () {
+        var id = $(this).val();
+        var personeelsfeestId = $('#personeelsfeestId').attr('data-id');
+        $('#modalInschrijven .close').click();
+        window.location.href = site_url + "/Vrijwilliger/HulpAanbieden/inschrijven?id=" + id + "&personeelsfeestId=" + personeelsfeestId;
+    });
 </script>

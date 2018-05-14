@@ -29,15 +29,15 @@ class HulpAanbieden extends CI_Controller
         if (!$this->authex->isAangemeld()) {
             redirect('Home/index');
         }
+        /**
+         * Modellen laden
+         */
+        $this->load->model('HelperTaak_model');
+        $this->load->model('DagOnderdeel_model');
     }
 
     public function index($personeelsfeestId)
     {
-        /**
-         * Modellen laden
-         */
-        $this->load->model('DagOnderdeel_model');
-
         /**
          * Data opvullen en doorsturen naar de pagina
          */
@@ -51,11 +51,6 @@ class HulpAanbieden extends CI_Controller
 
     public function shiftenTonen()
     {
-        /**
-         * Modellen laden
-         */
-        $this->load->model('DagOnderdeel_model');
-
         $id = $this->input->get('id');
         $personeelsfeestId = $this->input->get('personeelsfeestId');
 
@@ -65,26 +60,19 @@ class HulpAanbieden extends CI_Controller
 
     public function inschrijven()
     {
-        /**
-         * Modellen laden
-         */
-        $this->load->model('HelperTaak_model');
-        $gebruiker = $this->authex->getDeelnemerInfo();
+        $vrijwilliger = new stdClass();
 
-        $deelnemerId = $gebruiker->id;
+        $deelnemer = $this->authex->getDeelnemerInfo();
+        $vrijwilliger->deelnemerId = $deelnemer->id;
+        $vrijwilliger->taakShiftId = $this->input->get('id');
+        $vrijwilliger->commentaar = "";
 
-        $shiftId = $this->input->get('id');
+
+        $this->HelperTaak_model->insertVrijwilliger($vrijwilliger);
+
         $personeelsfeestId = $this->input->get('personeelsfeestId');
-
-        $vrijwilliger = "";
-
-        $vrijwilliger->personeelsfeestId = $personeelsfeestId;
-        $vrijwilliger->deelnemerId = $deelnemerId;
-        $vrijwilliger->taakShiftId = $shiftId;
-
-        $this->HelperTaak_model->updateVrijwilliger($vrijwilliger);
+        redirect("Vrijwilliger/HulpAanbieden/index/" . $personeelsfeestId);
     }
-
 }
 
 /*
