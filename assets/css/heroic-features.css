@@ -99,3 +99,8 @@ footer {
 {
     margin-top: 10px;
 }
+
+/*buttons*/
+.btn-beheren{
+    width: 80% !important;
+}

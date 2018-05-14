@@ -31,4 +31,4 @@
 </table>
 </div>
 
-<p><?php echo smallDivAnchor('home/index', "Teruggaan", 'class="btn btn-info"');?></p>
+<p><?php echo smallDivAnchor('home/index', "Terug", 'class="btn btn-info"');?></p>

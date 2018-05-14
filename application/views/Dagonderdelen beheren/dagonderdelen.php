@@ -107,7 +107,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
         ?>
         <tr>
             <td colspan="6"><?php echo form_button($dataNieuw);?></td>
-            <td><?php echo smallDivAnchor("Organisator/PersoneelsfeestBeheren/index", "Teruggaan", 'class="btn btn-info"');?></td>
+            <td><?php echo smallDivAnchor("Organisator/PersoneelsfeestBeheren/index", "Terug", 'class="btn btn-info"');?></td>
         </tr>
     </tbody>
 </table>

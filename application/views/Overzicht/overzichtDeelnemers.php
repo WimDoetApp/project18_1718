@@ -28,7 +28,7 @@ echo form_input(array('type' => 'text', 'id' => 'zoekInput', 'placeholder' => "Z
 </table>
 </div>
 
-<?php echo smallDivAnchor("Organisator/Overzicht/index/$personeelsfeest", "Teruggaan", 'class="btn btn-info"');?>
+<?php echo smallDivAnchor("Organisator/Overzicht/index/$personeelsfeest", "Terug", 'class="btn btn-info"');?>
 
 <script>    
     $(document).ready(function(){

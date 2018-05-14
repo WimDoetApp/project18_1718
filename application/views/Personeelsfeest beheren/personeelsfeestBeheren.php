@@ -64,12 +64,12 @@ echo form_hidden("personeelsfeestId", $data->id);
         </h3></div>
     <div class="panel-body form-group">
         <?php
-        echo smallDivAnchor("Personeelslid/GebruikerToevoegen/index/$data->id", "Gebruikers toevoegen", 'class="btn btn-default"');
-        echo smallDivAnchor("Organisator/DagonderdeelBeheren/toonDagonderdelen/$data->id", "Dagonderdelen beheren", 'class="btn btn-default"');
-        echo smallDivAnchor("Organisator/Locatie/index", "Locaties beheren", 'class="btn btn-default"');
-        echo smallDivAnchor("Organisator/Overzicht/index/$data->id", "Activiteiten en Taken beheren", 'class="btn btn-default"');
+        echo smallDivAnchor("Personeelslid/GebruikerToevoegen/index/$data->id", "Gebruikers toevoegen", 'class="btn btn-default btn-beheren"');
+        echo smallDivAnchor("Organisator/DagonderdeelBeheren/toonDagonderdelen/$data->id", "Dagonderdelen beheren", 'class="btn btn-default btn-beheren"');
+        echo smallDivAnchor("Organisator/Locatie/index", "Locaties beheren", 'class="btn btn-default btn-beheren"');
+        echo smallDivAnchor("Organisator/Overzicht/index/$data->id", "Activiteiten en Taken beheren", 'class="btn btn-default btn-beheren"');
         if($gebruiker->soortId == 4){
-            echo smallDivAnchor("Hoofdorganisator/OrganisatorenBeheren/toonPersoneelsleden/$data->id", "Organisatoren beheren", 'class="btn btn-default"');
+            echo smallDivAnchor("Hoofdorganisator/OrganisatorenBeheren/toonPersoneelsleden/$data->id", "Organisatoren beheren", 'class="btn btn-default btn-beheren"');
         }
         ?>
     </div>
