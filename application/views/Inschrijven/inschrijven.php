@@ -1,3 +1,4 @@
+<p>Inschrijven voor het personeelsfeest van <?php echo $feest->datum ?>, deadline <?php echo $feest->inschrijfDeadline ?></p>
 <h2>Activiteiten</h2>
 <?php
 /**

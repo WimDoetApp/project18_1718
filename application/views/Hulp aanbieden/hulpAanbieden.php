@@ -58,7 +58,7 @@
     </tbody>
 </table>
 <?php
-echo smallDivAnchor('home/index', "Teruggaan", 'class="btn btn-info"');
+echo smallDivAnchor('home/index', "Terug", 'class="btn btn-info"');
 ?>
 
 <!-- Modal -->

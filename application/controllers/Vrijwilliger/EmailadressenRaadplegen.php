@@ -25,12 +25,7 @@ class EmailadressenRaadplegen extends CI_Controller
         
         if (!$this->authex->isAangemeld()) {
             redirect('Home/index');
-        } else {
-            $gebruiker = $this->authex->getDeelnemerInfo();
-            if ($gebruiker->soortId > 1) {
-                redirect('Home/toonStartScherm');
-            }
-        }
+        } 
     }
 
     public function index() {

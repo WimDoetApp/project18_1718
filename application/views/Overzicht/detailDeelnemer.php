@@ -139,4 +139,4 @@
     </div>
 </div>
 
-<?php echo smallDivAnchor("Organisator/DeelnemersBekijken/index/$personeelsfeest", "Teruggaan", 'class="btn btn-info"');
+<?php echo smallDivAnchor("Organisator/DeelnemersBekijken/index/$personeelsfeest", "Terug", 'class="btn btn-info"');

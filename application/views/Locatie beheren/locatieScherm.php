@@ -34,7 +34,7 @@ $KnopVerwijder = array ('name' => 'action', 'value' => 'Verwijder', 'content' =>
         ?>
         <tr>
             <td colspan="3"><?php echo smallDivAnchor('Organisator/Locatie/voegToe', 'Nieuwe locatie aanmaken', 'class="btn btn-success"')?></td>
-            <td><?php echo smallDivAnchor('Organisator/PersoneelsfeestBeheren/index', 'Terug gaan', 'class="btn btn-info"')?></td>
+            <td><?php echo smallDivAnchor('Organisator/PersoneelsfeestBeheren/index', 'Terug', 'class="btn btn-info"')?></td>
         </tr>
     </tbody>
 </table>

@@ -46,6 +46,8 @@ class Inschrijven extends CI_Controller {
         $data['gebruiker'] = $gebruiker;
 
         $data['dagonderdelen'] = $this->DagOnderdeel_model->getAllByStartTijdWithOpties($personeelsfeestId);
+        $this->load->model('CRUD_Model');
+        $data['feest'] = $this->CRUD_Model->get($personeelsfeestId, 'personeelsfeest');
         $data['personeelsfeest'] = $personeelsfeestId;
 
         $partials = array('inhoud' => 'Inschrijven/inschrijven', 'header' => 'main_header', 'footer' => 'main_footer');

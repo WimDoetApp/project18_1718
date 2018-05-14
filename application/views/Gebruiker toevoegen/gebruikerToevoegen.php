@@ -37,7 +37,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
         </tr>
 </table>
 </div>
- <p><?php echo smallDivAnchor('Organisator/PersoneelsfeestBeheren/index', "Teruggaan", 'class="btn btn-info"');?></p>
+ <p><?php echo smallDivAnchor('Organisator/PersoneelsfeestBeheren/index', "Terug", 'class="btn btn-info"');?></p>
 <?php 
 /**
 * Formulier sluiten
