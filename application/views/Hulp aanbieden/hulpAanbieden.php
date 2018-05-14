@@ -45,14 +45,20 @@
         /**
          * Controleren hoeveel personen er zijn ingeschreven
          */
-        if ($ingeschreven >= $maxAantal) {
-            echo "<td><button type='submit' href='' class='btn btn-danger' disabled='true'>Volzet</button></td>";
-        } else if ((($ingeschreven / $maxAantal) * 100) > 75) {
-            echo "<td><button type='submit' value='$dagonderdeel->id' data-toggle='modal' data-target='#modalInschrijven' class='buttonInschrijven btn btn-warning $soort $dagonderdeel->id'>Hulp aanbieden</input></td>";
-        } else {
+        if ($maxAantal != 0) {
+            if ($ingeschreven >= $maxAantal) {
+                echo "<td><button type='submit' href='' class='btn btn-danger' disabled='true'>Volzet</button></td>";
+            } else if ((($ingeschreven / $maxAantal) * 100) > 75) {
+                echo "<td><button type='submit' value='$dagonderdeel->id' data-toggle='modal' data-target='#modalInschrijven' class='buttonInschrijven btn btn-warning $soort $dagonderdeel->id'>Hulp aanbieden</input></td>";
+            } else {
+                echo "<td><button type='submit' value='$dagonderdeel->id' data-toggle='modal' data-target='#modalInschrijven' class='buttonInschrijven btn btn-success $soort $dagonderdeel->id'>Hulp aanbieden</input></td>";
+            }
+            echo "<td>" . $ingeschreven . "/" . $maxAantal . "</td></tr>";
+        }  else {
             echo "<td><button type='submit' value='$dagonderdeel->id' data-toggle='modal' data-target='#modalInschrijven' class='buttonInschrijven btn btn-success $soort $dagonderdeel->id'>Hulp aanbieden</input></td>";
+            echo "<td>Geen plaatsbeperking</td></tr>";
         }
-        echo "<td>" . $ingeschreven . "/" . $maxAantal . "</td></tr>";
+
     }
     ?>
     </tbody>
