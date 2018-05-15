@@ -39,6 +39,8 @@ class EmailadressenRaadplegen extends CI_Controller
         $this->load->model('HelperTaak_model');
         $helperTaken = $this->HelperTaak_model->getAllWithTaakAndDeelnemer();
         
+        $takenMetDeelnemers = "";
+        
         foreach($helperTaken as $helperTaak) {
             if($helperTaak->deelnemer->soortId == 1 && $helperTaak->deelnemer->personeelsfeestId == $personeelsfeest) {
                 $takenMetDeelnemers[$helperTaak->taakShift->taak->naam][] = $helperTaak->deelnemer;
