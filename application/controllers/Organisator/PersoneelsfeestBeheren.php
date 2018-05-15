@@ -174,7 +174,7 @@ class PersoneelsfeestBeheren extends CI_Controller
          * Check file extension
          */
         if ($csvFileType != "csv") {
-            $message .= "Sorry, gelieve enkel een csv bestand te uploaden. \n";
+            $message .= "Oeps, het lijkt erop dat je geen csv bestand uploadde.<br />";
             $uploadOk = 0;
         }
 
@@ -182,9 +182,11 @@ class PersoneelsfeestBeheren extends CI_Controller
          * Check if $uploadOk is set to 0 by an error
          */
         if ($uploadOk == 0) {
-            $message .= "Sorry, je bestand werd niet geupload.\n";
+            $message .= "Sorry, je bestand werd niet geupload.<br />";
 
-        } /**
+        }
+
+        /**
          * if everything is ok, try to upload file
          */
         else {
@@ -235,7 +237,7 @@ class PersoneelsfeestBeheren extends CI_Controller
                 }
 
                 /**
-                 * Melding weergeven
+                 * Succesmelding weergeven
                  */
                 $data["titel"] = "Succes!";
                 $data["gebruiker"] = $this->authex->getDeelnemerInfo();
@@ -246,11 +248,25 @@ class PersoneelsfeestBeheren extends CI_Controller
                 $partials = array('inhoud' => 'message', 'header' => 'main_header', 'footer' => 'main_footer');
                 $this->template->load('main_master', $partials, $data);
 
+                $message = "";
             } else {
-                $message .= "Sorry, er was een fout tijdens het uploaden van je bestand. \n";
+                $message .= "Oeps, er was een fout tijdens het uploaden van je bestand.<br />";
             }
         }
-        echo "<script type='text/javascript'>alert('$message');</script>";
+
+        if ($message != "") {
+            /**
+             * Foutmelding weergeven
+             */
+            $data["titel"] = "Fout!";
+            $data["gebruiker"] = $this->authex->getDeelnemerInfo();
+            $data["message"] = $message;
+            $data['personeelsfeest'] = $personeelsfeestId;
+            $data['refer'] = "Organisator/PersoneelsfeestBeheren/index/$personeelsfeestId";
+
+            $partials = array('inhoud' => 'message', 'header' => 'main_header', 'footer' => 'main_footer');
+            $this->template->load('main_master', $partials, $data);
+        }
     }
 
     /**
