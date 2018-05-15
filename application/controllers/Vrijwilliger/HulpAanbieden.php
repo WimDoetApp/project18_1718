@@ -58,6 +58,20 @@ class HulpAanbieden extends CI_Controller
         echo json_encode($geselecteerddagonderdeel);
     }
 
+    public function controleIngeschreven()
+    {
+        $deelnemer = $this->authex->getDeelnemerInfo();
+        $taakShiftId = $this->input->get('taakShiftId');
+        $overeenkomsten = $this->HelperTaak_model->getAllWithTaakWhereDeelnemer($deelnemer->id, $taakShiftId);
+        $aantal = count($overeenkomsten);
+        if ($aantal > 0) {
+            echo json_encode(true);
+        }
+        else {
+            echo json_encode(false);
+        }
+    }
+
     public function inschrijven()
     {
         $vrijwilliger = new stdClass();
@@ -69,6 +83,20 @@ class HulpAanbieden extends CI_Controller
 
 
         $this->HelperTaak_model->insertVrijwilliger($vrijwilliger);
+
+        $personeelsfeestId = $this->input->get('personeelsfeestId');
+        redirect("Vrijwilliger/HulpAanbieden/index/" . $personeelsfeestId);
+    }
+
+    public function uitschrijven()
+    {
+        $deelnemer = $this->authex->getDeelnemerInfo();
+
+        $vrijwilliger = new stdClass;
+        $vrijwilliger->deelnemerId = $deelnemer->id;
+        $vrijwilliger->taakShiftId = $this->input->get('id');
+
+        $this->HelperTaak_model->deleteVrijwilliger($vrijwilliger);
 
         $personeelsfeestId = $this->input->get('personeelsfeestId');
         redirect("Vrijwilliger/HulpAanbieden/index/" . $personeelsfeestId);
