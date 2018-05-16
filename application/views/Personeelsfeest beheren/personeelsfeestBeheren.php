@@ -1,17 +1,18 @@
 <a href="" data-toggle="modal" data-target="#modalHulp">Hulp nodig?</a>
 <?php
+
 /**
  * @file personeelsfeestBeheren.php
  * @author Bram Van Bergen, Wim Naudts
  *
  * View met admin panel, organisatoren kunnen van hieruit paginas bereiken om zaken in te stellen.
  */
+$attributen = array('name' => 'mijnFormulier');
+echo form_open('Organisator/PersoneelsfeestBeheren/nieuwPersoneelsfeest/' . $data->id, $attributen);
+
 /**
  *  We geven naar elke pagina door over welk personeelsfeest het gaat
  */
-
-$attributen = array('name' => 'mijnFormulier');
-echo form_open('Organisator/PersoneelsfeestBeheren/nieuwPersoneelsfeest/' . $data->id, $attributen);
 echo form_hidden("personeelsfeestId", $data->id);
 ?>
 
@@ -22,7 +23,7 @@ echo form_hidden("personeelsfeestId", $data->id);
     <div class="panel-body form-group">
         <?php
         /**
-         * datum
+         * datum aanpassen
          */
         $datum = $data->datum;
         echo form_labelpro('Datum:', 'datum');
@@ -34,7 +35,7 @@ echo form_hidden("personeelsfeestId", $data->id);
             'required' => 'required',
             'type' => 'date'));
         /**
-         * datum deadline
+         * datum deadline aanpassen
          */
         $deadline = $data->inschrijfDeadline;
         echo '</div></br>';
@@ -48,29 +49,33 @@ echo form_hidden("personeelsfeestId", $data->id);
             'type' => 'date'));
         ?>
     </div>
-    <?php echo "<br />" . form_submit('knopDatum', 'Verander datum', 'class="btn btn-default"') ?>
+    <?php
+    /**
+     * aanpassingen aan de datum en deadline van het personeelsfeest opslaan
+     */
+    echo "<br />" . form_submit('knopDatum', 'Verander datum', 'class="btn btn-default"')
+    ?>
 </div>
 </div>
-<!-- <div class="panel panel-default Exporteren">
-    <div class="panel-heading"><h3>
-        Overzicht exporteren:
-    </h3></div>
-    <div class="panel-body form-group">
-        <?php
-//echo form_dropdownpro('id', $exporteren, 'Jaar', 'Jaar', '0');
-?>
-    </div>
-</div> -->
 <div class="panel panel-default Aanpassen">
     <div class="panel-heading"><h3>
             Aanpassingen maken
         </h3></div>
     <div class="panel-body form-group">
         <?php
+
+        /**
+         * Links naar andere pagina's
+         */
         echo smallDivAnchor("Personeelslid/GebruikerToevoegen/index/$data->id", "Gebruikers toevoegen", 'class="btn btn-default btn-beheren"');
         echo smallDivAnchor("Organisator/DagonderdeelBeheren/toonDagonderdelen/$data->id", "Dagonderdelen beheren", 'class="btn btn-default btn-beheren"');
         echo smallDivAnchor("Organisator/Locatie/index", "Locaties beheren", 'class="btn btn-default btn-beheren"');
         echo smallDivAnchor("Organisator/Overzicht/index/$data->id", "Activiteiten en taken beheren", 'class="btn btn-default btn-beheren"');
+
+        /**
+         * Controleren of persoon die momenteel is ingelogd hoofdorganisator is
+         * Indien dit het geval is wordt de knop organisatoren beheren zichtbaar
+         */
         if ($gebruiker->soortId == 4) {
             echo smallDivAnchor("Hoofdorganisator/OrganisatorenBeheren/toonPersoneelsleden/$data->id", "Organisatoren beheren", 'class="btn btn-default btn-beheren"');
         }
@@ -83,10 +88,10 @@ echo form_hidden("personeelsfeestId", $data->id);
         </h3></div>
     <div class="panel-body form-group">
         <?php
-        echo smallDivAnchor("#", "Nieuw personeelsfeest", 'data-toggle="modal" data-target="#myModal" class="btn btn-default"')
+        echo smallDivAnchor("#", "Nieuw personeelsfeest", 'data-toggle="modal" data-target="#modalNieuwPersoneelsfeest" class="btn btn-default"')
         ?>
         <!-- Modal -->
-        <div id="myModal" class="modal fade" role="dialog">
+        <div id="modalNieuwPersoneelsfeest" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
                 <!-- Modal content-->
@@ -128,7 +133,7 @@ echo form_close();
     </div>
 </div>
 </div>
-<!-- Modal -->
+<!-- modalHulp -->
 <div class="modal fade" id="modalHulp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
