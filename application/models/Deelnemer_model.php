@@ -144,6 +144,8 @@ class Deelnemer_model extends CI_Model {
     
     /**
      * nieuwe gegevens in deelnemers zetten
+     * @param $deelnemer de deelnemer die toegevoegd moet worden
+     * @return het id van de nieuw ingevoegde deelnemer
      */
     function insert($deelnemer)
     {
@@ -159,6 +161,7 @@ class Deelnemer_model extends CI_Model {
     
     /**
      * Alle vrijwilligers laten zien
+     * @return alle vrijwilligers
      */
     function getAllVrijwilligers()
     {
@@ -166,7 +169,11 @@ class Deelnemer_model extends CI_Model {
         $query = $this->db->get('deelnemer');
         return $query->result();
     }
-    
+
+    /**
+     * Alle organisatoren weergeven
+     * @return alle organisatoren
+     */
     function getAllOrganisatoren()
     {
         $this->db->where("(soortId='3' OR soortId='4')");

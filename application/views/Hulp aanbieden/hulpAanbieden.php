@@ -264,5 +264,4 @@ echo smallDivAnchor('home/index', "Terug", 'class="btn btn-info"');
         $('#modalInschrijven .close').click();
         window.location.href = site_url + "/Vrijwilliger/HulpAanbieden/uitschrijven?id=" + id + "&personeelsfeestId=" + personeelsfeestId;
     });
-
 </script>

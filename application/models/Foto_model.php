@@ -12,8 +12,9 @@ class Foto_model extends CI_Model {
         parent::__construct();
     }
     /**
-    * Zoek de waarde  die overeenkomt met personeelsfeestId
-    * uit de tabel 'foto'
+    * Zoek de waarde die overeenkomt met personeelsfeestId uit de tabel 'foto'
+     * @param $personeelsfeestId het id van het gewenste personeelsfeest
+     * @return alle fotos waarbij het personeelsfeestId gelijk is aan het gewenste personeelfeestId
     */
     function getAlleFotosZoalsPersoneelsfeestId($personeelsfeestId)
     {
