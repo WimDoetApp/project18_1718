@@ -25,6 +25,7 @@ class InformatieVersturen extends CI_Controller {
         */
         $this->load->helper('form');
         $this->load->helper('html');
+        date_default_timezone_set('Europe/Brussels');
         
         if (!$this->authex->isAangemeld()) {
             redirect('Home/index');
@@ -91,6 +92,7 @@ class InformatieVersturen extends CI_Controller {
         $this->load->model('CRUD_Model');
         $this->CRUD_Model->add($info, 'emailsjabloon');
         
+        
         $this->stuurMail();
         
         
@@ -101,12 +103,38 @@ class InformatieVersturen extends CI_Controller {
     * Stuur een mail 
     */
     private function stuurMail() {
-        $this->load->library('email');
-        $this->email->from('teamachtien@gmail.com', 'Team 18');
-        $this->email->to( );
-        $this->email->cc('');
-        $this->email->subject($this->input->post('onderwerp'));
-        $this->email->message($this->input->post('mail'));
+       
+        
+        $soort = $this->input->post('filteren');
+        $this->load->model('CRUD_Model');
+
+        $deelnemers = $this->CRUD_Model->getAll('deelnemer');
+        $lijst = array($deelnemers->email);
+        
+        switch ($soort) {
+            case 1:
+                foreach($deelnemers as $deelnemer){
+                    $this->load->library('email');
+                    $this->email->from('teamachtien@gmail.com', 'Team 18');
+                    $this->email->to($lijst);
+                    $this->email->cc('');
+                    $this->email->subject($this->input->post('onderwerp'));
+                    $this->email->message($this->input->post('mail'));
+                    
+                    if (!$this->email->send()) {
+                        show_error($this->email->print_debugger());
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+                break;
+            case 2:
+            case 3:
+            case 4:
+                $this->email->to( );
+                break;
+        }
 
     }
     /**

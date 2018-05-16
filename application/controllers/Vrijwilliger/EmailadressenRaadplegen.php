@@ -15,6 +15,11 @@ class EmailadressenRaadplegen extends CI_Controller
     // +----------------------------------------------------------
 
 
+    /**
+     * Controller Emailadressen raadplegen
+     * @author Jari Mathé
+     */
+    
     public function __construct()
     {
         parent::__construct();
@@ -27,7 +32,10 @@ class EmailadressenRaadplegen extends CI_Controller
             redirect('Home/index');
         } 
     }
-
+    
+    /**
+    * Index pagina openen
+    */
     public function index() {
         $data['titel']  = 'E-mail adressen';
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
@@ -41,6 +49,9 @@ class EmailadressenRaadplegen extends CI_Controller
         
         $takenMetDeelnemers = "";
         
+        /**
+        * Zorgen dat de vrijwilligers onder hun taak komen
+        */
         foreach($helperTaken as $helperTaak) {
             if($helperTaak->deelnemer->soortId == 1 && $helperTaak->deelnemer->personeelsfeestId == $personeelsfeest) {
                 $takenMetDeelnemers[$helperTaak->taakShift->taak->naam][] = $helperTaak->deelnemer;
