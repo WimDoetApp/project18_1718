@@ -1,6 +1,9 @@
 <?php
 /**
+ * @file overzicht.php
  * @author Wim Naudts
+ * 
+ * View waar je een overzicht van je inschrijving op krijgt.
  */
 ?>
 <h2>Overzicht inschrijving</h2>

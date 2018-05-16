@@ -5,7 +5,10 @@
 <label><input type="checkbox" id="checkBoxVrijwilligers" value="">Vrijwilligers</label>
 <?php 
 /**
+ * @file overzichtDeelnemers.php
  * @author Wim Naudts
+ * 
+ * View met overzicht van alle gebruikers en mogelijkheid om te filteren op soort en zoeken op naam.
  */
 /**
  * Zoeken op naam
@@ -28,7 +31,7 @@ echo form_input(array('type' => 'text', 'id' => 'zoekInput', 'placeholder' => "Z
 </table>
 </div>
 
-<?php echo smallDivAnchor("Organisator/Overzicht/index/$personeelsfeest", "Teruggaan", 'class="btn btn-info"');?>
+<?php echo smallDivAnchor("Organisator/Overzicht/index/$personeelsfeest", "Terug", 'class="btn btn-info"');?>
 
 <script>    
     $(document).ready(function(){

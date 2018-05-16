@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Overzicht extends CI_Controller {
     /**
-     * Controller Overzicht
+     * @class Overzicht
+     * @brief Controller voor overzichten op te vragen
      * @author Wim Naudts
      */
 
@@ -12,10 +13,16 @@ class Overzicht extends CI_Controller {
         parent::__construct();
         
         $this->load->helper('form');
+        /**
+         * Benodigde models inladen
+         * @see DagOnderdeel_model.php
+         */
         $this->load->model('DagOnderdeel_model');
         
         /**
          * Kijken of de gebruiker de juiste rechten heeft
+         * @see Authex::isAangemeld()
+         * @see Authex::getDeelnemerInfo()
          */
         if (!$this->authex->isAangemeld()) {
             redirect('Home/index');
@@ -30,6 +37,10 @@ class Overzicht extends CI_Controller {
     /**
      * Overzicht laten zien van alle dagonderdelen met zijn optie's, mogelijkheden om dit aan te passen
      * @param $personeelsfeestId id van het huidige personeelsfeest
+     * @see DagOnderdeel_model::getAllByStartTijdWithOpties()
+     * @see Authex::getDeelnemerInfo();
+     * @see Personeelsfeest_model::getAll()
+     * @see Overzicht/overzichtDagonderdelen.php
      */
     public function index($personeelsfeestId){
         $data['titel'] = 'Overzicht per dagonderdeel';
@@ -45,6 +56,7 @@ class Overzicht extends CI_Controller {
     
     /**
      * Met JSON telkens de deelnemers bij een optie ophalen
+     * @see InschrijvingsOptie_model::getIngeschrevenBijOptie()
      */
     public function haalDeelnemersOpJson(){
         $optieId = $this->input->get('optieId');

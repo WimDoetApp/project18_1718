@@ -1,5 +1,6 @@
 <?php 
 /**
+ * @file inloggen.php
  * @author Wim Naudts
  */
 $dataInloggen = array(

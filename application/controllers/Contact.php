@@ -5,18 +5,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Contact extends CI_Controller {
 
     /**
-     * Controller contactpagina
+     * @class Contact
+     * @brief Controller voor de contactpagina
      * @author Wim Naudts
      */
     public function __construct() {
         parent::__construct();
         
         $this->load->helper('form');
+        /**
+         * Benodigde models inladen en timezone instellen
+         * @see Personeelsfeest_model.php
+         */
         $this->load->model('Personeelsfeest_model');
         date_default_timezone_set('Europe/Brussels');
         
         /**
          * Kijken of de gebruiker de juiste rechten heeft
+         * @see Authex::isAangemeld()
          */
         if (!$this->authex->isAangemeld()) {
             redirect('Home/index');
@@ -25,6 +31,10 @@ class Contact extends CI_Controller {
 
     /**
      * naar de contactpagina gaan
+     * @see Authex::isAangemeld()
+     * @see Personeelsfeest_model::getLaatsteId()
+     * @see Authex::getDeelnemerInfo()
+     * @see contact.php
      */
     public function contact(){
         if($this->authex->isAangemeld()){
@@ -39,6 +49,8 @@ class Contact extends CI_Controller {
     
     /**
      * Gestelde vraag versturen naar de juiste persoon
+     * @see Authex::getDeelnemerInfo()
+     * @see Personeelsfeest_model::getLaatsteId()
      */
     public function stuurVraag(){
         $adres = $this->input->post('email');

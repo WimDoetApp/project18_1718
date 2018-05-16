@@ -16,7 +16,7 @@
             <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="<?php echo base_url("index.php/Vrijwilliger/Inschrijven/index/$personeelsfeest"); ?>">Inschrijven</a></li>
-                <li><a href="<?php echo base_url("index.php/"); ?>">Hulp aanbieden</a></li>
+                <li><a href="<?php echo base_url("index.php/Vrijwilliger/HulpAanbieden/index/$personeelsfeest"); ?>">Hulp aanbieden</a></li>
                 <?php if ($soort == 1 || $soort == 2) {?>
                 <li><a href="<?php echo base_url("index.php/Vrijwilliger/FotosBekijken/index/"); ?>">Foto's bekijken</a></li>
                 <?php } ?>

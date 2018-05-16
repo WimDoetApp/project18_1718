@@ -1,6 +1,9 @@
 <?php
 /**
+ * @file contact.php
  * @author Wim Naudts
+ * 
+ * View waar men contact op kan nemen met de organisatoren voor eventuele vragen.
  */
 ?>
 <p>Bij vragen kan u onderstaand contactformulier invullen.</p>

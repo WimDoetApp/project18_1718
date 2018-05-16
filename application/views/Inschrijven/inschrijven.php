@@ -1,7 +1,11 @@
+<p>Inschrijven voor het personeelsfeest van <?php echo $feest->datum ?>, deadline <?php echo $feest->inschrijfDeadline ?></p>
 <h2>Activiteiten</h2>
 <?php
 /**
+ * @file inschrijven.php
  * @author Wim Naudts
+ * 
+ * View waar je je voor het peresoneelsfeest kan inschrijven
  */
 /**
  * formulier openen

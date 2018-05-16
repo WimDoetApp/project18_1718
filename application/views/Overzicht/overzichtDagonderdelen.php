@@ -1,6 +1,9 @@
 <?php
 /**
+ * @file overzichtDagonderdelen.php
  * @author Wim Naudts
+ * 
+ * View met alle dagonderdelen en per dagonderdeel alle activiteiten.
  */
 /**
  * Dropdownlijst voor personeelsfeesten
@@ -78,7 +81,7 @@ foreach($dagonderdelen as $dagonderdeel){?>
 
 <?php 
  }
- echo smallDivAnchor("Organisator/PersoneelsfeestBeheren/index", "Teruggaan", 'class="btn btn-info"');
+ echo smallDivAnchor("Organisator/PersoneelsfeestBeheren/index", "Terug", 'class="btn btn-info"');
  ?>
 <div class="modal fade" id="modalOverview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">

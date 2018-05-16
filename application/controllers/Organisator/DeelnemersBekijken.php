@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class DeelnemersBekijken extends CI_Controller {
     /**
-     * Controller Deelnemers bekijken
+     * @class DeelnemersBekijken
+     * @brief Controller voor de usecase Deelnemers bekijken
      * @author Wim Naudts
      */
 
@@ -12,12 +13,20 @@ class DeelnemersBekijken extends CI_Controller {
         parent::__construct();
         
         $this->load->helper('form');
+        /**
+         * Benodigde models inladen
+         * @see DagOnderdeel_model.php
+         * @see Deelnemer_model.php
+         * @see Personeelsfeest_model.php
+         */
         $this->load->model('DagOnderdeel_model');
         $this->load->model('Deelnemer_model');
         $this->load->model('Personeelsfeest_model');
         
         /**
          * Kijken of de gebruiker de juiste rechten heeft
+         * @see Authex::isAangemeld()
+         * @see Authex::getDeelnemerInfo()
          */
         if (!$this->authex->isAangemeld()) {
             redirect('Home/index');
@@ -32,6 +41,8 @@ class DeelnemersBekijken extends CI_Controller {
     /**
      * Naar de pagina navigeren
      * @param $personeelsfeestId
+     * @see Authex::getDeelneemerInfo()
+     * @see Overzicht/overzichtDeelnemers.php
      */
     public function index($personeelsfeestId){
         $data['titel']  = 'Overzicht gebruikers';
@@ -44,6 +55,7 @@ class DeelnemersBekijken extends CI_Controller {
     
     /**
      * Overzicht van alle gebruikers bij een personeelsfeest
+     * @see Deelnemer_model::getAll()
      */
     public function haalDeelnemersOp(){
         $personeelsfeestId = $this->input->get('personeelsfeestId');
@@ -57,6 +69,10 @@ class DeelnemersBekijken extends CI_Controller {
      * Details over een gebruiker ophalen
      * @param $deelnemerId id van de gebruiker
      * @param $personeelsfeestId id van het huidige personeelsfeest
+     * @see Deelnemer_model::getWithAll()
+     * @see Authex::getDeelnemerInfo()
+     * @see DagOnderdeel_model::getAllByStartTijd()
+     * @see Overzicht/detailDeelnemer.php
      */
     public function detail($deelnemerId, $personeelsfeestId){
         $data['personeelsfeest'] = $personeelsfeestId;

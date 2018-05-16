@@ -1,6 +1,9 @@
 <?php
 /**
+ * @file detailDeelnemer.php
  * @author Wim Naudts
+ * 
+ * View met details over een bepaalde gebruiker
  */
 ?>
 <div class="panel panel-default">
@@ -139,4 +142,4 @@
     </div>
 </div>
 
-<?php echo smallDivAnchor("Organisator/DeelnemersBekijken/index/$personeelsfeest", "Teruggaan", 'class="btn btn-info"');
+<?php echo smallDivAnchor("Organisator/DeelnemersBekijken/index/$personeelsfeest", "Terug", 'class="btn btn-info"');
