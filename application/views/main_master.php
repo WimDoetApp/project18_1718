@@ -1,3 +1,17 @@
+<?php
+/**
+ * @mainpage
+ * 
+ * # Wat?
+ * Je vindt hier onze Doxygen-commentaar bij het PHP-project <b>Project18_1718</b>.
+ * - De commentaar bij onze model- en controller-klassen vind je onder het menu <em>Klassen</em>
+ * - De commentaar bij onze view-bestanden vind je onder het menu <em>Bestanden</em>
+ * - Ook de originele commentaar geschreven ij het CodeIgniter-framework is opgenomen.
+ * 
+ * # Wie?
+ * Dit project is geschreven en becommentarieerd door Wim Naudts, Jari Mathé, Bram Van Bergen en Yen Aarts.
+ */
+?>
 <!DOCTYPE html>
 <html>
     <head>

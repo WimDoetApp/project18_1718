@@ -1,7 +1,7 @@
 <h2>Overzicht personeelsleden</h2>
 <?php 
 /**
- * @file dagonderdelen.php
+ * @file organisatoren.php
  * @author Wim Naudts
  * 
  * View waar je personeelsleden in organisatoren kunt veranderen om omgekeerd

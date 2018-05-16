@@ -1,6 +1,7 @@
 
 <?php
 /** 
+ * @file nieuweActiviteit.php
  * @author Jari Mathé, Wim Naudts
  */
 

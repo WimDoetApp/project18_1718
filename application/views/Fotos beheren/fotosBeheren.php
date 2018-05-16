@@ -25,6 +25,7 @@
 
 <?php
     /**
+     * @file fotosBeheren.php
      * @author Jari Mathé
      */
 $teller = 0;

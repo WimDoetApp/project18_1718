@@ -1,4 +1,7 @@
 <?php
+/**
+ * @file emailOpstellen.php
+ */
 $id = 0;
 
 $soortOpties= "";

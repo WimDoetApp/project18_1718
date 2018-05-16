@@ -5,6 +5,9 @@ $id = 0;
 //foreach($soorten as $soort){
 //    $soortOpties[$soort->id] = $soort->naam;
 //}
+/**
+ * @file emailWijzig.php
+ */
 
 $attributes = array('name' => 'mijnFormulier');
     echo form_open("Organisator/InformatieVersturen/wijzigMail?id=$mail->id", $attributes);

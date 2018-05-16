@@ -1,3 +1,8 @@
+<?php
+/**
+ * @file emailVerzonden.php
+ */
+?>
 <p>
     Uw e-mail staat in de database. U wordt doorverwezen naar het beginscherm 
 </p>

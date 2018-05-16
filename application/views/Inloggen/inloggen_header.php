@@ -1,3 +1,8 @@
+<?php
+/**
+ * @file inloggen_header.php
+ */
+?>
 <header>
     <nav class="navbar navbar-default">
         <div class="container-fluid">

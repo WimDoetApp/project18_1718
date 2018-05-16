@@ -1,4 +1,7 @@
-<?php $soort = $gebruiker->soortId; ?>
+<?php $soort = $gebruiker->soortId;
+/**
+ * @file main_header.php
+ */?>
 
 <header id="#header">
     <nav class="navbar navbar-default">

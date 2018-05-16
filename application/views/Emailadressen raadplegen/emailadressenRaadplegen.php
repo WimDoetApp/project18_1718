@@ -1,4 +1,7 @@
 <?php
+/**
+ * @file emailadressenRaadplegen.php
+ */
 ?>
 <div class="table-responsive">
 <table class="table table-striped">

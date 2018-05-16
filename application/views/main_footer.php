@@ -1,3 +1,8 @@
+<?php
+/**
+ * @file main_footer.php
+ */
+?>
 <footer class='navbar navbar-default navbar-fixed-bottom' id="footer">
     <span class="left">Created by: Wim Naudts, Bram Van Bergen, Jari Mathé, Yen Aarts</span>
     <?php echo toonAfbeelding("tm_logo.png", 'alt="tm_logo" id=tm_logo'); ?>

@@ -1,5 +1,6 @@
 <?php
 /**
+ * @file fotosBekijkenAjax.php
 * @author Jari Mathé
 */
 
