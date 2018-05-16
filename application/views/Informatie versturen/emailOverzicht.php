@@ -7,7 +7,22 @@
     </tr>
      <?php foreach ($mails as $mail){ ?>
     <tr>
-        <td><?php echo $mail->soortId ?></td>
+        <?php
+        switch ($mail->soortId) {
+            case 1:
+                ?><td> Vrijwilliger </td><?php
+                break;
+            case 2:
+                ?><td> Personeelslid </td><?php
+                break;
+            case 3:
+                ?><td> Organisator </td><?php
+                break;
+            case 4:
+                ?><td> Hoofdorganisator </td><?php
+                break;
+            }
+            ?>
         <td><?php echo $mail->onderwerp ?></td>
         <td><?php echo smallDivAnchor("Organisator/InformatieVersturen/wijzigPagina?id=$mail->id", 'Wijzig', 'class="btn btn-info"'); echo smallDivAnchor("Organisator/InformatieVersturen/verwijderenPagina?id=$mail->id", 'Verwijder', 'class="btn btn-danger"'); ?></td>
     </tr>
