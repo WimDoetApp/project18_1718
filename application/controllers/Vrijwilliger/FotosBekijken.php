@@ -14,6 +14,11 @@ class FotosBekijken extends CI_Controller {
     // +----------------------------------------------------------
 
 
+    /**
+     * Controller Fotos bekijken
+     * @author Jari Mathé
+     */
+    
     public function __construct() {
         parent::__construct();
         /**
@@ -34,7 +39,7 @@ class FotosBekijken extends CI_Controller {
     }
     
     /**
-    * 
+    * Index pagina openen
     */
     public function index() {
         $data['titel']  = "Foto's Bekijken";
@@ -51,6 +56,9 @@ class FotosBekijken extends CI_Controller {
         $this->template->load('main_master', $partials, $data, $error);
     }
     
+    /**
+    * Deel van de pagina veranderen via ajax
+    */
     public function loadFotosAjax() {
         
         $personeelsfeestId = $this->input->get('personeelsfeestId');

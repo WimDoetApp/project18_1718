@@ -46,6 +46,10 @@ class HelperTaak_model extends CI_Model
         return $helperTaken;
     }
 
+    /**
+     * Functie om alle taken en deelnemers op te halen
+     * foreach loop om elke keer de deelnemer en taakshift te krijgen
+     */
     function getAllWithTaakAndDeelnemer()
     {
         $query = $this->db->get('helperTaak');
