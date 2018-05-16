@@ -13,6 +13,11 @@ class HelperTaak_model extends CI_Model
         parent::__construct();
     }
 
+    /**
+     * Alle taken tellen
+     * @param $id id van de taak die geteld moet worden
+     * @return het aantal taken met de bepaalde id
+     */
     function countAllTaak($id)
     {
         $this->db->where('id', $id);
@@ -20,6 +25,11 @@ class HelperTaak_model extends CI_Model
         return $query;
     }
 
+    /**
+     * Alle shiften tellen
+     * @param $id id van de shift die geteld moet worden
+     * @return het aantal shiften met de bepaalde id
+     */
     function countAllShift($id)
     {
         $this->db->where('taakShiftId', $id);
@@ -46,6 +56,10 @@ class HelperTaak_model extends CI_Model
         return $helperTaken;
     }
 
+    /**
+     * Alles uit de tabel ophalen met de bijhorende taak en deelnemer
+     * @return Alles met bijhorende info over de taak en deelnemer
+     */
     function getAllWithTaakAndDeelnemer()
     {
         $query = $this->db->get('helperTaak');
@@ -62,6 +76,13 @@ class HelperTaak_model extends CI_Model
         return $helperTaken;
     }
 
+    /**
+     * Alle taken ophalen waar de deelnemer de gevraagde deelnemerId heeft en de taakshift het gevraagde taakshiftId heeft
+     * @param $deelnemerId het id van de deelnemer
+     * @param $taakShiftId het id van de taakshift
+     * @return het resultaat van de query
+     *
+     */
     function getAllWithTaakWhereDeelnemer($deelnemerId, $taakShiftId)
     {
         $this->db->where("deelnemerId", $deelnemerId);
@@ -71,12 +92,21 @@ class HelperTaak_model extends CI_Model
         return $query->result();
     }
 
+    /**
+     * Vrijwilliger toevoegen aan de databank
+     * @param $vrijwilliger de vrijwilliger die toegevoegd moet worden
+     * @return het id van de ingevoegde vrijwilliger
+     */
     function insertVrijwilliger($vrijwilliger)
     {
         $this->db->insert('helpertaak', $vrijwilliger);
         return $this->db->insert_id();
     }
 
+    /**
+     * Verwijderd een vrijwilliger uit de database
+     * @param $vrijwilliger de vrijwilliger die verwijderd moet worden
+     */
     function deleteVrijwilliger($vrijwilliger)
     {
         $this->db->where("deelnemerId", $vrijwilliger->deelnemerId);
