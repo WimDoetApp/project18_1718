@@ -128,7 +128,7 @@ class Taak extends CI_Controller {
             $this->CRUD_Model->delete($shift->id, 'taakShift');
         }
         
-        $this->CRUD_Model->delte($taak->id, 'taak');
+        $this->CRUD_Model->delete($taak->id, 'taak');
         
         $this->index($doId, $isD);
     }

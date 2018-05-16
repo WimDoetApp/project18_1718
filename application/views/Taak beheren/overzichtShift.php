@@ -45,11 +45,11 @@ $inputVerwijder = array('name' => 'action', 'value' => 'Verwijder', 'content' =>
             <?php foreach ($shiften as $shift)  {
                 echo form_open('Organisator/TaakShift/knopInput') . "<tr><td>" . form_hidden('id', "$shift->id") . form_hidden('doId', "$doId") . form_hidden('isD', "$isD") . form_hidden('taakId', "$taak->id") . form_hidden('TYPE', 'T') . form_input('begintijd', $shift->begintijd) . "</td><td>" . form_input('eindtijd', $shift->eindtijd) . "</td><td>" . form_input('aantalPlaatsen', $shift->aantalPlaatsen) . "</td><td>" . $shift->aantalInschrijvingen . "</td>";
                 echo "<td>" . form_submit($inputWijzig) . "</td>";
-                echo "<td>" . form_submit($inputVerwijder) . "</td>";
+                echo "<td>" . smallDivAnchor('Organisator/TaakShift/verwijderen/' . $shift->id . "/$doId/$isD/$taak->id", 'Verwijderen', 'class="btn btn-danger"') . "</td>";
                 echo "</form></tr>";
             }?>
             <tr>
-                <td colspan="4"><?php echo smallDivAnchor('Organisator/TaakShift/voegToe/' . $doId . "/$isD", 'Nieuwe shift aanmaken', 'class="btn btn-success"')?></td>
+                <td colspan="4"><?php echo smallDivAnchor('Organisator/TaakShift/voegToe/' . $taak->id . "/$doId" . "/$isD", 'Nieuwe shift aanmaken', 'class="btn btn-success"')?></td>
                 <td><?php echo smallDivAnchor('Organisator/Taak/index/' . "$doId/$isD", 'Terug gaan', 'class="btn btn-info"')?></td>
             </tr>
         </tbody>
