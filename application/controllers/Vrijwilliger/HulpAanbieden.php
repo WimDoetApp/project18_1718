@@ -40,11 +40,15 @@ class HulpAanbieden extends CI_Controller
         $this->load->model('DagOnderdeel_model');
     }
 
+    /**
+     * Admin panel weergeven
+     * @param $personeelsfeestId id van het huidige personeelsfeest
+     * @see CRUD_Model.php
+     * @see DagOnderdeel_model.php
+     * @see Hulp Aanbieden/hulpAanbieden.php
+     */
     public function index($personeelsfeestId)
     {
-        /**
-         * Data opvullen en doorsturen naar de pagina
-         */
         $data['titel'] = 'Hulp aanbieden';
         $data['personeelsfeest'] = $personeelsfeestId;
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
@@ -55,6 +59,11 @@ class HulpAanbieden extends CI_Controller
         $this->template->load('main_master', $partials, $data);
     }
 
+    /**
+     * Alle shiften van de taken en opties van het huidige personeelsfeest weergeven
+     * @see DagOnderdeel_model.php
+     * @see Hulp Aanbieden/hulpAanbieden.php
+     */
     public function shiftenTonen()
     {
         $id = $this->input->get('id');
@@ -64,6 +73,11 @@ class HulpAanbieden extends CI_Controller
         echo json_encode($geselecteerddagonderdeel);
     }
 
+    /**
+     * Controleer of de ingelogde gebruiker al is ingeschreven voor shiften
+     * @see HelperTaak_model.php
+     * @see Hulp Aanbieden/hulpAanbieden.php
+     */
     public function controleIngeschreven()
     {
         $deelnemer = $this->authex->getDeelnemerInfo();
@@ -78,6 +92,11 @@ class HulpAanbieden extends CI_Controller
         }
     }
 
+    /**
+     * Schrijf de gebuiker in als vrijwilliger
+     * @see HelperTaak_model.php
+     * @see Hulp Aanbieden/hulpAanbieden.php
+     */
     public function inschrijven()
     {
         $vrijwilliger = new stdClass();
@@ -94,11 +113,17 @@ class HulpAanbieden extends CI_Controller
         redirect("Vrijwilliger/HulpAanbieden/index/" . $personeelsfeestId);
     }
 
+    /**
+     * Schrijf de gebruiker uit als vrijwilliger
+     * @see HelperTaak_model_model.php
+     * @see Hulp Aanbieden/hulpAanbieden.php
+     */
     public function uitschrijven()
     {
         $deelnemer = $this->authex->getDeelnemerInfo();
 
         $vrijwilliger = new stdClass;
+
         $vrijwilliger->deelnemerId = $deelnemer->id;
         $vrijwilliger->taakShiftId = $this->input->get('id');
 
@@ -108,9 +133,3 @@ class HulpAanbieden extends CI_Controller
         redirect("Vrijwilliger/HulpAanbieden/index/" . $personeelsfeestId);
     }
 }
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */

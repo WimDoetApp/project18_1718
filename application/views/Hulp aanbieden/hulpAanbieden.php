@@ -1,4 +1,5 @@
-<p>Hulp aanbieden voor het personeelsfeest van <?php echo $feest->datum ?>, deadline <?php echo $feest->inschrijfDeadline ?></p>
+<p>Hulp aanbieden voor het personeelsfeest van <?php echo $feest->datum ?>,
+    deadline <?php echo $feest->inschrijfDeadline ?></p>
 <input type="hidden" id="personeelsfeestId" data-id="<?php echo $personeelsfeest ?>"/>
 <br/>
 <table class='table-striped table'>
@@ -11,15 +12,21 @@
     </thead>
     <tbody>
     <?php
+    /**
+     * @file hulpAanbieden.php
+     * @author Bram Van Bergen
+     *
+     * View met dagonderdelen, vrijwilligers en personeelsleden kunnen zich hier inschrijven om hulp aan te bieden op het personeelsfeest
+     */
     foreach ($dagonderdelen as $dagonderdeel) {
         $ingeschreven = 0;
         $maxAantal = 0;
         $soort = "";
         echo "<tr>";
+
         /**
          * Contoleren of het dagonderdeel een taak heeft.
          * Indien dit het geval is wordt het aantal plaatsen en het maximum aantal plaatsen geteld en wordt de taak teruggegeven.
-         * Indien dit niet het geval is wordt de optie weergegeven
          */
         if ($dagonderdeel->heeftTaak == "1") {
             foreach ($dagonderdeel->taken as $taak) {
@@ -30,7 +37,10 @@
                 }
             }
             echo "<td>$dagonderdeel->naam</td>";
-        } else {
+        } /**
+         * Indien dit niet het geval is wordt het aantal plaatsen en het maximum aantal plaatsen geteld en wordt de optie teruggegeven.
+         */
+        else {
             foreach ($dagonderdeel->opties as $optie) {
                 foreach ($optie->taak as $taak) {
                     foreach ($taak->shiften as $shift) {
@@ -42,10 +52,6 @@
                 $maxAantal = $optie->maximumAantalPlaatsen;
             }
         }
-
-        /**
-         * Controleren of de user al is ingeschreven voor deze taak en/of shift
-         */
 
         /**
          * Controleren hoeveel personen er zijn ingeschreven
@@ -71,7 +77,7 @@
 echo smallDivAnchor('home/index', "Terug", 'class="btn btn-info"');
 ?>
 
-<!-- Modal -->
+<!-- modalInschrijven -->
 <div class="modal fade" id="modalInschrijven" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -105,19 +111,20 @@ echo smallDivAnchor('home/index', "Terug", 'class="btn btn-info"');
 
 <script>
 
+    /**
+     * Variabelen ophalen en de methode haalKnopOp uitvoeren wanneer er op een knop met de klasse buttonInschrijven geklikt wordt
+     */
     $(".buttonInschrijven").click(function () {
         var id = $(this).val();
         var personeelsfeestId = $('#personeelsfeestId').attr('data-id');
         haalKnopOp(id, personeelsfeestId);
     });
 
-    function test(taakShiftId) {
-
-    }
-
     /**
      * Kijkt op welke knop er geklikt is en opent een venster waarop je kan inschrijven voor een shift indien deze nog niet volzet is.
      * @param id Het id van de knop waarop geklikt werd.
+     * @param personeelsfeestId Het id van het het huidige personeelsfeest
+     *
      */
     function haalKnopOp(id, personeelsfeestId) {
         $.ajax({
@@ -134,10 +141,17 @@ echo smallDivAnchor('home/index', "Terug", 'class="btn btn-info"');
                     var body = document.getElementById("body");
                     $("#modalTitle").append(dagonderdeel.naam);
 
+                    /**
+                     * Dagonderdelen hebben een taak
+                     */
                     if ($("." + id).hasClass("taak")) {
                         $.each(dagonderdeel, function (index, obj) {
                             $.each(obj.taken, function (index, taken) {
                                 $.each(taken.shiften, function (index, shiften) {
+
+                                    /**
+                                     * Elementen genereren om de modalInschrijven mee op te vullen
+                                     */
                                     var tr = document.createElement('tr');
                                     var tdTaken = document.createElement('td');
                                     var tdOmschrijving = document.createElement('td');
@@ -148,6 +162,9 @@ echo smallDivAnchor('home/index', "Terug", 'class="btn btn-info"');
 
                                     var taakShiftId = shiften.id;
 
+                                    /**
+                                     * Controleren of de user al is ingeschreven voor deze taak en/of shift
+                                     */
                                     $.ajax({
                                         type: "GET",
                                         url: site_url + "/Vrijwilliger/HulpAanbieden/controleIngeschreven",
@@ -155,19 +172,28 @@ echo smallDivAnchor('home/index', "Terug", 'class="btn btn-info"');
                                             taakShiftId: taakShiftId
                                         },
                                         success: function (result) {
-                                            console.log(result);
 
+                                            /**
+                                             * Knop uitschrijven maken
+                                             */
                                             if (result === "true") {
                                                 knopInschrijven.name = "uitschrijven";
                                                 knopInschrijven.className = "btn btn-default uitschrijven";
                                                 knopInschrijven.append("Uitschrijven");
                                             }
+
+                                            /**
+                                             * Knop inschrijven maken
+                                             */
                                             else {
                                                 knopInschrijven.name = "inschrijven";
                                                 knopInschrijven.className = "btn btn-default inschrijven";
                                                 knopInschrijven.append("Inschrijven");
                                             }
 
+                                            /**
+                                             * modalInschrijven opvullen met de gegenereerde elementen
+                                             */
                                             knopInschrijven.type = 'button';
                                             knopInschrijven.value = shiften.id;
                                             tdShiften.append(shift);
@@ -186,11 +212,19 @@ echo smallDivAnchor('home/index', "Terug", 'class="btn btn-info"');
                             });
                         });
                     }
+
+                    /**
+                     * Dagonderdelen hebben een optie
+                     */
                     else if ($("." + id).hasClass("optie")) {
                         $.each(dagonderdeel, function (index, obj) {
                             $.each(obj.opties, function (index, opties) {
                                 $.each(opties.taak, function (index, taken) {
                                     $.each(taken.shiften, function (index, shiften) {
+
+                                        /**
+                                         * Elementen genereren om de modalInschrijven mee op te vullen
+                                         */
                                         var tr = document.createElement('tr');
                                         var tdTaken = document.createElement('td');
                                         var tdOmschrijving = document.createElement('td');
@@ -201,6 +235,9 @@ echo smallDivAnchor('home/index', "Terug", 'class="btn btn-info"');
 
                                         var taakShiftId = shiften.id;
 
+                                        /**
+                                         * Controleren of de user al is ingeschreven voor deze taak en/of shift
+                                         */
                                         $.ajax({
                                             type: "GET",
                                             url: site_url + "/Vrijwilliger/HulpAanbieden/controleIngeschreven",
@@ -210,17 +247,27 @@ echo smallDivAnchor('home/index', "Terug", 'class="btn btn-info"');
                                             success: function (result) {
                                                 console.log(result);
 
+                                                /**
+                                                 * Knop uitschrijven maken
+                                                 */
                                                 if (result === "true") {
                                                     knopInschrijven.name = "uitschrijven";
                                                     knopInschrijven.className = "btn btn-default uitschrijven";
                                                     knopInschrijven.append("Uitschrijven");
                                                 }
+
+                                                /**
+                                                 * Knop inschrijven maken
+                                                 */
                                                 else {
                                                     knopInschrijven.name = "inschrijven";
                                                     knopInschrijven.className = "btn btn-default inschrijven";
                                                     knopInschrijven.append("Inschrijven");
                                                 }
 
+                                                /**
+                                                 * modalInschrijven opvullen met de gegenereerde elementen
+                                                 */
                                                 knopInschrijven.type = 'button';
                                                 knopInschrijven.value = shiften.id;
                                                 tdShiften.append(shift);
@@ -251,6 +298,9 @@ echo smallDivAnchor('home/index', "Terug", 'class="btn btn-info"');
         });
     }
 
+    /**
+     * Variabelen ophalen, modalInschrijven sluiten en de inschrijffunctie uitvoeren
+     */
     $("#body").on("click", ".inschrijven", function () {
         var id = $(this).val();
         var personeelsfeestId = $('#personeelsfeestId').attr('data-id');
@@ -258,6 +308,9 @@ echo smallDivAnchor('home/index', "Terug", 'class="btn btn-info"');
         window.location.href = site_url + "/Vrijwilliger/HulpAanbieden/inschrijven?id=" + id + "&personeelsfeestId=" + personeelsfeestId;
     });
 
+    /**
+     * Variabelen ophalen, modalInschrijven sluiten en de uitschrijffunctie uitvoeren
+     */
     $("#body").on("click", ".uitschrijven", function () {
         var id = $(this).val();
         var personeelsfeestId = $('#personeelsfeestId').attr('data-id');
