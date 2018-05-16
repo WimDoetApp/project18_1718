@@ -144,35 +144,5 @@ class TaakShift extends CI_Controller{
         return $deelnemersOut;
     }
     
-    //TAAK-PIPELINE Taak<-TaakShift<-HelperTaak
-    //Vraagt alle deelnemers op van een bepaalde shift en stuurt alleen de deelnemerIds door
-   
-    //pl_TaakShift heeft als: parent:: pl_Taak, child:: none
-    //pl_TaakShift($shiftId):: $shiftId (INTEGER) - verwijst naar de id van de shift
-    
-    //Om deze functie te gebruiken in een andere controller gebruik:: <<START>>
-    //$taakShift = new TaakShift();
-    //...
-    //$[VARIABELE] = $taakShift->pl_TaakShift($shiftId) <<END>>
-    
-    //RETURN WAARDES: helper['INTEGER', (...)] - [INTERGER]:: deelnemer Id
-    public function pl_TaakShift($shiftId) {
-        //Return array
-        $helpers = Array();
-        
-        $this->load->model('CRUD_Model');
-        
-        $shiftHelpers = $this->CRUD_Model->getAllByColumn($shiftId, 'helperTaak', 'taakShiftId');
-        
-        //DeelnemerIds in return array zetten
-        foreach ($shiftHelpers as $shiftRow) {
-            array_push($helpers, $shiftRow->deelnemerId);
-        }
-        
-        return $helpers;
-    }
-    
-    public function pl_TaakShiftDelete($shiftId) {
-        
-    }
+    function VoegToe()
 }
