@@ -5,8 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Inschrijven extends CI_Controller {
 
     /**
-     * Controller Inschrijven
      * @class Inschrijven
+     * @brief Controller voor de usecase Inschrijven
      * @author Wim Naudts
      */
 
@@ -17,13 +17,17 @@ class Inschrijven extends CI_Controller {
         
         /**
          * Kijken of de gebruiker de juiste rechten heeft
+         * @see Authex::isAangemeld()
          */
         if (!$this->authex->isAangemeld()) {
             redirect('Home/index');
         }
         
         /**
-         * De juiste models inladen
+         * Benodigde models inladen
+         * @see DagOnderdeel_model.php
+         * @see InschrijvingsOptie_model.php
+         * @see Optie_model.php
          */
         $this->load->model('DagOnderdeel_model');
         $this->load->model('InschrijvingsOptie_model');
@@ -39,6 +43,10 @@ class Inschrijven extends CI_Controller {
     /**
      * Ophalen lijst van alle dagonderdelen
      * @param $personeelsfeestId id van het huidige personeelsfeest
+     * @see Authex::getDeelnemerInfo();
+     * @see DagOnderdeel_model::getAllByStartTijdWithOpties()
+     * @see CRUD_Model::get()
+     * @see Inschrijven/inschrijven.php
      */
     public function index($personeelsfeestId)
     {
@@ -57,6 +65,7 @@ class Inschrijven extends CI_Controller {
     
     /**
      * Inschrijven van de deelnemer
+     * @see DagOnderdeel_model::getAllByStartTijdWithOpties()
      */
     public function schrijfIn(){
         /**
@@ -81,6 +90,9 @@ class Inschrijven extends CI_Controller {
     /**
      * Inschrijven voor de gekozen optie in een dagonderdeel
      * @param $dagonderdeel het dagonderdeel waarvoor we willen inschrijven
+     * @see Authex::getDeelnemerInfo()
+     * @see InschrijvingsOptie_model::schrijfUit()
+     * @see InschrijvingsOptie_model::schrijfIn()
      */
     private function schrijfOptieIn($dagonderdeel){
         /**
@@ -134,6 +146,9 @@ class Inschrijven extends CI_Controller {
     
     /**
      * Pagina met overzicht van de inschrijving weergeven
+     * @see Authex::getDeelnemerInfo()
+     * @see DagOnderdeel_model::getAllByStartTijdWithOpties()
+     * @see Inschrijven/overzicht.php
      */
     private function inschrijfBevestiging(){
         /**

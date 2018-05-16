@@ -6,8 +6,8 @@ class PersoneelsfeestBeheren extends CI_Controller
 {
 
     /**
-     * Controller Personeelsfeest Beheren
      * @class PersoneelsfeestBeheren
+     * @brief Controller voor de usecase Personeelsfeest Beheren (admin-panel)
      * @author Bram Van Bergen, Wim Naudts
      */
 
@@ -19,6 +19,8 @@ class PersoneelsfeestBeheren extends CI_Controller
 
         /**
          * Kijken of de gebruiker de juiste rechten heeft
+         * @see Authex::isAangemeld()
+         * @see Authex::getDeelnemerInfo()
          */
         if (!$this->authex->isAangemeld()) {
             redirect('Home/index');
@@ -32,10 +34,20 @@ class PersoneelsfeestBeheren extends CI_Controller
 
     /**
      * Als deze variable true is, laten we een errormessage zien op de pagina personeelsfeest beheren
+     * @param $error bool die bepaald of we een errormessage moeten laten zien
+     * @param $errorMessage de message zelf
      */
     public $error = false;
     public $errorMessage = "";
 
+    /**
+     * Admin-panel weergeven
+     * @see Personeelsfeest_model::getLaatstePersoneelsfeest()
+     * @see Personeelsfeest_model::getJarenPersoneelsfeest()
+     * @see Authex::getDeelnemerInfo()
+     * @see Personeelsfeest_model::getLaatsteId()
+     * @see Personeelsfeest beheren/personeelsfeesetBeheren.php
+     */
     public function index()
     {
         $this->load->model('Personeelsfeest_model');
@@ -53,6 +65,10 @@ class PersoneelsfeestBeheren extends CI_Controller
         $this->template->load('main_master', $partials, $data);
     }
 
+    /**
+     * Een leeg dagonderdeel aanmaken
+     * @param $personeelsfeestId id van het huidige personeelsfeest
+     */
     function getEmptyDagonderdeel($personeelsfeestId)
     {
         /**
@@ -71,6 +87,16 @@ class PersoneelsfeestBeheren extends CI_Controller
         $this->dagonderdeel_model->insert($dagonderdeel);
     }
 
+    /**
+     * Functie om een nieuwe personeelsfeest aan te maken
+     * @param $id id van het huidige personeelsfeest
+     * @see Personeelsfeest_model::insertPersoneelsfeest()
+     * @see Personeelsfeest_model::getDagonderdelenVanPersoneelsfeest()
+     * @see Personeelsfeest_model::insertDagonderdeel()
+     * @see Personeelsfeest_model::getOrganisatorenVanPersoneelsfeest()
+     * @see Personeelsfeest_model::insertOrganisatoren()
+     * @see Personeelsfeest_model::getHoofdOrganisatorenVanPersoneelfeest()
+     */
     public function nieuwPersoneelsfeest($id)
     {
         $this->load->model('Personeelsfeest_model');
@@ -160,6 +186,10 @@ class PersoneelsfeestBeheren extends CI_Controller
         $this->index();
     }
 
+    /**
+     * Personeelsleden of vrijwilligers via een csv bestand toevoegen als gebruikers
+     * @param $personeelsfeestId id van het huidige personeelsfeest
+     */
     public function importeer($personeelsfeestId)
     {
         $this->load->model('Personeelsfeest_model');

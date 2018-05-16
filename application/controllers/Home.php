@@ -5,20 +5,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Home extends CI_Controller {
 
     /**
-     * Controller Home
      * @class Home
+     * @brief Home Controller
      * @author Wim Naudts
      */
     public function __construct() {
         parent::__construct();
         
         $this->load->helper('form');
+        /**
+         * Benodigde models inladen
+         * @see Personeelsfeest_model.php
+         * @Deelnemer_model.php
+         */
         $this->load->model('Personeelsfeest_model');
         $this->load->model('Deelnemer_model');
     }
 
     /**
      * Inlogscherm
+     * @see Authex::isAangemeld()
+     * @see Inloggen/inloggen.php
      */
     public function index() {
         /**
@@ -36,6 +43,11 @@ class Home extends CI_Controller {
 
     /**
      * Startscherm van alle gebruikers
+     * @see Personeelsfeest_model::getLaatstePersoneelsfeest()
+     * @see Authex::isAangemeld()
+     * @see Authex::meldAan()
+     * @see Authex::getDeelnemerInfo()
+     * @see startScherm.php
      */
     public function toonStartScherm() {
         /**
@@ -84,6 +96,8 @@ class Home extends CI_Controller {
     
     /**
      * Directe link in mail om aan te melden
+     * @see Deelnemer_model::getGebruikerByEmail()
+     * @see Authex::meldAan()
      */
     public function aanmelden(){
         $id = $this->input->get('id');
@@ -103,6 +117,7 @@ class Home extends CI_Controller {
     
     /**
      * Afmelden
+     * @see Auhtex::meldAf()
      */
     public function afmelden(){
         $this->authex->meldAf();
@@ -111,6 +126,7 @@ class Home extends CI_Controller {
     
     /**
      * Voor mensen die niet ingelogd geraken
+     * @see message.php
      */
     function hulp(){
         $data['titel'] = '';
@@ -126,6 +142,9 @@ class Home extends CI_Controller {
      * @param $personeelsfeestId id van het huidige personeelsfeest
      * @param $error bool om te weten of we een foutmelding moeten weergeven
      * @param $errorMessage inhoud van de foutmelding
+     * @see Deelnemer_model::getWithAll()
+     * @see DagOnderdeel_model::getAllByStartTijd()
+     * @see account.php
      */
     public function account($personeelsfeestId, $error, $errorMessage){
         $this->load->model('DagOnderdeel_model');

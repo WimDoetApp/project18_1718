@@ -36,7 +36,7 @@ class FotosBeheren extends CI_Controller {
     /**
     * 
     */
-    public function index() {
+    public function index($error = "") {
         $data['titel']  = "Foto's beheren";
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
@@ -45,10 +45,12 @@ class FotosBeheren extends CI_Controller {
 
         $this->load->model('CRUD_Model');
         $data['jaartallen'] = $this->CRUD_Model->getAll('personeelsfeest');
+        
+        $data['error'] = $error;
 
         $partials = array('inhoud' => 'Fotos beheren/fotosBeheren' , 'header' => 'main_header', 'footer' => 'main_footer');
-        $error = array('error' => ' ' );
-        $this->template->load('main_master', $partials, $data, $error);
+        
+        $this->template->load('main_master', $partials, $data);
     }
     
     public function loadFotosAjax() {
@@ -71,22 +73,24 @@ class FotosBeheren extends CI_Controller {
 
                 $this->load->library('upload', $config);
 
-                if ( ! $this->upload->do_upload('userfile'))
+                if (!$this->upload->do_upload('userfile'))
                 {
-                    $error = array('error' => $this->upload->display_errors());
-                    redirect('Organisator/FotosBeheren/index', $error);
+                    $error = $this->upload->display_errors('','');
+
+                    $this->index($error);
                 }else {
-                   /**
+                    
+                    /**
                    * upload in de folder
                    */
-                   $data = array('upload_data' => $this->upload->data());
+                   // $data = array('upload_data' => $this->upload->data());
                   
                    /**
                     * upload in database
                    */
                    $info = new stdClass();
 
-                   $info->foto = $this->input->post('userfile');
+                   $info->foto = $this->upload->data('file_name');
 
                    $this->load->model('Personeelsfeest_model');
                    $personeelsfeestId = $this->Personeelsfeest_model->getLaatstePersoneelsfeest();
@@ -95,19 +99,15 @@ class FotosBeheren extends CI_Controller {
                    $this->load->model('CRUD_Model');
                    $this->CRUD_Model->add($info, 'foto');
                    
-                   redirect('Organisator/FotosBeheren/index', $data);
-                   
-                   
+                   redirect('Organisator/FotosBeheren/index');                                      
                 }
         }
         
          public function delete_image()
         {
-            
             $id = $this->input->get('id');
 
-            $this->load->model('CRUD_Model');
-            
+            $this->load->model('CRUD_Model');               
             /**
             * Verwijder afbeelding uit de folder
             */
@@ -117,8 +117,7 @@ class FotosBeheren extends CI_Controller {
             /**
             * Verwijder afbeelding uit de database
             */
-            $this->CRUD_Model->delete($id, 'foto');
-           
+            $this->CRUD_Model->delete($id, 'foto');           
             
             redirect('Organisator/FotosBeheren/index');
         }

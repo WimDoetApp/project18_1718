@@ -18,7 +18,7 @@
                 <li><a href="<?php echo base_url("index.php/Vrijwilliger/Inschrijven/index/$personeelsfeest"); ?>">Inschrijven</a></li>
                 <li><a href="<?php echo base_url("index.php/Vrijwilliger/HulpAanbieden/index/$personeelsfeest"); ?>">Hulp aanbieden</a></li>
                 <?php if ($soort == 1 || $soort == 2) {?>
-                <li><a href="<?php echo base_url("index.php/"); ?>">Foto's bekijken</a></li>
+                <li><a href="<?php echo base_url("index.php/Vrijwilliger/FotosBekijken/index/"); ?>">Foto's bekijken</a></li>
                 <?php } ?>
                 
                 <?php if ($soort == 2) { ?>
@@ -27,9 +27,9 @@
                 
                 <?php if ($soort == 3 || $soort == 4) { ?>
                 <li><a href="<?php echo base_url("index.php/Organisator/Overzicht/index/$personeelsfeest"); ?>">Overzichten</a></li>
-                <li><a href="<?php echo base_url("index.php/"); ?>">Mails sturen</a></li>
+                <li><a href="<?php echo base_url("index.php/Organisator/InformatieVersturen/index"); ?>">Mails sturen</a></li>
                 <li><a href="<?php echo base_url("index.php/Organisator/PersoneelsfeestBeheren/index/$personeelsfeest"); ?>">Personeelsfeest beheren</a></li>
-                <li><a href="<?php echo base_url("index.php/Vrijwilliger/FotosBekijken/index"); ?>">Foto's beheren</a></li>
+                <li><a href="<?php echo base_url("index.php/Organisator/FotosBeheren/index"); ?>">Foto's beheren</a></li>
                 <?php } ?>
                 
                 <li><a href="<?php echo base_url("index.php/Vrijwilliger/EmailadressenRaadplegen/index"); ?>">Adressen raadplegen</a></li>

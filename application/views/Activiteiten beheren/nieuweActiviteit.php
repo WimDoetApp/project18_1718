@@ -34,7 +34,7 @@ foreach($dagonderdelen as $dagonderdeel){
 <table class="table table-striped">
     <tr>
         <td><?php echo form_label('Naam van de activiteit:', 'naam'); ?></td>
-        <td><?php echo form_input(array('name' => 'naam', 'id' => 'naam', 'size' => '50', 'value' => $naam, 'class' => 'form-control')); ?></td>
+        <td><?php echo form_input(array('name' => 'naam', 'id' => 'naam', 'size' => '50', 'value' => $naam, 'required' => 'required','class' => 'form-control')); ?></td>
     </tr>
     <tr>
         <td><?php echo form_label('Beschrijving:', 'beschrijving'); ?></td>

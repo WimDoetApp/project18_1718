@@ -33,4 +33,3 @@ if($gebruiker->soortId > 2){
         </div>
     </div>   
 <?php } 
-

@@ -27,6 +27,7 @@ class ActiviteitenBeheren extends CI_Controller {
          * Laad de helper voor formulieren
         */
         $this->load->helper('form');
+        $this->load->helper(array('form', 'url'));
         $this->load->model('Optie_model');
         $this->load->model('Personeelsfeest_model');
         
@@ -83,7 +84,7 @@ class ActiviteitenBeheren extends CI_Controller {
         
         $data['titel'] = $titel;
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
-        
+       
         $this->load->model('Locatie_model');
         $data['locaties'] = $this->Locatie_model->getAllesBijLocatie();
         

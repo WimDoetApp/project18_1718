@@ -13,6 +13,10 @@ class InformatieVersturen extends CI_Controller {
     // | Thomas More Kempen
     // +----------------------------------------------------------
 
+    /**
+     * Controller Informatie versturen
+     * @author Jari Mathé
+     */
 
     public function __construct() {
         parent::__construct();
@@ -33,10 +37,10 @@ class InformatieVersturen extends CI_Controller {
     }
     
     /**
-    * 
+    * Open de index pagina en laat informatie zien van emailsjabloon 
     */
     public function index() {
-        $data['titel']  = "Foto's beheren";
+        $data['titel']  = "Informatie versturen";
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
         $this->load->model('Personeelsfeest_model');
@@ -55,7 +59,7 @@ class InformatieVersturen extends CI_Controller {
     * Pagina met overzicht van alle mails in de database
     */
     public function emailOpstellenPagina() {
-        $data['titel']  = "Foto's beheren";
+        $data['titel']  = "Email opstellen";
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
         $this->load->model('Personeelsfeest_model');
@@ -69,26 +73,63 @@ class InformatieVersturen extends CI_Controller {
         $this->template->load('main_master', $partials, $data, $error);
     }
     
-    
+    /**
+    * registreer de mail in de database en roep stuurMail functie op
+    */
     public function registreerMail(){
         $info = new stdClass();
             
-        $info->onderwerp = $this->input->post('onderwerp');
-        $info->sjabloon = $this->input->post('mail');
-        $info->soortId = $this->input->post('filteren');
+        $onderwerp = $this->input->post('onderwerp');
+        $mail = $this->input->post('mail');
+        $soort = $this->input->post('filteren');
+        
+        $info->onderwerp = $onderwerp;
+        $info->sjabloon = $mail;
+        $info->soortId = $soort;
        
         
         $this->load->model('CRUD_Model');
         $this->CRUD_Model->add($info, 'emailsjabloon');
         
+        $this->stuurMail();
+        
+        
         redirect("Organisator/InformatieVersturen/verzondenPagina");
+    }
+    
+    /**
+    * Stuur een mail 
+    */
+    private function stuurMail() {
+        $this->load->library('email');
+        $this->email->from('teamachtien@gmail.com', 'Team 18');
+        $this->email->to( );
+        $this->email->cc('');
+        $this->email->subject($this->input->post('onderwerp'));
+        $this->email->message($this->input->post('mail'));
+
+    }
+    /**
+    * Verwijst naar de pagina email verzonden
+    */
+    public function verzondenPagina() {
+        $data['titel']  = "Email verzonden";
+        $data['gebruiker'] = $this->authex->getDeelnemerInfo();
+        
+        $this->load->model('Personeelsfeest_model');
+        $data['personeelsfeest'] = $this->Personeelsfeest_model->getLaatsteId()->id;
+
+        
+        $partials = array('inhoud' => 'Informatie versturen/emailVerzonden' , 'header' => 'main_header', 'footer' => 'main_footer');
+        $error = array('error' => ' ' );
+        $this->template->load('main_master', $partials, $data, $error);
     }
     
     /**
     * Verwijzen naar de pagina met een waarschuwing
     */
     public function verwijderenPagina() {
-        $data['titel']  = "Foto's beheren";
+        $data['titel']  = "Email verwijderen?";
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
         $this->load->model('Personeelsfeest_model');
@@ -106,35 +147,54 @@ class InformatieVersturen extends CI_Controller {
     /**
     * De aangeduide id verwijderen  
     */
-    public function verwijderMail()
-        {
-            $id = $this->input->get('id');
-            $this->load->model('CRUD_Model'); 
-            $this->CRUD_Model->delete($id, 'emailsjabloon');
-            
-            /**
-            * Terug sturen naar de index pagina van informatie versturen
-            */
-            redirect('Organisator/InformatieVersturen/index');
-        }
+    public function verwijderMail() {
+        $id = $this->input->get('id');
+        $this->load->model('CRUD_Model'); 
+        $this->CRUD_Model->delete($id, 'emailsjabloon');
+
+        /**
+        * Terug sturen naar de index pagina van informatie versturen
+        */
+        redirect('Organisator/InformatieVersturen/index');
+    }
     
     /**
-    * Verwijst naar de pagina email verzonden
+    * Open de pagina wijzigPagina en toon de informatie van emailsjabloon op de pagina
     */
-    public function verzondenPagina() {
-        $data['titel']  = "Foto's beheren";
+    public function wijzigPagina() {
+        $data['titel']  = "Email wijzigen";
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
         $this->load->model('Personeelsfeest_model');
         $data['personeelsfeest'] = $this->Personeelsfeest_model->getLaatsteId()->id;
-
         
-        $partials = array('inhoud' => 'Informatie versturen/emailVerzonden' , 'header' => 'main_header', 'footer' => 'main_footer');
-        $error = array('error' => ' ' );
-        $this->template->load('main_master', $partials, $data, $error);
+        $id = $this->input->get('id');
+        $this->load->model('CRUD_Model');
+        $data['mail'] = $this->CRUD_Model->get($id,'emailsjabloon');
+        
+    //    $data['soorten'] = $this->CRUD_Model->get($id,'soort');
+        
+        $partials = array('inhoud' => 'Informatie versturen/emailWijzig' , 'header' => 'main_header', 'footer' => 'main_footer');
+        $this->template->load('main_master', $partials, $data);
     }
     
-    
+    /**
+    * Wijzig de informatie
+    */
+    public function wijzigMail() {
+        $id = $this->input->get('id');
+        $this->load->model('CRUD_Model'); 
+        
+        $info['onderwerp'] = $this->input->post('onderwerp');
+        $info['sjabloon'] = $this->input->post('mail');
+        
+        $this->CRUD_Model->update($id, $info, 'emailsjabloon');
+
+        /**
+        * Terug sturen naar de index pagina van informatie versturen
+        */
+        redirect('Organisator/InformatieVersturen/index');
+    }
 } 
 /* 
  * To change this license header, choose License Headers in Project Properties.

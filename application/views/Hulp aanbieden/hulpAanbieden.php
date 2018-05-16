@@ -1,3 +1,4 @@
+<p>Hulp aanbieden voor het personeelsfeest van <?php echo $feest->datum ?>, deadline <?php echo $feest->inschrijfDeadline ?></p>
 <input type="hidden" id="personeelsfeestId" data-id="<?php echo $personeelsfeest ?>"/>
 <br/>
 <table class='table-striped table'>

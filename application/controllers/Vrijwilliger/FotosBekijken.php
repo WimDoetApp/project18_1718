@@ -27,7 +27,7 @@ class FotosBekijken extends CI_Controller {
             redirect('Home/index');
         } else {
             $gebruiker = $this->authex->getDeelnemerInfo();
-            if ($gebruiker->soortId > 1) {
+            if ($gebruiker->soortId > 2) {
                 redirect('Home/toonStartScherm');
             }
         }
