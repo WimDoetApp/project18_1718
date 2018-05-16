@@ -12,6 +12,11 @@ class EmailSjabloon_model extends CI_Model {
         parent::__construct();
     }
     
+    /**
+     * Haalt een emailsjabloon met een bepaald id op.
+     * @param $id id van het emailsjabloon
+     * @return het opgevraagde record
+     */
     function get($id) 
     {
         $this->db->where('id', $id);

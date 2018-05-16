@@ -25,6 +25,7 @@ class DagOnderdeel_model extends CI_Model {
     }
     /**
     * alle namen van dagonderdeel ophalen 
+    * @return het opgevraagde record
     */
     function getAllesBijDagonderdeel()
     {
