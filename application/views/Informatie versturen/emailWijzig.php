@@ -28,7 +28,7 @@ $attributes = array('name' => 'mijnFormulier');
             <td><?php echo smallDivAnchor('Organisator/InformatieVersturen/index', 'Annuleren', 'class="btn btn-info"'); ?></td>
         </tr>
         <tr>
-            <td ><?php echo smallDivAnchor('', 'Verzenden', 'class="btn btn-info"'); ?></td>
+            <td ><?php echo smallDivAnchor("Organisator/InformatieVersturen/stuurMail/$mail->id", 'Verzenden', 'class="btn btn-info"'); ?></td>
         </tr>
     </table>
 </div>

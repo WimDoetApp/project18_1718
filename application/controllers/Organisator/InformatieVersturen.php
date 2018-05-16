@@ -15,7 +15,7 @@ class InformatieVersturen extends CI_Controller {
 
     /**
      * Controller Informatie versturen
-     * @author Jari Mathé
+     * @author Jari Mathé, Wim Naudts
      */
 
     public function __construct() {
@@ -91,51 +91,44 @@ class InformatieVersturen extends CI_Controller {
         
         $this->load->model('CRUD_Model');
         $this->CRUD_Model->add($info, 'emailsjabloon');
-        
-        
-        $this->stuurMail();
-        
-        
+
         redirect("Organisator/InformatieVersturen/verzondenPagina");
     }
     
     /**
     * Stuur een mail 
     */
-    private function stuurMail() {
-       
+    public function stuurMail($id) {
+        $this->load->model('EmailSjabloon_model');
+        $mail = $this->EmailSjabloon_model->get($id);
+        $onderwerp = $mail->onderwerp;
+        $sjabloon = $mail->sjabloon;
+        $soort = $mail->soortId;
         
-        $soort = $this->input->post('filteren');
-        $this->load->model('CRUD_Model');
+        $this->load->model('Deelnemer_model');
 
-        $deelnemers = $this->CRUD_Model->getAll('deelnemer');
-        $lijst = array($deelnemers->email);
+        $deelnemers = $this->Deelnemer_model->getBySoort($soort);
+        $lijst[] = "";
         
-        switch ($soort) {
-            case 1:
-                foreach($deelnemers as $deelnemer){
-                    $this->load->library('email');
-                    $this->email->from('teamachtien@gmail.com', 'Team 18');
-                    $this->email->to($lijst);
-                    $this->email->cc('');
-                    $this->email->subject($this->input->post('onderwerp'));
-                    $this->email->message($this->input->post('mail'));
-                    
-                    if (!$this->email->send()) {
-                        show_error($this->email->print_debugger());
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-                break;
-            case 2:
-            case 3:
-            case 4:
-                $this->email->to( );
-                break;
+        foreach($deelnemers as $deelnemer){
+            array_push($lijst, $deelnemer->email);
         }
-
+        $lijst = implode(",", $lijst);
+        
+        $this->load->library('email');
+        $this->email->from('teamachtien@gmail.com', 'Team 18');
+        $this->email->to($lijst);
+        $this->email->cc('');
+        $this->email->subject($onderwerp);
+        $this->email->message($sjabloon);
+                    
+        if (!$this->email->send()) {
+            show_error($this->email->print_debugger());
+            return false;
+        } else {
+            $this->index();
+            return true;
+        }
     }
     /**
     * Verwijst naar de pagina email verzonden

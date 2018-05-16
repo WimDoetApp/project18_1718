@@ -11,6 +11,13 @@ class EmailSjabloon_model extends CI_Model {
     {
         parent::__construct();
     }
+    
+    function get($id) 
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get('emailsjabloon');
+        return $query->row();  
+    }
 }
 
 

@@ -24,7 +24,7 @@ $attributes = array('name' => 'mijnFormulier');
             <td><?php echo form_textarea(array('name' => 'mail', 'id' => 'mail', 'size' => '45px', 'required' => 'required', 'class' => 'form-control')) ?></td>
         </tr>
         <tr>
-            <td><?php echo form_submit('Verzenden', 'Verzenden', 'class="btn btn-success"'); ?></td>
+            <td><?php echo form_submit('Verzenden', 'Opslaan', 'class="btn btn-success"'); ?></td>
             <td><?php echo smallDivAnchor('Organisator/InformatieVersturen/index', 'Annuleren', 'class="btn btn-info"'); ?></td>
         </tr>
     </table>

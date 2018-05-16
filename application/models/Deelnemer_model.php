@@ -180,6 +180,12 @@ class Deelnemer_model extends CI_Model {
         $query = $this->db->get('deelnemer');
         return $query->result();
     }
+    
+    function getBySoort($id){
+        $this->db->where("soortId = $id");
+        $query = $this->db->get('deelnemer');
+        return $query->result();
+    }
 }
 
 
