@@ -15,13 +15,14 @@ class GebruikerToevoegen extends CI_Controller {
     // +----------------------------------------------------------
 
     /**
-     * Controller: Gebruiker toevoegen
      * @author Jari Mathé, Wim Naudts
+     * @brief Controller voor de usecase Gebruiker toevoegen
      * @class GebruikerToevoegen
      */
 
     /**
      * Als deze variable true is, laten we een errormessage zien op de pagina om de gebruiker toe te voegen
+     * @param $error
      */
     public $error = false;
 
@@ -31,11 +32,17 @@ class GebruikerToevoegen extends CI_Controller {
          * Laad de helper voor formulieren
         */
         $this->load->helper('form');
+        /**
+         * Benodigde models inladen en datetimezone zetten
+         * @see Deelnemer_model.php
+         */
         $this->load->model('Deelnemer_model');
         date_default_timezone_set('Europe/Brussels');
         
         /**
          * Kijken of de gebruiker de juiste rechten heeft
+         * @see Authex::isAangemeld()
+         * @see Authex::getDeelnemerInfo()
          */
         if (!$this->authex->isAangemeld()) {
             redirect('Home/index');
@@ -49,6 +56,8 @@ class GebruikerToevoegen extends CI_Controller {
     
     /**
     * beginscherm om gebruiker toe te voegen
+    * @see Authex::getDeelnemerInfo()
+     * @see Gebruiker toevoegen/gebruikerToevoegen()
     */
     public function index($personeelsfeestId) {
         $data['titel']  = 'Gebruiker toevoegen';
@@ -178,6 +187,10 @@ class GebruikerToevoegen extends CI_Controller {
         return implode($wachtwoord);
     }
     
+    /**
+     * Functie om het wachtwoord van een gebruiker te veranderen
+     * @see Authex::getDeelnemerInfo()
+     */
     public function wachtwoordVeranderen(){
         $oud = $this->input->post('oud');
         $nieuw = $this->input->post('nieuw');

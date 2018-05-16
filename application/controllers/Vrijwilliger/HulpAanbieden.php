@@ -25,12 +25,16 @@ class HulpAanbieden extends CI_Controller
 
         /**
          * Kijken of de gebruiker de juiste rechten heeft
+         * @see Authex::isAangemeld()
+         * @see Authex::getDeelnemerInfo()
          */
         if (!$this->authex->isAangemeld()) {
             redirect('Home/index');
         }
         /**
-         * Modellen laden
+         * Benodigde models inladen
+         * @see HelperTaak_model.php
+         * @see DagOnderdeel_model.php
          */
         $this->load->model('HelperTaak_model');
         $this->load->model('DagOnderdeel_model');
@@ -44,6 +48,8 @@ class HulpAanbieden extends CI_Controller
         $data['titel'] = 'Hulp aanbieden';
         $data['personeelsfeest'] = $personeelsfeestId;
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
+        $this->load->model('CRUD_Model');
+        $data['feest'] = $this->CRUD_Model->get($personeelsfeestId, 'personeelsfeest');
         $data['dagonderdelen'] = $this->DagOnderdeel_model->getAllByStartTijdWithOptiesWithTakenWithShiften($personeelsfeestId);
         $partials = array('inhoud' => 'Hulp aanbieden/hulpAanbieden', 'header' => 'main_header', 'footer' => 'main_footer');
         $this->template->load('main_master', $partials, $data);
