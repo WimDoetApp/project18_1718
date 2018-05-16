@@ -5,7 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class DagOnderdeelBeheren extends CI_Controller {
 
     /**
-     * Controller Dagonderdelen beheren
+     * @class DagOnderdeelBeheren
+     * @brief Controller voor de usecase Dagonderdelen beheren
      * @author Wim Naudts
      */
 
@@ -13,10 +14,16 @@ class DagOnderdeelBeheren extends CI_Controller {
         parent::__construct();
         
         $this->load->helper('form');
+        /**
+         * Benodigde models inladen
+         * @see Dagonderdeel_model.php
+         */
         $this->load->model('DagOnderdeel_model');
         
         /**
          * Kijken of de gebruiker de juiste rechten heeft
+         * @see Authex::isAangemeld()
+         * @see Authex::getDeelnemerInfo()
          */
         if (!$this->authex->isAangemeld()) {
             redirect('Home/index');
@@ -31,6 +38,9 @@ class DagOnderdeelBeheren extends CI_Controller {
     /**
      * Ophalen lijst van alle dagonderdelen
      * @param $personeelsfeestId id van het huidige personeelsfeest
+     * @see DagOnderdeel_model::getAllByStartTijd()
+     * @see Locatie_model::getAllesBijLocatie()
+     * @see Dagonderdelen beheren/dagonderdelen.php
      */
     public function toonDagonderdelen($personeelsfeestId)
     {
@@ -46,6 +56,9 @@ class DagOnderdeelBeheren extends CI_Controller {
         $this->template->load('main_master', $partials, $data);
     }
     
+    /**
+     * Functie die via invoer bepaald of we een dagonderdeel gaan verwijderen, wijzigen of een nieuw gaan aanmaken
+     */
     public function getInput(){
         /**
          * id van het personeelsfeest
@@ -79,6 +92,7 @@ class DagOnderdeelBeheren extends CI_Controller {
 
     /**
      * Aanpassen van een dagonderdeel
+     * @param $personeelsfeestId id van het huidige personeelsfeest
      */
     public function wijzig($personeelsfeestId){
         $dagonderdeel = new stdClass();

@@ -1,3 +1,3 @@
 <?php
 echo "<p>$message</p>";
-echo smallDivAnchor($refer, "Teruggaan", 'class="btn btn-default"');
+echo smallDivAnchor($refer, "Terug", 'class="btn btn-default"');

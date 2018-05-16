@@ -2,6 +2,7 @@
 
 /**
  * Team 18 - Project APP 2APP-BIT - Thomas More
+ * @class InschrijvingsOptie_model
  */
 
 class InschrijvingsOptie_model extends CI_Model {
@@ -65,6 +66,17 @@ class InschrijvingsOptie_model extends CI_Model {
      */
     function isAlIngeschreven($gebruikerId, $optieId){
         $this->db->where('optieId', $optieId);
+        $this->db->where('deelnemerId', $gebruikerId);
+        $query = $this->db->get('inschrijfOptie');
+        return $query->result();
+    }
+    
+    /**
+     * Kijkt of een bepaalde gebruiker al is ingeschreven voor eender welke optie
+     * @param $gebruikerId Id van de gebruiker die we zoeken
+     * @return alle inschrijfopties voor deze gebruiker, als dit niet null is, weten we dat hij is ingeschreven
+     */
+    function IsReedsIngeschreven($gebruikerId){
         $this->db->where('deelnemerId', $gebruikerId);
         $query = $this->db->get('inschrijfOptie');
         return $query->result();

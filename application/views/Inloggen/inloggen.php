@@ -1,5 +1,6 @@
 <?php 
 /**
+ * @file inloggen.php
  * @author Wim Naudts
  */
 $dataInloggen = array(
@@ -18,7 +19,7 @@ $attributes = array('name' => 'mijnFormulier', 'class' => 'form-signin');
             <div class="account-wall">
                 <?php 
                 echo form_open('home/toonStartScherm', $attributes);
-                echo form_input(array('type' => 'text', 'name' => "email", 'placeholder' => 'email', 'class' => 'form-control', 'required' => 'required', 'autofocus' => 'autofocus'));
+                echo form_input(array('type' => 'text', 'name' => "email", 'placeholder' => 'e-mail', 'class' => 'form-control', 'required' => 'required', 'autofocus' => 'autofocus'));
                 echo form_input(array('type' => 'password', 'name' => 'wachtwoord', 'placeholder' => 'wachtwoord', 'class' => 'form-control', 'required' => 'required'));
                 echo form_button($dataInloggen);
                 ?>

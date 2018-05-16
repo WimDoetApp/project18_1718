@@ -2,6 +2,7 @@
 
 /**
  * Team 18 - Project APP 2APP-BIT - Thomas More
+ * @class Locatie_model
  */
 
 class Locatie_model extends CI_Model {
@@ -12,7 +13,8 @@ class Locatie_model extends CI_Model {
         parent::__construct();
     }
     /**
-    * alle namen van locaties ophalen 
+    * alle namen van locaties ophalen
+     * @return alle locatie namen
     */
     function getAllesBijLocatie()
     {

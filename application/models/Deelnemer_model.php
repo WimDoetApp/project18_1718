@@ -2,6 +2,7 @@
 
 /**
  * Team 18 - Project APP 2APP-BIT - Thomas More
+ * @class Deelnemer_model
  */
 
 class Deelnemer_model extends CI_Model {
@@ -74,7 +75,21 @@ class Deelnemer_model extends CI_Model {
     function getAll($personeelsfeestId){
         $this->db->where('personeelsfeestId', $personeelsfeestId);
         $query = $this->db->get('deelnemer');
-        return $query->result();
+        $deelnemers = $query->result();
+        
+        $this->load->model('InschrijvingsOptie_model');
+        $this->load->model('Soort_model');
+        foreach($deelnemers as $deelnemer){
+            if($this->InschrijvingsOptie_model->IsReedsIngeschreven($deelnemer->id) != null){
+                $deelnemer->isIngeschreven = 1;
+            }else{
+                $deelnemer->isIngeschreven = 0;
+            }
+            
+            $deelnemer->soort = $this->Soort_model->get($deelnemer->soortId);
+        }
+        
+        return $deelnemers;
     }
     
     /**
@@ -129,6 +144,8 @@ class Deelnemer_model extends CI_Model {
     
     /**
      * nieuwe gegevens in deelnemers zetten
+     * @param $deelnemer de deelnemer die toegevoegd moet worden
+     * @return het id van de nieuw ingevoegde deelnemer
      */
     function insert($deelnemer)
     {
@@ -144,6 +161,7 @@ class Deelnemer_model extends CI_Model {
     
     /**
      * Alle vrijwilligers laten zien
+     * @return alle vrijwilligers
      */
     function getAllVrijwilligers()
     {
@@ -151,10 +169,20 @@ class Deelnemer_model extends CI_Model {
         $query = $this->db->get('deelnemer');
         return $query->result();
     }
-    
+
+    /**
+     * Alle organisatoren weergeven
+     * @return alle organisatoren
+     */
     function getAllOrganisatoren()
     {
         $this->db->where("(soortId='3' OR soortId='4')");
+        $query = $this->db->get('deelnemer');
+        return $query->result();
+    }
+    
+    function getBySoort($id){
+        $this->db->where("soortId = $id");
         $query = $this->db->get('deelnemer');
         return $query->result();
     }

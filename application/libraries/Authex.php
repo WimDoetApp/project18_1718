@@ -6,6 +6,8 @@ if (!defined('BASEPATH'))
 class Authex {
 
     /**
+     * @class Authex
+     * @brief Klasse om tijdens een sessie een gebruiker in te loggen en ingelogd te houden
      * @author: Wim Naudts
      */
 
@@ -15,6 +17,14 @@ class Authex {
         $CI->load->model('Deelnemer_model');
     }
     
+    /**
+     * Aanmelden van een gebruiker
+     * @param $email ingegeven email
+     * @param $wachtwoord ingegeven wacthwoord
+     * @param $personeelsfeestId id van het huidige personeelsfeest
+     * @see Deelnemer_model::getDeelnemer()
+     * @return boolean true als de deelnemer succesvol is ingelogd, anders false
+     */
     function meldAan($email, $wachtwoord, $personeelsfeestId) {
         $CI = & get_instance();
 
@@ -28,6 +38,11 @@ class Authex {
         }
     }
 
+    /**
+     * Info ophalen over de gebruiker die op dit moment is ingelogd
+     * @see Deelnemer_model::get()
+     * @return de gebruiker, null als er niemand is ingelogd
+     */
     function getDeelnemerInfo() {
         $CI = & get_instance();
 
@@ -39,6 +54,10 @@ class Authex {
         }
     }
 
+    /**
+     * Checkt of er iemand is aangemeld
+     * @return boolean true als er iemand is aangemeld, anders false
+     */
     function isAangemeld() {
         $CI = & get_instance();
 
@@ -49,6 +68,9 @@ class Authex {
         }
     }
 
+    /**
+     * Meld de aangemelde gebruiker af
+     */
     function meldAf() {
         $CI = & get_instance();
 

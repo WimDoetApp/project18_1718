@@ -7,8 +7,7 @@
  */
 
 /**
- * Description of MyModel
- *
+ * @class CRUD_Model
  * @author yen
  */
 class CRUD_Model extends CI_Model{

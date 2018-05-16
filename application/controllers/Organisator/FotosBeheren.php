@@ -13,6 +13,10 @@ class FotosBeheren extends CI_Controller {
     // | Thomas More Kempen
     // +----------------------------------------------------------
 
+    /**
+     * Controller Fotos Beheren
+     * @author Jari Mathé
+     */
 
     public function __construct() {
         parent::__construct();
@@ -22,7 +26,6 @@ class FotosBeheren extends CI_Controller {
         $this->load->helper('form');
         $this->load->helper('html');
         $this->load->helper(array('form', 'url'));
-        $this->load->library('upload');
         
         if (!$this->authex->isAangemeld()) {
             redirect('Home/index');
@@ -35,9 +38,9 @@ class FotosBeheren extends CI_Controller {
     }
     
     /**
-    * 
+    * Index pagina openen met een lege error
     */
-    public function index() {
+    public function index($error = "") {
         $data['titel']  = "Foto's beheren";
         $data['gebruiker'] = $this->authex->getDeelnemerInfo();
         
@@ -46,12 +49,17 @@ class FotosBeheren extends CI_Controller {
 
         $this->load->model('CRUD_Model');
         $data['jaartallen'] = $this->CRUD_Model->getAll('personeelsfeest');
+        
+        $data['error'] = $error;
 
         $partials = array('inhoud' => 'Fotos beheren/fotosBeheren' , 'header' => 'main_header', 'footer' => 'main_footer');
-        $error = array('error' => ' ' );
-        $this->template->load('main_master', $partials, $data, $error);
+        
+        $this->template->load('main_master', $partials, $data);
     }
     
+    /**
+    * Deel van de pagina veranderen via ajax
+    */
     public function loadFotosAjax() {
         
         $personeelsfeestId = $this->input->get('personeelsfeestId');
@@ -62,7 +70,11 @@ class FotosBeheren extends CI_Controller {
         $this->load->view('Fotos beheren/fotosBeherenAjax', $data);
     }
     
-     public function do_upload()
+    /**
+    * Functie oproepen waarmee je de gekozen foto in de folder en database zet.
+    * Error en de configuratie worden hier ook meegedeeld
+    */
+    public function do_upload()
         {
                 $config['upload_path']          = './assets/images/';
                 $config['allowed_types']        = 'jpg|png';
@@ -72,41 +84,41 @@ class FotosBeheren extends CI_Controller {
 
                 $this->load->library('upload', $config);
 
-                if ( ! $this->upload->do_upload('userfile'))
+                /**
+                * Error melding geven wanneer er iets fout gaat
+                */
+                if (!$this->upload->do_upload('userfile'))
                 {
-                    $error = array('error' => $this->upload->display_errors());
-                    
-                    redirect('Organisator/FotosBeheren/index', $error);
-                }   
-                else
-                {
-                   $data = array('upload_data' => $this->upload->data());
-                  
+                    $error = $this->upload->display_errors('','');
+
+                    $this->index($error);
+                }else {
                    /**
-                    * upload in database
+                    * upload in database en in de folder
                    */
                    $info = new stdClass();
 
-                   $info->foto = $this->input->post('userfile');
+                   $info->foto = $this->upload->data('file_name');
 
                    $this->load->model('Personeelsfeest_model');
                    $personeelsfeestId = $this->Personeelsfeest_model->getLaatstePersoneelsfeest();
                    $info->personeelsfeestId = $personeelsfeestId->id;
 
                    $this->load->model('CRUD_Model');
-                   $id = $this->CRUD_Model->add($info, 'foto');
+                   $this->CRUD_Model->add($info, 'foto');
                    
-                   redirect('Organisator/FotosBeheren/index', $data);
+                   redirect('Organisator/FotosBeheren/index');                                      
                 }
         }
         
+        /**
+        * Functie oproepen waarmee je de gekozen foto uit de database en folder verwijderd
+        */
          public function delete_image()
         {
-            
             $id = $this->input->get('id');
 
-            $this->load->model('CRUD_Model');
-            
+            $this->load->model('CRUD_Model');               
             /**
             * Verwijder afbeelding uit de folder
             */
@@ -116,8 +128,7 @@ class FotosBeheren extends CI_Controller {
             /**
             * Verwijder afbeelding uit de database
             */
-            $this->CRUD_Model->delete($id, 'foto');
-           
+            $this->CRUD_Model->delete($id, 'foto');           
             
             redirect('Organisator/FotosBeheren/index');
         }

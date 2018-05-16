@@ -1,7 +1,10 @@
 <h2>Overzicht personeelsleden</h2>
 <?php 
 /**
+ * @file dagonderdelen.php
  * @author Wim Naudts
+ * 
+ * View waar je personeelsleden in organisatoren kunt veranderen om omgekeerd
  */
 /**
  * Zoeken op naam
@@ -58,7 +61,7 @@ echo form_input(array('type' => 'hidden', 'name' => 'personeelsfeestId', 'value'
         ?>
         <tr>
             <td><?php echo form_button($dataOpslagen);?></td>
-            <td><?php echo smallDivAnchor("Organisator/PersoneelsfeestBeheren/index", "Teruggaan", 'class="btn btn-info"');?></td>
+            <td><?php echo smallDivAnchor("Organisator/PersoneelsfeestBeheren/index", "Terug", 'class="btn btn-info"');?></td>
         </tr>
     </tbody>
 </table>

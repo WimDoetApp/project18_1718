@@ -1,68 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
 <?php
-$soort = $gebruiker->soortId;
-
+/**
+ * @file startScherm.php
+ * @author Wim Naudts
+ * Homescherm van de ingelogde gebruiker.
+ */
 ?>
-<div class="panel panel-default">
-    <div class="panel-heading"><h2>Schrijf je hier in voor het personeelsfeest</h2></div>
-    <div class="panel-body"><?php echo smallDivAnchor("Vrijwilliger/Inschrijven/index/$personeelsfeest", "Inschrijven", 'class="btn btn-default panel-body"') ?></div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h2>Bied hier je hulp aan voor het personeelsfeest</h2></div>
-    <div class="panel-body"><?php echo smallDivAnchor("Vrijwilliger/HulpAanbieden/index/$personeelsfeest", "Hulp aanbieden", 'class="btn btn-default"') ?></div>
-</div>
+<h3>Welkom <?php echo $gebruiker->voornaam ?>,</h3>
+<p>Op de website voor het personeelsfeest van <?php echo $personeelsfeestHuidig->datum ?>.</p>
+<p>Op deze website kan je jezelf inschrijven of hulp aanbieden voor het personeelsfeest. Je hebt hiervoor tot deze deadline: <?php echo $personeelsfeestHuidig->inschrijfDeadline ?>.</p>
+<p>Je kan ook de emailadressen van de vrijwilligers en organisators raadplegen en foto's bekijken. Voor vragen kan je via de contactpagina een mail naar de juiste persoon sturen. Als je vanboven op de naam van je account klikt zie je een overzicht van jouw gegevens.</p>
+
 <?php
-/**
- * Als de gebruiker een vrijwilliger of personeelslid is, heeft hij toegang tot deze links
- */
-if ($soort == 1 || $soort == 2) { ?>
-    <div class="panel panel-default">
-        <div class="panel-heading"><h2>Bekijk hier foto's</h2></div>
-        <div class="panel-body"><?php echo smallDivAnchor("Vrijwilliger/FotosBekijken/index", "Foto's bekijken", 'class="btn btn-default"') ?></div>
+if($gebruiker->soortId > 2){
+?>
+    <div class='panel panel-default'>
+        <div class="panel-heading">
+            <h3>Beheer hier het personeelsfeest</h3>
+        </div>
+        
+        <div class="panel-body">   
+            <?php echo smallDivAnchor("Organisator/PersoneelsfeestBeheren/index/$personeelsfeest", "Personeelsfeest beheren", 'class="btn btn-default"'); ?>
+        </div>
     </div>
-
-<?php }
-/**
- * Als de gebruiker een personeelslid is, heeft hij toegang tot deze links
- */
-if ($soort == 2) { ?>
-    <div class="panel panel-default">
-        <div class="panel-heading"><h2>Voeg hier vrijwilligers toe</h2></div>
-        <div class="panel-body"><?php echo smallDivAnchor("Personeelslid/GebruikerToevoegen/index/$personeelsfeest", "Vrijwilliger toevoegen", 'class="btn btn-default"') ?></div>
-    </div>
-
-<?php }
-/**
- * Als de gebruiker een organisator is, heeft hij toegang tot deze links
- */
-if ($soort == 3 || $soort == 4) { ?>
-    <div class="panel panel-default">
-        <div class="panel-heading"><h2>Bekijk hier de overzichten van taken en activiteiten</h2></div>
-        <div class="panel-body"><?php echo smallDivAnchor("Organisator/Overzicht/index/$personeelsfeest", "Overzichten", 'class="btn btn-default"') ?></div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading"><h2>Stuur hier mails naar deelnemers en vrijwilligers</h2></div>
-        <div class="panel-body"><?php echo smallDivAnchor("", "Mails sturen", 'class="btn btn-default"') ?></div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading"><h2>Pas hier het personeelsfeest aan</h2></div>
-        <div class="panel-body"><?php echo smallDivAnchor("Organisator/PersoneelsfeestBeheren", "Personeelsfeest beheren", 'class="btn btn-default"') ?></div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading"><h2>Beheer hier de foto's</h2></div>
-        <div class="panel-body"><?php echo smallDivAnchor("Organisator/FotosBeheren/index", "Foto's beheren", 'class="btn btn-default"') ?></div>
-    </div>
-<?php } ?>
-
-<div class="panel panel-default">
-    <div class="panel-heading"><h2>Raadpleeg hier de e-mailadressen</h2></div>
-    <div class="panel-body"><?php echo smallDivAnchor("", "Emails raadplegen", 'class="btn btn-default"') ?></div>
-</div>
-</body>
-</html>
+<?php } else { ?>
+     <div class='panel panel-default'>
+        <div class="panel-heading">
+            <h3>Schrijf je hier in</h3>
+        </div>
+        
+        <div class="panel-body">   
+            <?php echo smallDivAnchor("Vrijwilliger/Inschrijven/index/$personeelsfeest", "Inschrijven", 'class="btn btn-default"'); ?>
+        </div>
+    </div>   
+<?php } 

@@ -2,6 +2,7 @@
 
 /**
  * Team 18 - Project APP 2APP-BIT - Thomas More
+ * @class DagOnderdeel_model
  */
 
 class DagOnderdeel_model extends CI_Model {
@@ -94,6 +95,35 @@ class DagOnderdeel_model extends CI_Model {
         
         return $dagonderdelen;
     }
+
+    /**
+     * Haalt het gevraagde dagonderdeel op, met opties, met taken en taakshiften, gesorteerd op starttijd.
+     * @param $personeelsfeesetId id van het huidige personeelsfeest
+     * @param $dagonderdeelId id van het gewenste dagonderdeel
+     * @return de opgevraagde recordss
+     */
+    function getDagonderdeelByStartTijdWithOptiesWithTakenWithShiften($personeelsfeesetId, $dagonderdeelId){
+        $this->db->where('personeelsfeestId', $personeelsfeesetId);
+        $this->db->where('id', $dagonderdeelId);
+        $this->db->order_by('starttijd', 'asc');
+        $query = $this->db->get('dagOnderdeel');
+        $dagonderdelen = $query->result();
+
+        /**
+         * Opties toewijzen per dagonderdeel
+         */
+        $this->load->model('Optie_model');
+        $this->load->model('Taak_model');
+        foreach($dagonderdelen as $dagonderdeel){
+            if($dagonderdeel->heeftTaak == "1"){
+                $dagonderdeel->taken = $this->Taak_model->getAllByDagonderDeelWithShiften($dagonderdeel->id);
+            }else{
+                $dagonderdeel->opties = $this->Optie_model->getAllByDagOnderdeelWithTaken($dagonderdeel->id);
+            }
+        }
+
+        return $dagonderdelen;
+    }
     
     /**
      * (leeg) dagonderdeel toevoegen
@@ -117,11 +147,20 @@ class DagOnderdeel_model extends CI_Model {
     }
     
     /**
-     * Dagonderdeel verwijderen
+     * Dagonderdeel en bijhorende opties verwijderen
      * @param $id id van het dagonderdeel dat we willen verwijderen
      */
     function delete($id)
-    {
+    { 
+        $this->db->where('dagonderdeelId', $id);
+        $query = $this->db->get('optie');
+        $opties = $query->result();
+        
+        $this->load->model('Optie_model');
+        foreach($opties as $optie){
+            $this->Optie_model->delete($optie->id);
+        }
+        
         $this->db->where('id', $id);
         $this->db->delete('dagOnderdeel');
     }
