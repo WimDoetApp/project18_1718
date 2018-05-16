@@ -17,35 +17,11 @@ $attributes = array('name' => 'mijnFormulier');
         </tr>
         <tr>
             <td><?php echo form_label('Onderwerp:', 'onderwerp'); ?></td>
-            <td><?php echo form_input(array('name' => 'onderwerp', 'id' => 'onderwerp', 'size' => '45px', 'class' => 'form-control')); ?> </td>
+            <td><?php echo form_input(array('name' => 'onderwerp', 'id' => 'onderwerp', 'size' => '45px', 'required' => 'required', 'class' => 'form-control')); ?> </td>
         </tr>
         <tr>
             <td><?php echo form_label('Mail:', 'mail'); ?></td>
-            <td rowspan='2'><?php echo form_textarea(array('name' => 'mail', 'id' => 'mail', 'size' => '45px', 'class' => 'form-control')) ?></td>
-        </tr>
-        <tr>
-            <td>
-                <?php echo form_label('Legende:', 'Legende'); ?>
-                <table border="1">
-                    <tr>
-                        <th>Commando</th>
-                        <th>Uitleg</th>
-                    </tr>
-                    <tr>
-                        <td> &lt;datumFeest&gt; </td>
-                        <td>Datum van het feest</td>
-                    </tr>
-                    <tr>
-                        <td>&lt;deadline&gt;</td>
-                        <td>Datum van de deadline</td>
-                    </tr>
-                    <tr>
-                        <td>&lt;naam&gt;</td>
-                        <td>Naam van de gebruiker</td>
-                    </tr>
-                </table>
-
-            </td>
+            <td><?php echo form_textarea(array('name' => 'mail', 'id' => 'mail', 'size' => '45px', 'required' => 'required', 'class' => 'form-control')) ?></td>
         </tr>
         <tr>
             <td><?php echo form_submit('Verzenden', 'Verzenden', 'class="btn btn-success"'); ?></td>
@@ -53,5 +29,4 @@ $attributes = array('name' => 'mijnFormulier');
         </tr>
     </table>
 </div>
-<?php echo form_close(); ?>
-
+<?php echo form_close(); 

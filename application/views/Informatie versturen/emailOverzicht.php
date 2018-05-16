@@ -9,7 +9,7 @@
     <tr>
         <td><?php echo $mail->soortId ?></td>
         <td><?php echo $mail->onderwerp ?></td>
-        <td><?php echo smallDivAnchor('home/index', 'Wijzig', 'class="btn btn-info"'); echo smallDivAnchor("Organisator/InformatieVersturen/verwijderenPagina?id=$mail->id", 'Verwijder', 'class="btn btn-danger"'); ?></td>
+        <td><?php echo smallDivAnchor("Organisator/InformatieVersturen/wijzigPagina?id=$mail->id", 'Wijzig', 'class="btn btn-info"'); echo smallDivAnchor("Organisator/InformatieVersturen/verwijderenPagina?id=$mail->id", 'Verwijder', 'class="btn btn-danger"'); ?></td>
     </tr>
     <?php } ?>
 </table>

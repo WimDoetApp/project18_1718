@@ -43,7 +43,7 @@ $attributes = array('name' => 'mijnFormulier');
 <div class="table-responsive">
 <table class="table">
      <tr>
-            <td ><?php echo form_label('Filteren:', 'filteren'); echo form_dropdown('filteren', $filterOpties, '0', $id++);?></td>
+            <td ><?php echo form_label('Filteren:', 'filteren'); echo form_dropdown('filteren', $filterOpties, $id++, 'class="form-control"');?></td>
     </tr>
 </table>
 <table class="table" id="resultaatTable">
@@ -53,7 +53,7 @@ $attributes = array('name' => 'mijnFormulier');
 </table>
 <table class="table">
     <tr>
-            <td><?php echo smallDivAnchor('home/index', 'Terug gaan', 'class="btn btn-info"')?></td>
+            <td><?php echo smallDivAnchor('home/index', 'Terug', 'class="btn btn-info"')?></td>
     </tr>    
 <table>
 </div>

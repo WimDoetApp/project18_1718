@@ -31,19 +31,13 @@ $teller = 0;
 $id = 0;
 
 
-
-$error = ' ';
-
-
-
-
 $filterOpties= "";
 foreach($jaartallen as $jaartal){
     $filterOpties[$jaartal->id] = $jaartal->datum;
 }
 
 $attributes = array('name' => 'mijnFormulier');
-    echo form_open('Organisator/FotosBeheren/do_upload', $attributes);
+    echo form_open_multipart('Organisator/FotosBeheren/do_upload', $attributes);
 ?>
 
 <div class="table-responsive">
