@@ -99,7 +99,7 @@ class HelperTaak_model extends CI_Model
      */
     function insertVrijwilliger($vrijwilliger)
     {
-        $this->db->insert('helpertaak', $vrijwilliger);
+        $this->db->insert('helperTaak', $vrijwilliger);
         return $this->db->insert_id();
     }
 
@@ -111,7 +111,7 @@ class HelperTaak_model extends CI_Model
     {
         $this->db->where("deelnemerId", $vrijwilliger->deelnemerId);
         $this->db->where("taakshiftId", $vrijwilliger->taakShiftId);
-        $this->db->delete("helpertaak");
+        $this->db->delete("helperTaak");
     }
 
 
