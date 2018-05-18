@@ -31,7 +31,7 @@ class TaakShift extends CI_Controller {
 
         //Laden van alle shiften van deze taak
         $this->load->model('CRUD_Model');
-        $shiftenIC = $this->CRUD_Model->getAllByColumn($taakId, 'taakId', 'TaakShift');
+        $shiftenIC = $this->CRUD_Model->getAllByColumn($taakId, 'taakId', 'taakShift');
 
         //Aantal inschrijvingen voor elke shift in elk shift object zetten
         $this->load->model('HelperTaak_model');
