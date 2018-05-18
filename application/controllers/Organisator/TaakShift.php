@@ -26,7 +26,7 @@ class TaakShift extends CI_Controller {
 
         //Klaarzetten differentie variabelen
         if ($isD) {
-            $doTable = "dagonderdeel";
+            $doTable = "dagOnderdeel";
         }
 
         //Laden van alle shiften van deze taak
